@@ -25,7 +25,7 @@ function App({ isSignedIn }) {
         <ErrorBoundary>
           <Suspense fallback= {<Loader type="Puff" color="#966eff" height={70} width={70} className='loader' 
                   style={{position: "absolute",top: "20%",left: "50%",margin: "-25px 0 0 -25px"}} />}>
-            <Route exact path = '/signin' component={SigninPage}/>
+            <Route exact path = '/signin'>{isSignedIn ? <Redirect to="/home" /> : <SigninPage />}</Route> 
             <Route exact path = '/register' component={RegistrationPage}/>
             <Route exact path = '/' render={() => isSignedIn ? (<Redirect to='/home' />) : (<Redirect to='/signin' />)}/>
             <PrivateRoute  exact path = '/home' component={HomePage}/>
