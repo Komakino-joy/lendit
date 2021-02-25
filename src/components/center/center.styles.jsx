@@ -82,7 +82,7 @@ export const ImageContainer = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items:center;
-    height: 45%;
+    height: 48%;
     width: 75%;
 
     :hover {
