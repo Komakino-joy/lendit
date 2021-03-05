@@ -47,7 +47,6 @@ import {
     yield takeLatest(REQUEST_USER_DROP_DOWN_OPTIONS, getUserList);
   };
   
-  //* Functions to handle getting Model List 
   function* getModelList(dropDownOptions) {
     try {
       const modelList = yield call(fetchAllModelsForDropDown, dropDownOptions);

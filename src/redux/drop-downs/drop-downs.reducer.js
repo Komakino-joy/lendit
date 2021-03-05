@@ -3,7 +3,6 @@ import {
     RECEIVE_ASSET_DROP_DOWN_OPTIONS,
     RECEIVE_USER_DROP_DOWN_OPTIONS, 
     RECEIVE_MODEL_DROP_DOWN_OPTIONS
-    // ADD_ASSET
   } from "./drop-down.actions";
   
   const INITIAL_STATE = {

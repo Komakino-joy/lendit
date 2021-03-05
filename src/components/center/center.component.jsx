@@ -284,17 +284,3 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Center);
-
-//^ THE CODE BELOW IS USED TO LOAD FIRST ASSET WHEN RENDERING APP FOR FIRST TIME
-
-// const [asset, setAsset] = useState(null);
-
-// useEffect(() => {
-//     const fetchAsset = async() => {
-//         const response = await fetch(`https://lendit-api.herokuapp.com/defaultunit`)
-//         const asset = await response.json()
-//         setAsset(asset[0]);
-//     }
-
-//     fetchAsset();
-// }, []);

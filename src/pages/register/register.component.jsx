@@ -107,7 +107,6 @@ class RegistrationPage extends React.Component {
                   type="email"
                   name="email-address"
                   id="email-address"
-                  value=""
                   onChange={this.onEmailChange}
                 />
               </Email>
@@ -120,7 +119,6 @@ class RegistrationPage extends React.Component {
                   type="password"
                   name="password"
                   id="password"
-                  value=""
                   onChange={this.onPasswordChange}
                 />
               </Password>

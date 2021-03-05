@@ -17,14 +17,6 @@ const persistConfig = {
     storage
 };
 
-// const rootReducer = combineReducers({
-//     assetData,
-//     userData,
-//     modalState,
-//     dropDownOptions, 
-//     memberState
-// });
-
 const appReducer = combineReducers({
     assetData,
     userData,

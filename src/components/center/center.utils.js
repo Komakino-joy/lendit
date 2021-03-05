@@ -1,5 +1,5 @@
 
-// Used to add a gap between updating the database and requesting the new asset details from the database
+// Used to add a time gap between updating the database and requesting the new asset details from the database
 const timeout = (ms) => {
     return new Promise(resolve => setTimeout(resolve, ms));
 };
