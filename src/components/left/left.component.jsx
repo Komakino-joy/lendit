@@ -18,7 +18,6 @@ import  selectedListItemID  from "../custom-drop-down/drop-down.utils";
 
 import {LeftContainer, LeftInner, Tag } from "./left.styles";
 
-
 const ScanboxContainer = ({ memberId, assets, users, getAssetOptions, getAssetDetails, getUserOptions, getUserDetails}) => {
     
     useEffect(() => {
@@ -51,10 +50,11 @@ const mapStateToProps = createStructuredSelector({
     users: selectUsers
 })
 
+
 const mapDispatchToProps = (dispatch) => ({
-    getAssetDetails: (memberId) => { dispatch(requestSelectedAssetData(selectedListItemID('asset-list'), memberId))},
-    getAssetOptions: (memberId) => { dispatch(requestAssetDropDownOptions(memberId))},
-    getUserOptions: (memberId) => { dispatch( requestUserDropDownOptions(memberId)) },
+    getAssetDetails: (currentMemberId) => { dispatch(requestSelectedAssetData(selectedListItemID('asset-list'), currentMemberId))},
+    getAssetOptions: (currentMemberId) => { dispatch(requestAssetDropDownOptions(currentMemberId))},
+    getUserOptions: (currentMemberId) => { dispatch( requestUserDropDownOptions(currentMemberId)) },
     getUserDetails: () => { dispatch( requestSelectedUserData ( selectedListItemID('user-list') ) )},
 })
 
