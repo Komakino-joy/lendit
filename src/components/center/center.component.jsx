@@ -278,8 +278,8 @@ const mapDispatchToProps = (dispatch) => ({
       )
     );
   },
-  getUpdatedStatus: (assetId) => {
-    dispatch(requestSelectedAssetData(assetId));
+  getUpdatedStatus: (assetId, ownerID) => {
+    dispatch(requestSelectedAssetData(assetId, ownerID));
   },
 });
 

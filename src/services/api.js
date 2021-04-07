@@ -1,4 +1,4 @@
-export const fetchSelectedAssetData = async (assetID) => {
+export const fetchSelectedAssetData = async (assetID, ownerID) => {
   const settings = {
     method: "POST",
     headers: {
@@ -7,6 +7,7 @@ export const fetchSelectedAssetData = async (assetID) => {
     },
     body: JSON.stringify({
       id: assetID,
+      owner_id: ownerID
     }),
   };
   try {
