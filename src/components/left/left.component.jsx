@@ -23,7 +23,6 @@ const ScanboxContainer = ({ memberId, assets, users, getAssetOptions, getAssetDe
     
     useEffect(() => {
         // Get Data from /allunits.
-        console.log(memberId)
         getAssetOptions(memberId)
       }, [getAssetOptions, memberId]); //
 
@@ -32,6 +31,9 @@ const ScanboxContainer = ({ memberId, assets, users, getAssetOptions, getAssetDe
         getUserOptions(memberId)
       }, [getUserOptions, memberId]);  
     
+      useEffect(() => {
+        getAssetDetails(memberId)
+      }, [getAssetDetails, memberId])
 
     return (
         <LeftContainer>
@@ -53,7 +55,7 @@ const mapStateToProps = createStructuredSelector({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    getAssetDetails: () => { dispatch(requestSelectedAssetData(selectedListItemID('asset-list'),2))},
+    getAssetDetails: (memberId) => { dispatch(requestSelectedAssetData(selectedListItemID('asset-list'),memberId))},
     getAssetOptions: (memberId) => { dispatch(requestAssetDropDownOptions(memberId))},
     getUserOptions: (memberId) => { dispatch( requestUserDropDownOptions(memberId)) },
     getUserDetails: () => { dispatch( requestSelectedUserData ( selectedListItemID('user-list') ) )},
