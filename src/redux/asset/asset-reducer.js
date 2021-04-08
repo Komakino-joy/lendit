@@ -9,6 +9,7 @@ const INITIAL_STATE = {
 const assetData = (state = INITIAL_STATE  , { type, assetData }) => {
   switch (type) {
     case RECEIVE_SELECTED_ASSET:
+      console.log( assetData)
       return assetData;
     default:
       return state;
