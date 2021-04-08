@@ -49,9 +49,8 @@ const mapStateToProps = createStructuredSelector({
     users: selectUsers
 })
 
-
 const mapDispatchToProps = (dispatch) => ({
-    getAssetDetails: () => { dispatch(requestSelectedAssetData(selectedListItemID('asset-list'),currentMemberId))},
+    getAssetDetails: () => { dispatch(requestSelectedAssetData(selectedListItemID('asset-list'),currentMemberId()))},
     getAssetOptions: (memberId) => { dispatch(requestAssetDropDownOptions(memberId))},
     getUserOptions: (memberId) => { dispatch( requestUserDropDownOptions(memberId)) },
     getUserDetails: () => { dispatch( requestSelectedUserData ( selectedListItemID('user-list') ) )},
