@@ -1,6 +1,4 @@
 export const fetchSelectedAssetData = async (assetID, ownerID) => {
-  console.log(assetID)
-  console.log(ownerID)
   const settings = {
     method: "POST",
     headers: {
