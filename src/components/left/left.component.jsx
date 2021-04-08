@@ -30,10 +30,6 @@ const ScanboxContainer = ({ memberId, assets, users, getAssetOptions, getAssetDe
         // Get Data from /allusers when component mounts.
         getUserOptions(memberId)
       }, [getUserOptions, memberId]);  
-    
-      useEffect(() => {
-        getAssetDetails(memberId)
-      }, [getAssetDetails, memberId])
 
     return (
         <LeftContainer>
@@ -55,7 +51,7 @@ const mapStateToProps = createStructuredSelector({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    getAssetDetails: (memberId) => { dispatch(requestSelectedAssetData(selectedListItemID('asset-list'),memberId))},
+    getAssetDetails: (memberId) => { dispatch(requestSelectedAssetData(selectedListItemID('asset-list'), memberId))},
     getAssetOptions: (memberId) => { dispatch(requestAssetDropDownOptions(memberId))},
     getUserOptions: (memberId) => { dispatch( requestUserDropDownOptions(memberId)) },
     getUserDetails: () => { dispatch( requestSelectedUserData ( selectedListItemID('user-list') ) )},
