@@ -18,6 +18,7 @@ import  selectedListItemID  from "../custom-drop-down/drop-down.utils";
 
 import {LeftContainer, LeftInner, Tag } from "./left.styles";
 
+
 const ScanboxContainer = ({ memberId, assets, users, getAssetOptions, getAssetDetails, getUserOptions, getUserDetails}) => {
     
     useEffect(() => {
@@ -30,19 +31,19 @@ const ScanboxContainer = ({ memberId, assets, users, getAssetOptions, getAssetDe
         getUserOptions(memberId)
       }, [getUserOptions, memberId]);  
     
-      let selectedItem = selectedListItemID('asset-list');
 
     return (
         <LeftContainer>
             <LeftInner>
                 <Tag>ASSET ID</Tag>
-                <CustomDropDown onChange={getAssetDetails(selectedItem, memberId)} id="asset-list" optionList={assets}/> 
+                <CustomDropDown onChange={getAssetDetails} id="asset-list" optionList={assets}/> 
                 <Tag>USER ID</Tag>
                 <CustomDropDown onChange={getUserDetails} id="user-list" optionList={users}/> 
             </LeftInner>
         </LeftContainer>
-    )
-}
+    )}
+
+
 
 const mapStateToProps = createStructuredSelector({
     memberId: currentMemberId,
@@ -51,7 +52,7 @@ const mapStateToProps = createStructuredSelector({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    getAssetDetails: (selectedItem, memberId) => { dispatch(requestSelectedAssetData(selectedItem, memberId))},
+    getAssetDetails: (memberId) => { dispatch(requestSelectedAssetData(selectedListItemID('asset-list'),memberId))},
     getAssetOptions: (memberId) => { dispatch(requestAssetDropDownOptions(memberId))},
     getUserOptions: (memberId) => { dispatch( requestUserDropDownOptions(memberId)) },
     getUserDetails: () => { dispatch( requestSelectedUserData ( selectedListItemID('user-list') ) )},
