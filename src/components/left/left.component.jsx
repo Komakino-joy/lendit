@@ -30,12 +30,13 @@ const ScanboxContainer = ({ memberId, assets, users, getAssetOptions, getAssetDe
         // Get Data from /allusers when component mounts.
         getUserOptions(memberId)
       }, [getUserOptions, memberId]);  
+    
 
     return (
         <LeftContainer>
             <LeftInner>
                 <Tag>ASSET ID</Tag>
-                <CustomDropDown onChange={getAssetDetails} id="asset-list" optionList={assets}/> 
+                <CustomDropDown onChange={() => getAssetDetails(memberId)} id="asset-list" optionList={assets}/> 
                 <Tag>USER ID</Tag>
                 <CustomDropDown onChange={getUserDetails} id="user-list" optionList={users}/> 
             </LeftInner>
@@ -51,7 +52,7 @@ const mapStateToProps = createStructuredSelector({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    getAssetDetails: (memberId) => { dispatch(requestSelectedAssetData(selectedListItemID('asset-list'), memberId))},
+    getAssetDetails: (memberId) => { dispatch(requestSelectedAssetData(selectedListItemID('asset-list'),memberId))},
     getAssetOptions: (memberId) => { dispatch(requestAssetDropDownOptions(memberId))},
     getUserOptions: (memberId) => { dispatch( requestUserDropDownOptions(memberId)) },
     getUserDetails: () => { dispatch( requestSelectedUserData ( selectedListItemID('user-list') ) )},
