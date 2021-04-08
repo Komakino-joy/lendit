@@ -23,6 +23,7 @@ const ScanboxContainer = ({ memberId, assets, users, getAssetOptions, getAssetDe
     
     useEffect(() => {
         // Get Data from /allunits.
+        console.log(memberId)
         getAssetOptions(memberId)
       }, [getAssetOptions, memberId]); //
 
