@@ -30,12 +30,13 @@ const ScanboxContainer = ({ memberId, assets, users, getAssetOptions, getAssetDe
         getUserOptions(memberId)
       }, [getUserOptions, memberId]);  
     
+      let selectedItem = selectedListItemID('asset-list');
 
     return (
         <LeftContainer>
             <LeftInner>
                 <Tag>ASSET ID</Tag>
-                <CustomDropDown onChange={(memberId) => getAssetDetails(memberId)} id="asset-list" optionList={assets}/> 
+                <CustomDropDown onChange={getAssetDetails(selectedItem, memberId)} id="asset-list" optionList={assets}/> 
                 <Tag>USER ID</Tag>
                 <CustomDropDown onChange={getUserDetails} id="user-list" optionList={users}/> 
             </LeftInner>
@@ -50,7 +51,7 @@ const mapStateToProps = createStructuredSelector({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    getAssetDetails: (memberId) => { dispatch(requestSelectedAssetData(memberId, selectedListItemID('asset-list')))},
+    getAssetDetails: (selectedItem, memberId) => { dispatch(requestSelectedAssetData(selectedItem, memberId))},
     getAssetOptions: (memberId) => { dispatch(requestAssetDropDownOptions(memberId))},
     getUserOptions: (memberId) => { dispatch( requestUserDropDownOptions(memberId)) },
     getUserDetails: () => { dispatch( requestSelectedUserData ( selectedListItemID('user-list') ) )},
