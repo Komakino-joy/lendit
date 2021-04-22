@@ -2,15 +2,7 @@ import React from "react";
 import CustomButton from "../custom-button/custom-button.component";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
-import {
-  assetId,
-  assetName,
-  assetSerial,
-  assetImage,
-  assetComments,
-  assetStatus,
-  assetModel,
-} from "../../redux/asset/asset.selectors";
+import { assetId, assetName, assetSerial, assetImage, assetComments, assetStatus, assetModel } from "../../redux/asset/asset.selectors";
 import { currentMemberId } from "../../redux/site-member/site-member.selectors.js";
 import { userId } from "../../redux/user/user.selectors";
 
@@ -30,37 +22,14 @@ import {
 import { removeAsset } from "../../services/api";
 
 import {
-  CenterPanelContainer,
-  CenterPanelInnerContainer,
-  Header,
-  AssetName,
-  AssetSerial,
-  RemoveButton,
-  ImageContainer,
-  AssetImage,
-  AssetStatus,
-  ButtonContainer,
-  Footer,
-  Instructions,
-  ReasonBox,
+  CenterPanelContainer, CenterPanelInnerContainer, Header, AssetName, AssetSerial, RemoveButton,
+  ImageContainer, AssetImage, AssetStatus, ButtonContainer, Footer, Instructions, ReasonBox,
 } from "./center.styles.jsx";
 import "react-confirm-alert/src/react-confirm-alert.css";
 
-const Center = ({
-  assetId,
-  assetName,
-  assetSerial,
-  assetImage,
-  assetStatus,
-  checkInAsset,
-  getUpdatedStatus,
-  checkOutAsset,
-  quarantineAsset,
-  userId,
-  assetComments,
-  ownerId,
-  assetModel,
-}) => {
+const Center = ({assetId, assetName, assetSerial, assetImage, assetStatus, checkInAsset, getUpdatedStatus,
+  checkOutAsset, quarantineAsset, userId, assetComments, ownerId, assetModel,}) => {
+
   const alert = useAlert();
 
   const preventDragHandler = (event) => {
@@ -261,22 +230,10 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(checkInSelectedAssetStart(assetId, ownerId, name, serial, model));
   },
   checkOutAsset: (assetId, userId, ownerId, name, serial, model) => {
-    dispatch(
-      checkOutSelectedAssetStart(assetId, userId, ownerId, name, serial, model)
-    );
+    dispatch(checkOutSelectedAssetStart(assetId, userId, ownerId, name, serial, model));
   },
   quarantineAsset: (assetId, userId, ownerId, name, serial, model, comment) => {
-    dispatch(
-      quarantineSelectedAssetStart(
-        assetId,
-        userId,
-        ownerId,
-        name,
-        serial,
-        model,
-        comment
-      )
-    );
+    dispatch(quarantineSelectedAssetStart(assetId, userId, ownerId, name, serial, model,comment));
   },
   getUpdatedStatus: (assetId, ownerID) => {
     dispatch(requestSelectedAssetData(assetId, ownerID));

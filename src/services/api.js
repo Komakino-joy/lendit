@@ -12,7 +12,7 @@ export const fetchSelectedAssetData = async (assetID, ownerID) => {
   };
   try {
     const response = await fetch(
-      `https://lendit-api.herokuapp.com/asset`,
+      `http://localhost:3000/asset`,
       settings
     );
     const asset = await response.json();
@@ -35,7 +35,7 @@ export const fetchSelectedUserData = async (userID) => {
   };
   try {
     const response = await fetch(
-      `https://lendit-api.herokuapp.com/user`,
+      `http://localhost:3000/user`,
       settings
     );
     const user = await response.json();
@@ -67,7 +67,7 @@ export const checkInAsset = async (
     }),
   };
   try {
-    await fetch(`https://lendit-api.herokuapp.com/checkin`, settings);
+    await fetch(`http://localhost:3000/checkin`, settings);
   } catch (error) {
     console.log(error);
   }
@@ -97,7 +97,7 @@ export const checkOutAsset = async (
     }),
   };
   try {
-    await fetch(`https://lendit-api.herokuapp.com/checkout`, settings);
+    await fetch(`http://localhost:3000/checkout`, settings);
   } catch (error) {
     console.log(error);
   }
@@ -129,7 +129,7 @@ export const quarantineAsset = async (
     }),
   };
   try {
-    await fetch(`https://lendit-api.herokuapp.com/quarantine`, settings);
+    await fetch(`http://localhost:3000/quarantine`, settings);
   } catch (error) {
     console.log(error);
   }
@@ -148,7 +148,7 @@ export const createNewUser = async (userId, fname, lname, memberId) => {
   };
   try {
     const response = await fetch(
-      `https://lendit-api.herokuapp.com/adduser`,
+      `http://localhost:3000/adduser`,
       settings
     );
     const reply = await response.json();
@@ -178,7 +178,7 @@ export const createNewAsset = async (
   };
   try {
     const response = await fetch(
-      "https://lendit-api.herokuapp.com/addasset",
+      "http://localhost:3000/addasset",
       settings
     );
     const reply = await response.json();
@@ -198,7 +198,7 @@ export const removeAsset = async (assetID) => {
   };
   try {
     const response = await fetch(
-      "https://lendit-api.herokuapp.com/removeasset",
+      "http://localhost:3000/removeasset",
       settings
     );
     const reply = await response.json();
@@ -218,7 +218,7 @@ export const fetchAllAssetsForDropDown = async (dispatchData) => {
   };
   try {
     const response = await fetch(
-      "https://lendit-api.herokuapp.com/allunits",
+      "http://localhost:3000/allunits",
       settings
     );
     const assetList = await response.json();
@@ -238,7 +238,7 @@ export const fetchAllUsersForDropDown = async (dispatchData) => {
   };
   try {
     const response = await fetch(
-      "https://lendit-api.herokuapp.com/allusers",
+      "http://localhost:3000/allusers",
       settings
     );
     const assetList = await response.json();
@@ -258,7 +258,7 @@ export const fetchAllModelsForDropDown = async (dispatchData) => {
   };
   try {
     const response = await fetch(
-      "https://lendit-api.herokuapp.com/allmodels",
+      "http://localhost:3000/allmodels",
       settings
     );
     const assetList = await response.json();
