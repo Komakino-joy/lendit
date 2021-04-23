@@ -1,7 +1,6 @@
 import React from "react";
 import CustomButton from "../custom-button/custom-button.component";
-import { connect } from "react-redux";
-import { createStructuredSelector } from "reselect";
+
 import { assetId, assetName, assetSerial, assetImage, assetComments, assetStatus, assetModel } from "../../redux/asset/asset.selectors";
 import { currentMemberId } from "../../redux/site-member/site-member.selectors.js";
 import { userId } from "../../redux/user/user.selectors";
@@ -12,12 +11,9 @@ import { confirmAlert } from "react-confirm-alert";
 import { assetTransaction } from "./center.utils";
 import defaultImg from "../../images/default.png";
 
-import {
-  checkInSelectedAssetStart,
-  requestSelectedAssetData,
-  checkOutSelectedAssetStart,
-  quarantineSelectedAssetStart,
-} from "../../redux/asset/asset.actions";
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
+import { checkInSelectedAssetStart, requestSelectedAssetData, checkOutSelectedAssetStart, quarantineSelectedAssetStart } from "../../redux/asset/asset.actions";
 
 import { removeAsset } from "../../services/api";
 
@@ -32,6 +28,7 @@ const Center = ({assetId, assetName, assetSerial, assetImage, assetStatus, check
 
   const alert = useAlert();
 
+  // Prevents the user from dragging the asset image.
   const preventDragHandler = (event) => {
     event.preventDefault();
   };
@@ -118,14 +115,8 @@ const Center = ({assetId, assetName, assetSerial, assetImage, assetStatus, check
           </Header>
 
           <ImageContainer>
-            <RemoveButton onClick={handleRemoveAsset}>
-              REMOVE ASSET
-            </RemoveButton>
-            <AssetImage
-              src={assetImage}
-              alt=""
-              onDragStart={preventDragHandler}
-            />
+            <RemoveButton onClick={handleRemoveAsset}> REMOVE ASSET </RemoveButton>
+            <AssetImage src={assetImage} alt="" onDragStart={preventDragHandler}/>
           </ImageContainer>
 
           <AssetStatus
@@ -152,31 +143,18 @@ const Center = ({assetId, assetName, assetSerial, assetImage, assetStatus, check
                       assetSerial,
                       assetModel
                     )
-                  : alert.show(`${assetName} is already checked in.`, {
-                      type: "info",
-                    });
+                  : alert.show(`${assetName} is already checked in.`, { type: "info" });
               }}
             >
               CHECK IN
             </CustomButton>
-            <CustomButton isCheckOut onClick={handleCheckout}>
-              CHECK OUT
-            </CustomButton>
+            <CustomButton isCheckOut onClick={handleCheckout}> CHECK OUT </CustomButton>
           </ButtonContainer>
 
           <Footer>
-            <Instructions>
-              If there are issues with the asset, please fill out the form below
-              and submit
-            </Instructions>
-            <ReasonBox
-              id="text-area"
-              onChange={onReasonChange}
-              placeholder={assetComments}
-            />
-            <CustomButton isSubmit onClick={handleQuarantine}>
-              SUBMIT
-            </CustomButton>
+            <Instructions> If there are issues with the asset, please fill out the form below and submit </Instructions>
+            <ReasonBox id="text-area" onChange={onReasonChange} placeholder={assetComments}/>
+            <CustomButton isSubmit onClick={handleQuarantine}> SUBMIT </CustomButton>
           </Footer>
         </CenterPanelInnerContainer>
       ) : (
@@ -187,11 +165,7 @@ const Center = ({assetId, assetName, assetSerial, assetImage, assetStatus, check
           </Header>
 
           <ImageContainer>
-            <AssetImage
-              src={defaultImg}
-              alt=""
-              onDragStart={preventDragHandler}
-            />
+            <AssetImage src={defaultImg} alt="" onDragStart={preventDragHandler}/>
           </ImageContainer>
           <AssetStatus>Asset Status</AssetStatus>
           <ButtonContainer>
@@ -200,10 +174,7 @@ const Center = ({assetId, assetName, assetSerial, assetImage, assetStatus, check
           </ButtonContainer>
 
           <Footer>
-            <Instructions>
-              If there are issues with the asset, please fill out the form below
-              and submit
-            </Instructions>
+            <Instructions> If there are issues with the asset, please fill out the form below and submit </Instructions>
             <ReasonBox id="text-area" />
             <CustomButton isSubmit>SUBMIT</CustomButton>
           </Footer>
