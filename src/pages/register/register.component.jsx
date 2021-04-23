@@ -1,141 +1,128 @@
-import React from "react";
-import { connect } from "react-redux";
+import React, { useState } from "react";
+import { useAlert } from "react-alert";
 
+import { connect } from "react-redux";
 import { handleMemberSignin } from "../../redux/site-member/site-member.actions";
 
-import {
-  RegistrationBody,
-  RegistrationArticle,
-  RegistrationMain,
-  RegistrationFieldSet,
-  RegistrationLegend,
-  RegistrationLabel,
-  RegistrationInput,
-  RegistrationSubmit,
-  NameFieldContainer,
-  NameField,
-  Email,
-  Password,
+import { RegistrationBody, RegistrationArticle, RegistrationMain, RegistrationFieldSet, RegistrationLegend, 
+  RegistrationLabel, RegistrationInput, RegistrationSubmit, NameFieldContainer, NameField, Email, Password
 } from "./register.styles";
-class RegistrationPage extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      fname: "",
-      lname: "",
-      email: "",
-      password: "",
-    };
-  }
 
-  onFirstNameChange = (event) => {
-    this.setState({ fname: event.target.value });
+const RegistrationPage = ({ history, signIn }) =>{
+
+  const [fname, setFname] = useState('');
+  const [lname, setLname] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const alert = useAlert();
+
+  const onFirstNameChange = (event) => {
+    setFname(event.target.value);
   };
 
-  onLastNameChange = (event) => {
-    this.setState({ lname: event.target.value });
+  const onLastNameChange = (event) => {
+    setLname(event.target.value);
   };
 
-  onEmailChange = (event) => {
-    this.setState({ email: event.target.value });
+  const onEmailChange = (event) => {
+    setEmail(event.target.value);
   };
 
-  onPasswordChange = (event) => {
-    this.setState({ password: event.target.value });
+  const onPasswordChange = (event) => {
+    setPassword(event.target.value);
   };
 
-  onSubmitRegister = () => {
-    fetch("https://lendit-api.herokuapp.com/register", {
+  const onSubmitRegister = () => {
+    fetch("http://localhost:3000/register", {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        fname: this.state.fname,
-        lname: this.state.lname,
-        email: this.state.email,
-        password: this.state.password,
+        fname: fname,
+        lname: lname,
+        email: email,
+        password: password,
       }),
     })
       // * Handling incorrect credentials
       .then((response) => response.json())
       .then((member) => {
         if (member.id) {
-          this.props.signIn(member);
-          this.props.history.push("/home");
+          signIn(member);
+          history.push("/home");
+        } else {
+          alert.show('Unable to register' , { type: "error" , position:"top center"})
         }
       });
   };
 
-  render() {
-    return (
-      <RegistrationBody>
-        <RegistrationArticle>
-          <RegistrationMain>
-            <RegistrationFieldSet>
-              <RegistrationLegend>Register</RegistrationLegend>
+  return (
+    <RegistrationBody>
+      <RegistrationArticle>
+        <RegistrationMain>
+          <RegistrationFieldSet>
+            <RegistrationLegend>Register</RegistrationLegend>
 
-              <NameFieldContainer>
-                <NameField>
-                  <RegistrationLabel htmlFor="fname">
-                    First Name
-                  </RegistrationLabel>
-                  <RegistrationInput
-                    type="text"
-                    name="fname"
-                    id="fname"
-                    onChange={this.onFirstNameChange}
-                  />
-                </NameField>
-
-                <NameField>
-                  <RegistrationLabel htmlFor="lname">
-                    Last Name
-                  </RegistrationLabel>
-                  <RegistrationInput
-                    type="text"
-                    name="lname"
-                    id="lname"
-                    onChange={this.onLastNameChange}
-                  />
-                </NameField>
-              </NameFieldContainer>
-
-              <Email>
-                <RegistrationLabel htmlFor="email-address">
-                  Email
+            <NameFieldContainer>
+              <NameField>
+                <RegistrationLabel htmlFor="fname">
+                  First Name
                 </RegistrationLabel>
                 <RegistrationInput
-                  type="email"
-                  name="email-address"
-                  id="email-address"
-                  value=""
-                  onChange={this.onEmailChange}
+                  type="text"
+                  name="fname"
+                  id="fname"
+                  onChange={onFirstNameChange}
                 />
-              </Email>
+              </NameField>
 
-              <Password>
-                <RegistrationLabel htmlFor="password">
-                  Password
+              <NameField>
+                <RegistrationLabel htmlFor="lname">
+                  Last Name
                 </RegistrationLabel>
                 <RegistrationInput
-                  type="password"
-                  name="password"
-                  id="password"
-                  value=""
-                  onChange={this.onPasswordChange}
+                  type="text"
+                  name="lname"
+                  id="lname"
+                  onChange={onLastNameChange}
                 />
-              </Password>
-            </RegistrationFieldSet>
+              </NameField>
+            </NameFieldContainer>
 
-            <RegistrationSubmit
-              type="submit"
-              value="Register"
-              onClick={this.onSubmitRegister}
-            />
-          </RegistrationMain>
-        </RegistrationArticle>
-      </RegistrationBody>
-    );
-  }
+            <Email>
+              <RegistrationLabel htmlFor="email-address">
+                Email
+              </RegistrationLabel>
+              <RegistrationInput
+                type="email"
+                name="email-address"
+                id="email-address"
+                onChange={onEmailChange}
+              />
+            </Email>
+
+            <Password>
+              <RegistrationLabel htmlFor="password">
+                Password
+              </RegistrationLabel>
+              <RegistrationInput
+                type="password"
+                name="password"
+                id="password"
+                onChange={onPasswordChange}
+              />
+            </Password>
+          </RegistrationFieldSet>
+
+          <RegistrationSubmit
+            type="submit"
+            value="Register"
+            onClick={onSubmitRegister}
+          />
+        </RegistrationMain>
+      </RegistrationArticle>
+    </RegistrationBody>
+  );
 }
 
 const mapDispatchToProps = (dispatch) => ({

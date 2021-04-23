@@ -7,8 +7,8 @@ export const CHECK_OUT_SELECTED_ASSET_SUCCESS = "CHECK_OUT_SELECTED_ASSET_SUCCES
 export const QUARANTINE_SELECTED_ASSET_START = "QUARANTINE_SELECTED_ASSET_START";
 export const QUARANTINE_SELECTED_ASSET_SUCCESS = "QUARANTINE_SELECTED_ASSET_SUCCESS";
 
-export const requestSelectedAssetData = (assetID) => ({ 
-    type: REQUEST_SELECTED_ASSET, assetID
+export const requestSelectedAssetData = (assetID, ownerID) => ({ 
+    type: REQUEST_SELECTED_ASSET, assetID, ownerID
 });
 
 export const receiveSelectedAssetData = (assetData) => ({

@@ -34,7 +34,7 @@ const ActivityReport = ({
     const fetchData = async () => {
       const result = await axios({
         method: "post",
-        url: "https://lendit-api.herokuapp.com/activitytracking",
+        url: "http://localhost:3000/activitytracking",
         data: {
           id: currentMemberId,
           startDate: startDate,
@@ -91,12 +91,7 @@ const ActivityReport = ({
               height={70}
               width={70}
               className="loader"
-              style={{
-                position: "absolute",
-                top: "20%",
-                left: "50%",
-                margin: "-25px 0 0 -25px",
-              }}
+              style={{ position: "absolute", top: "20%", left: "50%", margin: "-25px 0 0 -25px" }}
             />
           )}
         </TableContainer>

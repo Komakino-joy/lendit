@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 
 export const CenterPanelContainer = styled.div`
     width: 40%;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -15,7 +15,7 @@ export const CenterPanelContainer = styled.div`
 `;
 
 export const CenterPanelInnerContainer = styled.div`
-    height: 96vh;
+    min-height: 96vh;
     width: 95%;
     margin: 1em;
     display: flex;

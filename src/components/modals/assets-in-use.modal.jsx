@@ -27,7 +27,7 @@ const UnitsInUse = ({ toggleUnitsInUse, currentMemberId }) => {
     const fetchData = async () => {
       const result = await axios({
         method: "post",
-        url: "https://lendit-api.herokuapp.com/assetsinuse",
+        url: "http://localhost:3000/assetsinuse",
         data: {
           memberId: currentMemberId,
         },

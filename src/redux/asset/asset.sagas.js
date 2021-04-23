@@ -22,7 +22,7 @@ import {
 function* getRequestedSelectedAssetData(action) {
   try {
     // do api call
-    const assetData = yield call(fetchSelectedAssetData, action.assetID);
+    const assetData = yield call(fetchSelectedAssetData, action.assetID, action.ownerID);
     yield put(receiveSelectedAssetData(assetData));
   } catch (error) {
     console.log(error);

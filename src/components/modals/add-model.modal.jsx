@@ -38,9 +38,13 @@ const AddModel = ({ toggleAddModel, getModelOptions, memberId }) => {
   };
 
   const onFileUpload = () => {
+
     const file = document.querySelector("#file").files[0];
 
-    if (!file) return;
+    if (!file || !model){
+      alert.show('Model name and image are required.', { type:'error', position:'top center' })
+      return;
+    } 
 
     const reader = new FileReader();
 
@@ -52,8 +56,8 @@ const AddModel = ({ toggleAddModel, getModelOptions, memberId }) => {
 
       imgElement.onload = (e) => {
         const canvas = document.createElement("canvas");
-        const MAX_WIDTH = 400;
-        if (e.target.width > 400) {
+        const MAX_WIDTH = 350;
+        if (e.target.width > 350) {
           const scaleSize = MAX_WIDTH / e.target.width;
           canvas.width = MAX_WIDTH;
           canvas.height = e.target.height * scaleSize;
@@ -70,7 +74,7 @@ const AddModel = ({ toggleAddModel, getModelOptions, memberId }) => {
 
         axios({
           method: "post",
-          url: "https://lendit-api.herokuapp.com/upload",
+          url: "http://localhost:3000/upload",
           data: {
             image: srcEncoded,
             model: model,

@@ -1,16 +1,7 @@
 import React from "react";
 import CustomButton from "../custom-button/custom-button.component";
-import { connect } from "react-redux";
-import { createStructuredSelector } from "reselect";
-import {
-  assetId,
-  assetName,
-  assetSerial,
-  assetImage,
-  assetComments,
-  assetStatus,
-  assetModel,
-} from "../../redux/asset/asset.selectors";
+
+import { assetId, assetName, assetSerial, assetImage, assetComments, assetStatus, assetModel } from "../../redux/asset/asset.selectors";
 import { currentMemberId } from "../../redux/site-member/site-member.selectors.js";
 import { userId } from "../../redux/user/user.selectors";
 
@@ -20,49 +11,24 @@ import { confirmAlert } from "react-confirm-alert";
 import { assetTransaction } from "./center.utils";
 import defaultImg from "../../images/default.png";
 
-import {
-  checkInSelectedAssetStart,
-  requestSelectedAssetData,
-  checkOutSelectedAssetStart,
-  quarantineSelectedAssetStart,
-} from "../../redux/asset/asset.actions";
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
+import { checkInSelectedAssetStart, requestSelectedAssetData, checkOutSelectedAssetStart, quarantineSelectedAssetStart } from "../../redux/asset/asset.actions";
 
 import { removeAsset } from "../../services/api";
 
 import {
-  CenterPanelContainer,
-  CenterPanelInnerContainer,
-  Header,
-  AssetName,
-  AssetSerial,
-  RemoveButton,
-  ImageContainer,
-  AssetImage,
-  AssetStatus,
-  ButtonContainer,
-  Footer,
-  Instructions,
-  ReasonBox,
+  CenterPanelContainer, CenterPanelInnerContainer, Header, AssetName, AssetSerial, RemoveButton,
+  ImageContainer, AssetImage, AssetStatus, ButtonContainer, Footer, Instructions, ReasonBox,
 } from "./center.styles.jsx";
 import "react-confirm-alert/src/react-confirm-alert.css";
 
-const Center = ({
-  assetId,
-  assetName,
-  assetSerial,
-  assetImage,
-  assetStatus,
-  checkInAsset,
-  getUpdatedStatus,
-  checkOutAsset,
-  quarantineAsset,
-  userId,
-  assetComments,
-  ownerId,
-  assetModel,
-}) => {
+const Center = ({assetId, assetName, assetSerial, assetImage, assetStatus, checkInAsset, getUpdatedStatus,
+  checkOutAsset, quarantineAsset, userId, assetComments, ownerId, assetModel,}) => {
+
   const alert = useAlert();
 
+  // Prevents the user from dragging the asset image.
   const preventDragHandler = (event) => {
     event.preventDefault();
   };
@@ -149,14 +115,8 @@ const Center = ({
           </Header>
 
           <ImageContainer>
-            <RemoveButton onClick={handleRemoveAsset}>
-              REMOVE ASSET
-            </RemoveButton>
-            <AssetImage
-              src={assetImage}
-              alt=""
-              onDragStart={preventDragHandler}
-            />
+            <RemoveButton onClick={handleRemoveAsset}> REMOVE ASSET </RemoveButton>
+            <AssetImage src={assetImage} alt="" onDragStart={preventDragHandler}/>
           </ImageContainer>
 
           <AssetStatus
@@ -183,31 +143,18 @@ const Center = ({
                       assetSerial,
                       assetModel
                     )
-                  : alert.show(`${assetName} is already checked in.`, {
-                      type: "info",
-                    });
+                  : alert.show(`${assetName} is already checked in.`, { type: "info" });
               }}
             >
               CHECK IN
             </CustomButton>
-            <CustomButton isCheckOut onClick={handleCheckout}>
-              CHECK OUT
-            </CustomButton>
+            <CustomButton isCheckOut onClick={handleCheckout}> CHECK OUT </CustomButton>
           </ButtonContainer>
 
           <Footer>
-            <Instructions>
-              If there are issues with the asset, please fill out the form below
-              and submit
-            </Instructions>
-            <ReasonBox
-              id="text-area"
-              onChange={onReasonChange}
-              placeholder={assetComments}
-            />
-            <CustomButton isSubmit onClick={handleQuarantine}>
-              SUBMIT
-            </CustomButton>
+            <Instructions> If there are issues with the asset, please fill out the form below and submit </Instructions>
+            <ReasonBox id="text-area" onChange={onReasonChange} placeholder={assetComments}/>
+            <CustomButton isSubmit onClick={handleQuarantine}> SUBMIT </CustomButton>
           </Footer>
         </CenterPanelInnerContainer>
       ) : (
@@ -218,11 +165,7 @@ const Center = ({
           </Header>
 
           <ImageContainer>
-            <AssetImage
-              src={defaultImg}
-              alt=""
-              onDragStart={preventDragHandler}
-            />
+            <AssetImage src={defaultImg} alt="" onDragStart={preventDragHandler}/>
           </ImageContainer>
           <AssetStatus>Asset Status</AssetStatus>
           <ButtonContainer>
@@ -231,10 +174,7 @@ const Center = ({
           </ButtonContainer>
 
           <Footer>
-            <Instructions>
-              If there are issues with the asset, please fill out the form below
-              and submit
-            </Instructions>
+            <Instructions> If there are issues with the asset, please fill out the form below and submit </Instructions>
             <ReasonBox id="text-area" />
             <CustomButton isSubmit>SUBMIT</CustomButton>
           </Footer>
@@ -261,40 +201,14 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(checkInSelectedAssetStart(assetId, ownerId, name, serial, model));
   },
   checkOutAsset: (assetId, userId, ownerId, name, serial, model) => {
-    dispatch(
-      checkOutSelectedAssetStart(assetId, userId, ownerId, name, serial, model)
-    );
+    dispatch(checkOutSelectedAssetStart(assetId, userId, ownerId, name, serial, model));
   },
   quarantineAsset: (assetId, userId, ownerId, name, serial, model, comment) => {
-    dispatch(
-      quarantineSelectedAssetStart(
-        assetId,
-        userId,
-        ownerId,
-        name,
-        serial,
-        model,
-        comment
-      )
-    );
+    dispatch(quarantineSelectedAssetStart(assetId, userId, ownerId, name, serial, model,comment));
   },
-  getUpdatedStatus: (assetId) => {
-    dispatch(requestSelectedAssetData(assetId));
+  getUpdatedStatus: (assetId, ownerID) => {
+    dispatch(requestSelectedAssetData(assetId, ownerID));
   },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Center);
-
-//^ THE CODE BELOW IS USED TO LOAD FIRST ASSET WHEN RENDERING APP FOR FIRST TIME
-
-// const [asset, setAsset] = useState(null);
-
-// useEffect(() => {
-//     const fetchAsset = async() => {
-//         const response = await fetch(`https://lendit-api.herokuapp.com/defaultunit`)
-//         const asset = await response.json()
-//         setAsset(asset[0]);
-//     }
-
-//     fetchAsset();
-// }, []);

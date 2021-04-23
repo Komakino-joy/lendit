@@ -1,28 +1,19 @@
 import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
-import { connect } from "react-redux";
+import { useAlert } from "react-alert";
 
+import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { isSignedIn } from "../../redux/site-member/site-member.selectors";
-
 import { handleMemberSignin } from "../../redux/site-member/site-member.actions";
 
 import {
-  SignInBody,
-  SignInArticle,
-  SignInMain,
-  SignInFieldSet,
-  SignInLegend,
-  SignInLabel,
-  SignInInput,
-  SignInSubmit,
-  RegisterContainer,
-  RegisterLink,
-  Email,
-  Password,
+  SignInBody, SignInArticle, SignInMain, SignInFieldSet, SignInLegend, SignInLabel, 
+  SignInInput, SignInSubmit, RegisterContainer, RegisterLink, Email, Password
 } from "./signin.styles";
 
 const SigninPage = ({ history, signIn }) => {
+  const alert = useAlert();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -35,21 +26,23 @@ const SigninPage = ({ history, signIn }) => {
   };
 
   const onSubmitSignIn = () => {
-    fetch("https://lendit-api.herokuapp.com/signin", {
-      method: "post",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        email: email,
-        password: password,
-      }),
-    })
+    fetch("http://localhost:3000/signin", {
+        method: "post",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+      })
       .then((response) => response.json())
       .then((member) => {
         if (member.id) {
           signIn(member.id);
           history.push("/home");
+        } else{
+          alert.show('Invalid credentials' , { type: "error" , position:"top center"})
         }
-      });
+      })
   };
 
   return (
@@ -105,9 +98,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  signIn: (memberId) => {
-    dispatch(handleMemberSignin(memberId));
-  },
+  signIn: (memberId) => { dispatch(handleMemberSignin(memberId));},
 });
 
 export default withRouter(

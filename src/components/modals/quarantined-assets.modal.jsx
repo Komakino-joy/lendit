@@ -30,7 +30,7 @@ const QuarantinedUnits = ({ toggleQuarantinedUnits, memberId }) => {
     const fetchData = async () => {
       const result = await axios({
         method: "post",
-        url: "https://lendit-api.herokuapp.com/quarantinedassets",
+        url: "http://localhost:3000/quarantinedassets",
         data: {
           memberId: memberId,
         },

@@ -11,12 +11,12 @@ const ReportsContainer = ({ toggleAvailableUnits, toggleUnitsInUse, toggleQuaran
         <RightContainer>
             <ActionHeader>ACTION PANEL</ActionHeader>
             <RightInnerContainer>
-                <ReportLink onClick={toggleAddUser}          >ADD USER</ReportLink>
-                <ReportLink onClick={toggleAddUnit}          >ADD ASSET</ReportLink>
-                <ReportLink onClick={toggleUnitsInUse}       >ASSETS IN USE</ReportLink>
-                <ReportLink onClick={toggleAvailableUnits}   >AVAILABLE ASSETS</ReportLink>
-                <ReportLink onClick={toggleQuarantinedUnits} >QUARANTINED ASSETS</ReportLink>
-                <ReportLink onClick={toggleActvityTracking} >ACTIVITY TRACKING </ReportLink>
+                <ReportLink onClick={toggleAddUser}>ADD USER</ReportLink>
+                <ReportLink onClick={toggleAddUnit}>ADD ASSET</ReportLink>
+                <ReportLink onClick={toggleUnitsInUse}>ASSETS IN USE</ReportLink>
+                <ReportLink onClick={toggleAvailableUnits}>AVAILABLE ASSETS</ReportLink>
+                <ReportLink onClick={toggleQuarantinedUnits}>QUARANTINED ASSETS</ReportLink>
+                <ReportLink onClick={toggleActvityTracking}>ACTIVITY TRACKING </ReportLink>
             </RightInnerContainer>
         </RightContainer>
     )

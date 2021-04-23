@@ -30,7 +30,7 @@ const AvailableUnits = ({ toggleAvailableUnits, memberId }) => {
     const fetchData = async () => {
       const result = await axios({
         method: "post",
-        url: "https://lendit-api.herokuapp.com/availableassets",
+        url: "http://localhost:3000/availableassets",
         data: {
           memberId: memberId,
         },
