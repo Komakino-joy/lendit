@@ -79,13 +79,13 @@ const UnitsInUse = ({ toggleUnitsInUse, currentMemberId }) => {
           ) : (
             <Loader
               type="Puff"
-              color="#966eff"
+              color="#4178BE"
               height={70}
               width={70}
               className="loader"
               style={{
                 position: "absolute",
-                top: "20%",
+                top: "25%",
                 left: "50%",
                 margin: "-25px 0 0 -25px",
               }}

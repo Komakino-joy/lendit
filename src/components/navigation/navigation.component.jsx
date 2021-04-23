@@ -18,10 +18,7 @@ const Navigation = ({history, isSignedIn, signOut }) => {
       );
     } else {
       return (
-        <NavList>
-          <NavOption onClick={() => history.push('/signin')}>Sign In</NavOption>
-          <NavOption onClick={() => history.push('/register')}>Register</NavOption>
-        </NavList>
+        null
       );
     }
 }

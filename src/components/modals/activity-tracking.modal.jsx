@@ -11,7 +11,7 @@ import ActivityReport from "./activity-report.modal";
 import { toggleActvityTracking, toggleActvityReport } from "../../redux/modal/modal.actions";
 
 import { ModalMain, ModalContent, CloseButton, Header, Article,
-  FieldSet, Label, Submit, ModalDate
+  FieldSet, Label, ActivitySubmit, ModalDate
 } from "./modal.styles";
 
 import CustomDropDown from '../custom-drop-down/custom-drop-down.component';
@@ -61,11 +61,11 @@ const ActivityTracking = ( {toggleActvityTracking, toggleActvityReport, assets, 
                   onChange={date => setEndDate(date)} 
                 />
                 <Label htmlFor="asset-id">Asset ID</Label>
-                <CustomDropDown onChange={onAssetIDChange} type="text" name="asset-id"  id="asset-id" optionList={assets}/>
+                <CustomDropDown isActivitySelection onChange={onAssetIDChange} type="text" name="asset-id"  id="asset-id" optionList={assets}/>
                 <Label htmlFor="user-id">User ID</Label>
-                <CustomDropDown onChange={onUserIDChange} type="text" name="user-id"  id="user-id" optionList={users}/>
+                <CustomDropDown isActivitySelection onChange={onUserIDChange} type="text" name="user-id"  id="user-id" optionList={users}/>
             </FieldSet>
-            <Submit onClick={toggleActvityReport} type = "submit" defaultValue="Submit"/>
+            <ActivitySubmit onClick={toggleActvityReport} type = "submit" defaultValue="Submit"/>
           </div>
         </Article>
       </ModalContent>

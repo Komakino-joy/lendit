@@ -15,7 +15,7 @@ import { toggleAddModel, toggleAddUnit } from "../../redux/modal/modal.actions";
 import { requestAssetDropDownOptions, requestModelDropDownOptions } from '../../redux/drop-downs/drop-down.actions';
 
 import { ModalMain, ModalContent, CloseButton, Header, Article,
-        FieldSet, Label, Input, AddModelButton, Submit} from "./modal.styles";
+        FieldSet, Input, AddModelButton, Submit} from "./modal.styles";
 
 const AddUnit = ( {toggleAddUnit, toggleAddModel, seenAddModel, getAssetOptions, getModelOptions, models, memberId}) => {
 
@@ -104,15 +104,11 @@ const AddUnit = ( {toggleAddUnit, toggleAddModel, seenAddModel, getAssetOptions,
         <Article>
           <div action="sign-up_submit" method="get" acceptCharset="utf-8">
             <FieldSet id="sign_up">
-                <Label htmlFor="asset-id">Asset ID</Label>
-                <Input onChange={onAssetidChange} type="text" name="asset-id"  id="asset-id"/>
-                <Label htmlFor="asset-name">Asset Name</Label>
-                <Input onChange={onAssetNameChange} type="text" name="asset-name"  id="asset-name"/>
-                <Label htmlFor="asset-model">Model</Label>
-                <CustomDropDown onChange={onAssetModelChange} name="asset-model"  id="asset-model" optionList={models}/>
+                <Input onChange={onAssetidChange}   placeholder="Asset ID (Required)" type="text" name="asset-id"  id="asset-id"/>
+                <Input onChange={onAssetNameChange} placeholder="Asset Name (Required)" type="text" name="asset-name"  id="asset-name"/>
+                <CustomDropDown isModelSelection onChange={onAssetModelChange} defaultOption="Model (Required)" name="asset-model"  id="asset-model" optionList={models}/>
                 <AddModelButton onClick={toggleAddModel}>Add New Model</AddModelButton>
-                <Label htmlFor="asset-serial">Serial Number</Label>
-                <Input onChange={onAssetSerialChange} type="text" name="asset-serial"  id="asset-serial"/>
+                <Input onChange={onAssetSerialChange} placeholder="Serial Number (Required)" type="text" name="asset-serial"  id="asset-serial"/>
             </FieldSet>
             <Submit type = "Submit" defaultValue="Submit" onClick={() => submitAsset()} />
           </div>

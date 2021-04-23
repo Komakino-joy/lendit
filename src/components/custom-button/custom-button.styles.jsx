@@ -1,17 +1,27 @@
 import styled, { css } from 'styled-components';
 
 const checkInButtonStyles = css`
-    background-color: #00449e;
+    background-color: #3773bf;
+    :hover{
+        background-color: #6798d6;
+    }
 `;
 
 const checkOutButtonStyles = css`
-    background-color: #e7040f;
+    background-color: #bf3737;
+    :hover{
+        background-color: #d66767;
+    }
 `;
 
 const submitButtonStyles = css`
-    width: 100%;
+    width: 85%;
     height: 25px;
-    background-color: rgb(128, 128, 128);
+    margin-bottom: 0.5rem;
+    background-color: #808080;
+    :hover{
+        background-color: #969696;
+    }
 `;
 
 const getButtonStyles = (props) => {

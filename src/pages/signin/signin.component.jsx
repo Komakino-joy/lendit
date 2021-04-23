@@ -8,9 +8,12 @@ import { isSignedIn } from "../../redux/site-member/site-member.selectors";
 import { handleMemberSignin } from "../../redux/site-member/site-member.actions";
 
 import {
-  SignInBody, SignInArticle, SignInMain, SignInFieldSet, SignInLegend, SignInLabel, 
-  SignInInput, SignInSubmit, RegisterContainer, RegisterLink, Email, Password
+  SignInPageBody, SignInArticle, SignInMain, SignInFieldSet, SignInLegend, 
+  SignInInput, SignInSubmit, RegisterLinkContainer, RegisterLink, Email, Password
 } from "./signin.styles";
+
+import userIcon from '../../images/user_icon.png';
+import passwordIcon from '../../images/password_icon.png';
 
 const SigninPage = ({ history, signIn }) => {
   const alert = useAlert();
@@ -46,15 +49,16 @@ const SigninPage = ({ history, signIn }) => {
   };
 
   return (
-    <SignInBody>
+    <SignInPageBody>
+      <SignInLegend>Lendit Asset Tracker</SignInLegend>
       <SignInArticle>
         <SignInMain>
           <SignInFieldSet>
-            <SignInLegend>Sign In</SignInLegend>
 
             <Email>
-              <SignInLabel htmlFor="email-address">Email</SignInLabel>
+              <img src={userIcon} alt='user icon for sign in' height='40px' width='40px'/>
               <SignInInput
+                placeholder="Email Address"
                 type="text"
                 name="email-address"
                 id="email-address"
@@ -63,8 +67,9 @@ const SigninPage = ({ history, signIn }) => {
             </Email>
 
             <Password>
-              <SignInLabel htmlFor="password">Password</SignInLabel>
+              <img src={passwordIcon} alt='password icon for sign in' height='40px' width='40px'/>
               <SignInInput
+                placeholder="Password"
                 type="password"
                 name="password"
                 id="password"
@@ -79,17 +84,17 @@ const SigninPage = ({ history, signIn }) => {
             value="Sign in"
           />
 
-          <RegisterContainer>
+          <RegisterLinkContainer>
             <RegisterLink
               onClick={() => history.push("/register")}
               className="register-link"
             >
-              Register
+              New user?
             </RegisterLink>
-          </RegisterContainer>
+          </RegisterLinkContainer>
         </SignInMain>
       </SignInArticle>
-    </SignInBody>
+    </SignInPageBody>
   );
 };
 

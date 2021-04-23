@@ -4,8 +4,8 @@ import { useAlert } from "react-alert";
 import { connect } from "react-redux";
 import { handleMemberSignin } from "../../redux/site-member/site-member.actions";
 
-import { RegistrationBody, RegistrationArticle, RegistrationMain, RegistrationFieldSet, RegistrationLegend, 
-  RegistrationLabel, RegistrationInput, RegistrationSubmit, NameFieldContainer, NameField, Email, Password
+import { RegistrationPageBody, RegistrationArticle, RegistrationMain, RegistrationFieldSet, RegistrationLegend, 
+  RegistrationInput, RegistrationSubmit, NameFieldContainer, NameField, Email, Password, SignInLinkContainer, SignInLink
 } from "./register.styles";
 
 const RegistrationPage = ({ history, signIn }) =>{
@@ -57,18 +57,15 @@ const RegistrationPage = ({ history, signIn }) =>{
   };
 
   return (
-    <RegistrationBody>
+    <RegistrationPageBody>
+      <RegistrationLegend>Registration</RegistrationLegend>
       <RegistrationArticle>
         <RegistrationMain>
           <RegistrationFieldSet>
-            <RegistrationLegend>Register</RegistrationLegend>
-
             <NameFieldContainer>
               <NameField>
-                <RegistrationLabel htmlFor="fname">
-                  First Name
-                </RegistrationLabel>
                 <RegistrationInput
+                  placeholder='First Name (required)'
                   type="text"
                   name="fname"
                   id="fname"
@@ -77,10 +74,9 @@ const RegistrationPage = ({ history, signIn }) =>{
               </NameField>
 
               <NameField>
-                <RegistrationLabel htmlFor="lname">
-                  Last Name
-                </RegistrationLabel>
                 <RegistrationInput
+                  style = {{marginLeft:"15%"}}
+                  placeholder='Last Name (required)'
                   type="text"
                   name="lname"
                   id="lname"
@@ -90,10 +86,8 @@ const RegistrationPage = ({ history, signIn }) =>{
             </NameFieldContainer>
 
             <Email>
-              <RegistrationLabel htmlFor="email-address">
-                Email
-              </RegistrationLabel>
               <RegistrationInput
+                placeholder='Email (required)'
                 type="email"
                 name="email-address"
                 id="email-address"
@@ -102,10 +96,8 @@ const RegistrationPage = ({ history, signIn }) =>{
             </Email>
 
             <Password>
-              <RegistrationLabel htmlFor="password">
-                Password
-              </RegistrationLabel>
               <RegistrationInput
+                placeholder='Password (required)'
                 type="password"
                 name="password"
                 id="password"
@@ -119,9 +111,14 @@ const RegistrationPage = ({ history, signIn }) =>{
             value="Register"
             onClick={onSubmitRegister}
           />
+          <SignInLinkContainer>
+            <SignInLink onClick={() => history.push("/signin")} className="signin-link">
+                Already have an account?
+            </SignInLink>
+          </SignInLinkContainer>
         </RegistrationMain>
       </RegistrationArticle>
-    </RegistrationBody>
+    </RegistrationPageBody>
   );
 }
 

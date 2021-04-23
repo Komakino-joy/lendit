@@ -17,9 +17,8 @@ import {
   Header,
   Article,
   FieldSet,
-  Label,
-  Input,
-  Submit,
+  SubModalInput,
+  AddModelSubmit,
 } from "./modal.styles";
 
 const AddModel = ({ toggleAddModel, getModelOptions, memberId }) => {
@@ -109,21 +108,20 @@ const AddModel = ({ toggleAddModel, getModelOptions, memberId }) => {
         <Article>
           <div action="sign-up_submit" method="get" acceptCharset="utf-8">
             <FieldSet>
-              <Label htmlFor="model">Model Name</Label>
-              <Input
+              <SubModalInput
+              placeholder="Model Name (Required)"
                 id="model"
                 type="text"
                 name="model"
                 onChange={onModelChange}
               />
 
-              <Label htmlFor="image">Image</Label>
               <form
                 className="flex flex-column"
                 encType="multipart/form-data"
                 method="POST"
               >
-                <Input
+                <SubModalInput
                   id="file"
                   type="file"
                   accept=".jpg, .jpeg, .png"
@@ -131,7 +129,7 @@ const AddModel = ({ toggleAddModel, getModelOptions, memberId }) => {
                 />
               </form>
             </FieldSet>
-            <Submit
+            <AddModelSubmit
               type="Submit"
               defaultValue="Submit"
               onClick={onFileUpload}

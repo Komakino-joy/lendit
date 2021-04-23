@@ -37,6 +37,6 @@ export const Tag = styled.span`
     display: block;
     font-size: 1.25rem;
     font-weight: bold;
-    color: #00449e;
+    color: #235494;
     margin-bottom: 0.5rem;
 `

@@ -98,7 +98,6 @@ export const ImageContainer = styled.div`
       max-width: 50%;
 `;
 
-
 export const ButtonContainer = styled.div`
     display: flex;
     flex-direction: row;
@@ -108,6 +107,7 @@ export const ButtonContainer = styled.div`
 export const Footer = styled.div`
     display: flex;
     flex-direction: column;
+    align-items: center;
     justify-content: flex-end;
     margin-bottom: 1em;
     margin-top: 1em;
@@ -118,28 +118,24 @@ export const Footer = styled.div`
 `;
 
 export const Instructions = styled.div`
-    font-size: 1rem;
+    font-size: 12px;
     display: block;
-    margin-bottom: 0.5rem;
     text-align: center;
-    color: rgb(114, 0, 180);
+    font-weight: 200;
+
 `;
   
 export const ReasonBox = styled.textarea`
     box-sizing: border-box;
-    hover {
-      color: #000;
-    }
     border-style: solid;
     border-width: 1px;
     border-color: rgba(0, 0, 0, 0.2);
     padding: 0.5rem;
     border-radius: 0.25rem;
     margin-bottom: 0.25rem;
-    height: 50%;
     resize: none;
-    width: 100%;
-    height: 10em;
+    width: 85%;
+    height: 7em;
 
 `;
 

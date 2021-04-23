@@ -10,13 +10,11 @@ export const NavList = styled.nav`
 `
 export const NavOption = styled.p`
     font-size: 1.2rem;
-    text-decoration: none;
-    transition: color 0.15s ease-in;
-    opacity: 1;
-    transition: opacity 0.15s ease-in;
-    color: #000;
-    text-decoration: underline;
+    color: black;
     margin-top: 0.5rem;
-    padding-right: 2em;
+    padding-right: 5%;
     cursor: pointer;
+    :hover{
+        color: grey;
+    }
 ` 

@@ -38,7 +38,7 @@ export const ActionHeader = styled.header`
     justify-content: center;
     align-items: center;
     border: 2px solid black;
-    background-color: rgb(70, 0, 136);
+    background-color: #1b4275;
     color: white;
     font-size: 1.1rem;
     width: 80%;
@@ -53,7 +53,10 @@ export const ActionHeader = styled.header`
 export const ReportLink = styled.p`
     font-size: 1.1rem;
     font-weight: 400;
-    color: rgb(0, 0, 150);
+    color: #363636;
     cursor: pointer;
-    margin: .8rem
+    margin: .8rem;
+    :hover {
+        color: lightgrey;
+    }
 `;

@@ -1,18 +1,8 @@
 import styled, { css } from 'styled-components'
 import DatePicker from "react-datepicker";
 
-
-const inputField = css`
-    padding: 0.5rem;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    border-style: solid;
-    border-width: 1px;
-    width: 92%;
-`
-
 export const Header  = styled.h1`
-    background-color: rgb(35, 38, 88);
+    background-color: #1b4275;
     color: white;
     padding: 0.5em;
     text-align: center;
@@ -97,7 +87,6 @@ export const SubModalMain  = styled.div`
 export const SubModalContent = styled.div`
     position: absolute;
     top: 20%;
-    width: 50%;
     height: auto;
     width: 350px;
     padding-bottom: 2em;
@@ -118,7 +107,6 @@ export const CloseButton  = styled.span`
     cursor: pointer;
 `;
 
-
 export const Article = styled.article`
     display: flex;
     justify-content: center;
@@ -136,45 +124,73 @@ export const FieldSet = styled.fieldset`
 
 export const Label = styled.label`
     display: block;
-    font-weight: 600;
-    line-height: 1.5;
+    line-height: 1;
     margin-top: 1rem;
+    margin-bottom: -.8rem;
 `;
 
+const inputStyles = css`
+    padding: 0.5rem;
+    border: 1px solid darkgrey;
+    margin-top: 1rem;
+`
 export const Input = styled.input`
-    ${inputField}
+    ${inputStyles}
+    width: 61%;
+    margin-left:18%; 
 `;
 
-export const Submit = styled.input`
+export const SubModalInput = styled.input`
+    ${inputStyles}
+    width: 80%;
+    margin-left:6%;
+`;
+
+const submitButton = css`
+    color: #4178BE; 
     font-weight: bold;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    vertical-align: baseline;
-    border-color: #000;
-    -moz-osx-font-smoothing: grayscale;
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
-    transition: -webkit-transform 0.25s ease-out;
-    transition: transform 0.25s ease-out;
-    transition: transform 0.25s ease-out, -webkit-transform 0.25s ease-out;
+    padding:.5rem 1rem;
+    margin-top: .5rem;
+    border: 1px solid #4178BE;
+    background-color: transparent;
     cursor: pointer;
     font-size: 0.875rem;
-    margin-top: 1rem;
+    text-align: center;
+    :hover{
+        background-color: #4178BE;
+        color: #ffffff;
+    }
+`
+
+export const Submit = styled.input`
+    ${submitButton}
+    width: 65%;
+    margin-left:18%;
+`;
+
+export const AddModelSubmit = styled.input`
+    ${submitButton}
+    width: 86%;
+    margin-left:6.5%;
+`;
+
+export const ActivitySubmit = styled.input`
+    ${submitButton}
+    width: 100%;
 `;
 
 export const AddModelButton = styled.p`
+    font-weight: 200;
     margin: 0;
+    margin-right:16%;
     padding: 0;
-    color: rgb(11, 11, 139);
+    color: #2b3b75;
     font-size: 0.8em;
     text-align: right;
     cursor: pointer;
+    :hover {
+        color:grey;
+    }
 
 `;
 
@@ -207,5 +223,5 @@ export const TableBody = styled.tbody`
 `;
 
 export const ModalDate = styled(DatePicker)`
-    ${inputField}
+    ${inputStyles}
 `

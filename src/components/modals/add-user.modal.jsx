@@ -63,12 +63,9 @@ const AddUser = ( {toggleAddUser, getUserOptions, memberId} ) =>{
         <Article>
           <div action="sign-up_submit" method="get" acceptCharset="utf-8">
             <FieldSet id="sign_up">
-                <Label htmlFor="email-address">User ID</Label>
-                <Input onChange={onUseridChange} type="text" name="userid" id="userid"/>
-                <Label htmlFor="fname">First Name</Label>
-                <Input onChange={onFnameChange} type="text" name="fname"  id="fname" />
-                <Label htmlFor="lname">Last Name</Label>
-                <Input onChange={onLnameChange} type="text" name="lname"  id="lname"/>
+                <Input onChange={onUseridChange} placeholder="User ID (Required)" type="text" name="userid" id="userid"/>
+                <Input onChange={onFnameChange}  placeholder="First Name (Required)"  type="text" name="fname"  id="fname" />
+                <Input onChange={onLnameChange}  placeholder="Last Name (Required)" type="text" name="lname"  id="lname"/>
             </FieldSet>
             <Submit onClick={() => submitUser()} type = "submit" defaultValue="Submit"/>
           </div>

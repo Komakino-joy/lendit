@@ -174,9 +174,10 @@ const Center = ({assetId, assetName, assetSerial, assetImage, assetStatus, check
           </ButtonContainer>
 
           <Footer>
-            <Instructions> If there are issues with the asset, please fill out the form below and submit </Instructions>
+          <Instructions> If there are issues with the asset, please fill out the form and submit </Instructions>
             <ReasonBox id="text-area" />
             <CustomButton isSubmit>SUBMIT</CustomButton>
+            
           </Footer>
         </CenterPanelInnerContainer>
       )}

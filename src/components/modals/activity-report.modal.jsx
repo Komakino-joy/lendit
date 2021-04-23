@@ -87,7 +87,7 @@ const ActivityReport = ({
           ) : (
             <Loader
               type="Puff"
-              color="#966eff"
+              color="#4178BE"
               height={70}
               width={70}
               className="loader"

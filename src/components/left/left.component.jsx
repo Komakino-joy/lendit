@@ -36,9 +36,9 @@ const ScanboxContainer = ({ memberId, assets, users, getAssetOptions, getAssetDe
         <LeftContainer>
             <LeftInner>
                 <Tag>ASSET ID</Tag>
-                <CustomDropDown onChange={() => getAssetDetails(memberId)} id="asset-list" optionList={assets}/> 
+                <CustomDropDown isHomePage onChange={() => getAssetDetails(memberId)} id="asset-list" optionList={assets}/> 
                 <Tag>USER ID</Tag>
-                <CustomDropDown onChange={getUserDetails} id="user-list" optionList={users}/> 
+                <CustomDropDown isHomePage onChange={getUserDetails} id="user-list" optionList={users}/> 
             </LeftInner>
         </LeftContainer>
     )}
