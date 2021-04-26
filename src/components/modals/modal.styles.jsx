@@ -184,7 +184,7 @@ export const AddModelButton = styled.p`
     margin: 0;
     margin-right:16%;
     padding: 0;
-    color: #2b3b75;
+    color: black;
     font-size: 0.8em;
     text-align: right;
     cursor: pointer;

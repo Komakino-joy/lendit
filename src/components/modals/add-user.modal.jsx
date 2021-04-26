@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useAlert } from 'react-alert';
-import { connect } from "react-redux";
 
+import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { currentMemberId } from "../../redux/site-member/site-member.selectors";
 
@@ -10,9 +10,7 @@ import { requestUserDropDownOptions } from '../../redux/drop-downs/drop-down.act
 
 import { createNewUser } from "../../services/api";
 
-import { ModalMain, ModalContent, CloseButton, Header, Article,
-  FieldSet, Label, Input, Submit
-} from "./modal.styles";
+import { ModalMain, ModalContent, CloseButton, Header, Article, FieldSet, Input,Submit } from "./modal.styles";
 
 const AddUser = ( {toggleAddUser, getUserOptions, memberId} ) =>{
 

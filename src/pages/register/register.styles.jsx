@@ -89,6 +89,7 @@ export const NameFieldContainer = styled.div`
     display: flex;
     flex-direction: row;
     margin-top: 1rem;
+    margin-left: 1%;
 `;
 
 export const NameField = styled.div`

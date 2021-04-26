@@ -1,19 +1,20 @@
 import React from 'react'
 import { DropDownContainer, DropDown } from "./drop-down.styles";
 
-const CustomDropDown =({ optionList, defaultOption, ...props }) => {
+const CustomDropDown =({ id, optionList, ...props }) => {
     
     return(
-        <DropDownContainer autoFocus {...props}>
-            <DropDown {...props}>
-                <option selected="selected">{defaultOption}</option>
+        <DropDownContainer autoFocus {...props} >
+            <DropDown id={id} {...props}>
+            
+                <option> </option>
                 {   
                     optionList ? (
                         optionList.map(option => (
-                    <option key={ option.id }> { option.id } </option> 
+                    <option key={option.id} text={option.id}>{option.id}</option> 
                     ))
                     ):(
-                    <option selected="selected">{defaultOption}</option>
+                    <option> </option>
                     )
                 }
             </DropDown>
