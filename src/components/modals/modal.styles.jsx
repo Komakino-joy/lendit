@@ -194,7 +194,7 @@ export const AddModelButton = styled.p`
 
 `;
 
-export const TableContainer = styled.table`
+export const TableContainer = styled.div`
     overflow: auto;
     width:100%;
     padding-bottom: 2rem;

@@ -24,7 +24,7 @@ import {
 import "react-confirm-alert/src/react-confirm-alert.css";
 
 const Center = ({assetId, assetName, assetSerial, assetImage, assetStatus, checkInAsset, getUpdatedStatus,
-  checkOutAsset, quarantineAsset, userId, assetComments, ownerId, assetModel,}) => {
+  checkOutAsset, quarantineAsset, userId, assetComments, ownerId, assetModel}) => {
 
   const alert = useAlert();
 
@@ -38,6 +38,7 @@ const Center = ({assetId, assetName, assetSerial, assetImage, assetStatus, check
   };
 
   const handleCheckout = () => {
+
     if (assetStatus.slice(0, 9) === "In Use By") {
       alert.show(`${assetName} is ${assetStatus}`, { type: "info" });
     } else if (!userId) {
@@ -46,7 +47,7 @@ const Center = ({assetId, assetName, assetSerial, assetImage, assetStatus, check
     } else {
       assetTransaction(
         checkOutAsset,
-        getUpdatedStatus,
+        () => getUpdatedStatus(assetId, ownerId),
         assetId,
         userId,
         ownerId,
@@ -57,6 +58,24 @@ const Center = ({assetId, assetName, assetSerial, assetImage, assetStatus, check
       document.getElementById("asset-list").focus();
     }
   };
+
+  const handleCheckin = () => {
+    if (assetStatus !== "Available"){
+      assetTransaction(
+        checkInAsset,
+        () => getUpdatedStatus(assetId, ownerId),
+        assetId,
+        userId,
+        ownerId,
+        assetName,
+        assetSerial,
+        assetModel
+      )
+    }else{
+      alert.show(`${assetName} is already checked in.`, { type: "info" });
+    } 
+  };
+
 
   const handleQuarantine = () => {
     if (assetStatus === "Quarantine") {
@@ -72,7 +91,7 @@ const Center = ({assetId, assetName, assetSerial, assetImage, assetStatus, check
     } else {
       assetTransaction(
         quarantineAsset,
-        getUpdatedStatus,
+        () => getUpdatedStatus(assetId, ownerId),
         assetId,
         userId,
         ownerId,
@@ -107,8 +126,10 @@ const Center = ({assetId, assetName, assetSerial, assetImage, assetStatus, check
 
   return (
     <CenterPanelContainer>
+      
       {assetId ? (
         <CenterPanelInnerContainer>
+          
           <Header>
             <AssetName>{assetName.toUpperCase()}</AssetName>
             <AssetSerial>{assetSerial.toUpperCase()}</AssetSerial>
@@ -132,19 +153,7 @@ const Center = ({assetId, assetName, assetSerial, assetImage, assetStatus, check
           <ButtonContainer>
             <CustomButton
               isCheckIn
-              onClick={() => {
-                assetStatus !== "Available"
-                  ? assetTransaction(
-                      checkInAsset,
-                      getUpdatedStatus,
-                      assetId,
-                      ownerId,
-                      assetName,
-                      assetSerial,
-                      assetModel
-                    )
-                  : alert.show(`${assetName} is already checked in.`, { type: "info" });
-              }}
+              onClick={handleCheckin}
             >
               CHECK IN
             </CustomButton>
@@ -156,6 +165,7 @@ const Center = ({assetId, assetName, assetSerial, assetImage, assetStatus, check
             <ReasonBox id="text-area" onChange={onReasonChange} placeholder={assetComments}/>
             <CustomButton isSubmit onClick={handleQuarantine}> SUBMIT </CustomButton>
           </Footer>
+          
         </CenterPanelInnerContainer>
       ) : (
         <CenterPanelInnerContainer>
@@ -198,8 +208,8 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  checkInAsset: (assetId, ownerId, name, serial, model) => {
-    dispatch(checkInSelectedAssetStart(assetId, ownerId, name, serial, model));
+  checkInAsset: (assetId, userId, ownerId, name, serial, model) => {
+    dispatch(checkInSelectedAssetStart(assetId, userId, ownerId, name, serial, model));
   },
   checkOutAsset: (assetId, userId, ownerId, name, serial, model) => {
     dispatch(checkOutSelectedAssetStart(assetId, userId, ownerId, name, serial, model));

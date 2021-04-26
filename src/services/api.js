@@ -45,13 +45,8 @@ export const fetchSelectedUserData = async (userID) => {
   }
 };
 
-export const checkInAsset = async (
-  assetId,
-  owner,
-  assetName,
-  assetSerial,
-  assetModel
-) => {
+export const checkInAsset = async ( assetId, userID, owner, assetName, assetSerial, assetModel) => {
+  console.log( assetId, userID, owner, assetName, assetSerial, assetModel)
   const settings = {
     method: "POST",
     headers: {
@@ -60,10 +55,11 @@ export const checkInAsset = async (
     },
     body: JSON.stringify({
       id: assetId,
-      owner,
-      assetName,
-      assetSerial,
-      assetModel,
+      username: userID,
+      owner: owner,
+      assetName: assetName,
+      assetSerial: assetSerial,
+      assetModel: assetModel,
     }),
   };
   try {
@@ -73,14 +69,7 @@ export const checkInAsset = async (
   }
 };
 
-export const checkOutAsset = async (
-  assetID,
-  userID,
-  owner,
-  assetName,
-  assetSerial,
-  assetModel
-) => {
+export const checkOutAsset = async (assetID, userID, owner, assetName, assetSerial, assetModel) => {
   const settings = {
     method: "POST",
     headers: {
@@ -90,10 +79,10 @@ export const checkOutAsset = async (
     body: JSON.stringify({
       id: assetID,
       username: userID,
-      owner,
-      assetName,
-      assetSerial,
-      assetModel,
+      owner: owner,
+      assetName: assetName,
+      assetSerial: assetSerial,
+      assetModel: assetModel,
     }),
   };
   try {
@@ -103,15 +92,7 @@ export const checkOutAsset = async (
   }
 };
 
-export const quarantineAsset = async (
-  assetID,
-  userID,
-  owner,
-  assetName,
-  assetSerial,
-  assetModel,
-  comment
-) => {
+export const quarantineAsset = async (assetID, userID, owner, assetName, assetSerial, assetModel, comment) => {
   const settings = {
     method: "POST",
     headers: {
@@ -121,11 +102,11 @@ export const quarantineAsset = async (
     body: JSON.stringify({
       id: assetID,
       username: userID,
-      owner,
-      assetName,
-      assetSerial,
-      assetModel,
-      comment,
+      owner: owner,
+      assetName: assetName,
+      assetSerial: assetSerial,
+      assetModel: assetModel,
+      comment: comment,
     }),
   };
   try {
@@ -158,13 +139,7 @@ export const createNewUser = async (userId, fname, lname, memberId) => {
   }
 };
 
-export const createNewAsset = async (
-  assetID,
-  assetName,
-  assetModel,
-  assetSerial,
-  memberId
-) => {
+export const createNewAsset = async (assetID, assetName, assetModel, assetSerial, memberId) => {
   const settings = {
     method: "post",
     headers: { "Content-Type": "application/json" },

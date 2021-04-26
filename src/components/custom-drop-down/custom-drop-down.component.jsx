@@ -6,7 +6,6 @@ const CustomDropDown =({ id, optionList, ...props }) => {
     return(
         <DropDownContainer autoFocus {...props} >
             <DropDown id={id} {...props}>
-            
                 <option> </option>
                 {   
                     optionList ? (

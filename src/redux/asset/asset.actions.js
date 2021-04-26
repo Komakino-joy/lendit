@@ -15,8 +15,8 @@ export const receiveSelectedAssetData = (assetData) => ({
      type: RECEIVE_SELECTED_ASSET, assetData
 });
 
-export const checkInSelectedAssetStart = (assetID, ownerId, assetName, assetSerial, assetModel ) => ({
-    type: CHECK_IN_SELECTED_ASSET_START, assetID, ownerId, assetName, assetSerial, assetModel
+export const checkInSelectedAssetStart = (assetID, userId, ownerId, assetName, assetSerial, assetModel ) => ({
+    type: CHECK_IN_SELECTED_ASSET_START, assetID, userId, ownerId, assetName, assetSerial, assetModel
 });
 
 export const checkInSelectedAssetSuccess = (assetData) => ({

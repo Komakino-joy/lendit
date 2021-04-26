@@ -1,5 +1,6 @@
 
 import './App.css';
+import backgroundImage from '../src/images/background.svg';
 import {lazy, Suspense} from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -16,6 +17,8 @@ const HomePage = lazy(() => import('./pages/homepage/homepage.component'));
 const SigninPage = lazy(() => import("./pages/signin/signin.component"));
 const RegistrationPage = lazy(() => import("./pages/register/register.component"));
 
+
+
 function App({ isSignedIn }) {
 
   return (
@@ -23,8 +26,8 @@ function App({ isSignedIn }) {
       <Navigation></Navigation>
       <Switch>
         <ErrorBoundary>
-          <Suspense fallback= {<Loader type="Puff" color="#4178BE" height={70} width={70} className='loader' 
-                  style={{position: "absolute",top: "20%",left: "50%",margin: "-25px 0 0 -25px"}} />}>
+          <Suspense fallback= {<Loader type="Puff" color="#4178BE" height={70} width={70} className='loader bg' 
+                  style={{position: "absolute",top: "20%",left: "50%",margin: "-25px 0 0 -25px", backgroundImage:`url(${backgroundImage})`}} />}>
             <Route exact path = '/signin'>{isSignedIn ? <Redirect to="/home" /> : <SigninPage />}</Route> 
             <Route exact path = '/register' component={RegistrationPage}/>
             <Route exact path = '/' render={() => isSignedIn ? (<Redirect to='/home' />) : (<Redirect to='/signin' />)}/>

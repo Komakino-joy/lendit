@@ -1,9 +1,26 @@
 import styled from 'styled-components';
+import backgroundImage from '../../images/background.svg';
 
 export const RegistrationPageBody = styled.div`
     height:100vh;
     display:flex;
     flex-direction: column;
+    :before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.5;
+        background-image: url(${backgroundImage}); 
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        background-size: cover;
+        filter: blur(2px);
+        z-index:-1;
+      }
 `;
 
 export const RegistrationLegend = styled.legend`
@@ -15,8 +32,9 @@ export const RegistrationLegend = styled.legend`
 `;
 
 export const RegistrationArticle = styled.article`
-    width: 30%;
-    height: 48%;
+    background-color:white;
+    min-width: 300px;
+    min-height: 370px;
     margin-top: 1.5%;
     padding-top: 1%;
     text-align: center;

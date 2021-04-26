@@ -7,15 +7,15 @@ import { createStructuredSelector } from "reselect";
 import { isSignedIn } from "../../redux/site-member/site-member.selectors";
 import { handleMemberSignin } from "../../redux/site-member/site-member.actions";
 
-import arrows from '../../images/background.svg';
-
 import {
   SignInPageBody, SignInArticle, SignInMain, SignInFieldSet, SignInLegend, 
   SignInInput, SignInSubmit, RegisterLinkContainer, RegisterLink, Email, Password
 } from "./signin.styles";
 
-import emailIcon from '../../images/email_icon.png';
+
+import emailIcon from '../../images/email_icon.svg';
 import passwordIcon from '../../images/password_icon.png';
+
 
 const SigninPage = ({ history, signIn }) => {
   const alert = useAlert();
@@ -51,7 +51,7 @@ const SigninPage = ({ history, signIn }) => {
   };
 
   return (
-    <SignInPageBody style={{backgroundImage: `url(${arrows})`, backgroundPosition: 'center', backgroundSize: 'cover', backgroundRepeat: 'no-repeat'}}>
+    <SignInPageBody>
       <SignInLegend>Lendit Asset Tracker</SignInLegend>
       <SignInArticle>
         <SignInMain>
@@ -96,6 +96,7 @@ const SigninPage = ({ history, signIn }) => {
           </RegisterLinkContainer>
         </SignInMain>
       </SignInArticle>
+      
     </SignInPageBody>
   );
 };

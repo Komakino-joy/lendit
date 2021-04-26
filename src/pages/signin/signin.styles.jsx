@@ -1,12 +1,31 @@
 import styled from 'styled-components';
+import backgroundImage from '../../images/background.svg';
 
 export const SignInPageBody = styled.div`
     height:100vh;
     display:flex;
     flex-direction: column;
+    :before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.5;
+        background-image: url(${backgroundImage}); 
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        background-size: cover;
+        filter: blur(2px);
+        z-index:-1;
+      }
 `;
 
+
 export const SignInLegend = styled.legend`
+    opacity: 1;
     margin-top: 6%;
     color: #4178BE;
     font-size: 3.5rem;
@@ -16,8 +35,9 @@ export const SignInLegend = styled.legend`
 
 
 export const SignInArticle = styled.article`
-    width: 25%;
-    height: 40%;
+    background-color:white;
+    min-width: 370px;
+    min-height: 300px;
     margin-top: 2%;
     padding-top: 1%;
     text-align: center;

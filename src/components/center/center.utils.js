@@ -4,7 +4,7 @@ const timeout = (ms) => {
     return new Promise(resolve => setTimeout(resolve, ms));
 };
 
-export const assetTransaction = async( transaction, fetchNew, assetId, userId = null, ownerId, assetName, assetSerial, assetModel, assetComments) => {
+export const assetTransaction = async( transaction, fetchNew, assetId, userId, ownerId, assetName, assetSerial, assetModel, assetComments) => {
     try{
         await transaction(assetId, userId, ownerId, assetName, assetSerial, assetModel, assetComments);
         await timeout(100);
