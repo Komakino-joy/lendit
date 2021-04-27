@@ -2,16 +2,10 @@ import styled, { css } from 'styled-components';
 
 const checkInButtonStyles = css`
     background-color: #3773bf;
-    :hover{
-        background-color: #6798d6;
-    }
 `;
 
 const checkOutButtonStyles = css`
     background-color: #bf3737;
-    :hover{
-        background-color: #d66767;
-    }
 `;
 
 const submitButtonStyles = css`
@@ -19,9 +13,6 @@ const submitButtonStyles = css`
     height: 25px;
     margin-bottom: 0.5rem;
     background-color: #808080;
-    :hover{
-        background-color: #969696;
-    }
 `;
 
 const getButtonStyles = (props) => {
@@ -49,12 +40,19 @@ export const CustomButtonContainer = styled.button`
     opacity: 1;
     transition: opacity 0.15s ease-in;
     border-radius: 0.25rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
+    padding: .5rem 1rem;
+    box-shadow: 0 0.3rem rgba(121, 121, 121, 0.65);
+    border: none;
+    outline: none;
     color: #fff;
     cursor: pointer;
+    :active {
+    transform: translate(0, 0.1rem);
+    box-shadow: 0 0.1rem rgba(255, 255, 255, 0.65);
+    }
+    :hover {
+    filter: brightness(120%);
+    }
 
     ${getButtonStyles}
 `;
