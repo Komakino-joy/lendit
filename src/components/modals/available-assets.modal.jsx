@@ -30,7 +30,7 @@ const AvailableUnits = ({ toggleAvailableUnits, memberId }) => {
     const fetchData = async () => {
       const result = await axios({
         method: "post",
-        url: "http://localhost:3000/availableassets",
+        url: "http://localhost:3000/reports/availableassets",
         data: {
           memberId: memberId,
         },

@@ -30,7 +30,7 @@ const QuarantinedUnits = ({ toggleQuarantinedUnits, memberId }) => {
     const fetchData = async () => {
       const result = await axios({
         method: "post",
-        url: "http://localhost:3000/quarantinedassets",
+        url: "http://localhost:3000/reports/quarantinedassets",
         data: {
           memberId: memberId,
         },

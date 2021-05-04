@@ -43,6 +43,7 @@ export const RegistrationArticle = styled.article`
     position: relative;
     margin-right: auto;
     margin-left: auto;
+    border-radius: 8px;
 `;
 
 export const RegistrationMain = styled.main`

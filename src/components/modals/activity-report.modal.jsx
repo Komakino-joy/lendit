@@ -34,7 +34,7 @@ const ActivityReport = ({
     const fetchData = async () => {
       const result = await axios({
         method: "post",
-        url: "http://localhost:3000/activitytracking",
+        url: "http://localhost:3000/reports/activitytracking",
         data: {
           id: currentMemberId,
           startDate: startDate,

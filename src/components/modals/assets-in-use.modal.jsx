@@ -27,7 +27,7 @@ const UnitsInUse = ({ toggleUnitsInUse, currentMemberId }) => {
     const fetchData = async () => {
       const result = await axios({
         method: "post",
-        url: "http://localhost:3000/assetsinuse",
+        url: "http://localhost:3000/reports/assetsinuse",
         data: {
           memberId: currentMemberId,
         },

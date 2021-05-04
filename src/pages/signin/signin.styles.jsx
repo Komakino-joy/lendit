@@ -46,6 +46,7 @@ export const SignInArticle = styled.article`
     position: relative;
     margin-right: auto;
     margin-left: auto;
+    border-radius: 8px;
 `;
 
 export const SignInMain = styled.main`

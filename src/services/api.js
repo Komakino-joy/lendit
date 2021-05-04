@@ -1,3 +1,5 @@
+const API_URL = 'http://localhost:3000'
+
 export const fetchSelectedAssetData = async (assetID, ownerID) => {
   const settings = {
     method: "POST",
@@ -12,7 +14,7 @@ export const fetchSelectedAssetData = async (assetID, ownerID) => {
   };
   try {
     const response = await fetch(
-      `http://localhost:3000/asset`,
+      `${API_URL}/assets/asset`,
       settings
     );
     const asset = await response.json();
@@ -35,7 +37,7 @@ export const fetchSelectedUserData = async (userID) => {
   };
   try {
     const response = await fetch(
-      `http://localhost:3000/user`,
+      `${API_URL}/users/user`,
       settings
     );
     const user = await response.json();
@@ -63,7 +65,7 @@ export const checkInAsset = async ( assetId, userID, owner, assetName, assetSeri
     }),
   };
   try {
-    await fetch(`http://localhost:3000/checkin`, settings);
+    await fetch(`${API_URL}/assets/checkin`, settings);
   } catch (error) {
     console.log(error);
   }
@@ -86,7 +88,7 @@ export const checkOutAsset = async (assetID, userID, owner, assetName, assetSeri
     }),
   };
   try {
-    await fetch(`http://localhost:3000/checkout`, settings);
+    await fetch(`${API_URL}/assets/checkout`, settings);
   } catch (error) {
     console.log(error);
   }
@@ -110,7 +112,7 @@ export const quarantineAsset = async (assetID, userID, owner, assetName, assetSe
     }),
   };
   try {
-    await fetch(`http://localhost:3000/quarantine`, settings);
+    await fetch(`${API_URL}/assets/quarantine`, settings);
   } catch (error) {
     console.log(error);
   }
@@ -129,7 +131,7 @@ export const createNewUser = async (userId, fname, lname, memberId) => {
   };
   try {
     const response = await fetch(
-      `http://localhost:3000/adduser`,
+      `${API_URL}/users/adduser`,
       settings
     );
     const reply = await response.json();
@@ -153,7 +155,7 @@ export const createNewAsset = async (assetID, assetName, assetModel, assetSerial
   };
   try {
     const response = await fetch(
-      "http://localhost:3000/addasset",
+      `${API_URL}/assets/addasset`,
       settings
     );
     const reply = await response.json();
@@ -173,7 +175,7 @@ export const removeAsset = async (assetID) => {
   };
   try {
     const response = await fetch(
-      "http://localhost:3000/removeasset",
+      `${API_URL}/assets/removeasset`,
       settings
     );
     const reply = await response.json();
@@ -193,7 +195,7 @@ export const fetchAllAssetsForDropDown = async (dispatchData) => {
   };
   try {
     const response = await fetch(
-      "http://localhost:3000/allunits",
+      `${API_URL}/assets/allunits`,
       settings
     );
     const assetList = await response.json();
@@ -213,7 +215,7 @@ export const fetchAllUsersForDropDown = async (dispatchData) => {
   };
   try {
     const response = await fetch(
-      "http://localhost:3000/allusers",
+      `${API_URL}/users/allusers`,
       settings
     );
     const assetList = await response.json();
@@ -233,12 +235,12 @@ export const fetchAllModelsForDropDown = async (dispatchData) => {
   };
   try {
     const response = await fetch(
-      "http://localhost:3000/allmodels",
+      `${API_URL}/assets/allmodels`,
       settings
     );
     const assetList = await response.json();
     return assetList;
   } catch (error) {
     console.log(error);
-  }
+  };
 };

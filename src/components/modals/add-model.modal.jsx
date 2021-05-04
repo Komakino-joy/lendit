@@ -73,7 +73,7 @@ const AddModel = ({ toggleAddModel, getModelOptions, memberId }) => {
 
         axios({
           method: "post",
-          url: "http://localhost:3000/upload",
+          url: "http://localhost:3000/assets/upload",
           data: {
             image: srcEncoded,
             model: model,
