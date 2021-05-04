@@ -1,10 +1,9 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from "react-redux";
-
 import { createStructuredSelector } from "reselect";
-import { isSignedIn } from "../../redux/site-member/site-member.selectors";
 
+import { isSignedIn } from "../../redux/site-member/site-member.selectors";
 import { handleMemberSignout } from "../../redux/site-member/site-member.actions";
 
 import { NavList, NavOption } from "./navigation.styles";

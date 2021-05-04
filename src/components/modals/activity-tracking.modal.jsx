@@ -1,20 +1,19 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-
 import { createStructuredSelector } from 'reselect';
+
 import { currentMemberId } from "../../redux/site-member/site-member.selectors";
 import { selectAssets } from "../../redux/drop-downs/drop-down.selectors";
 import { selectUsers } from "../../redux/drop-downs/drop-down.selectors";
 import { seenActivityReport } from "../../redux/modal/modal.selectors";
 import ActivityReport from "./activity-report.modal";
-
 import { toggleActvityTracking, toggleActvityReport } from "../../redux/modal/modal.actions";
+
+import CustomDropDown from '../custom-drop-down/custom-drop-down.component';
 
 import { ModalMain, ModalContent, CloseButton, Header, Article,
   FieldSet, Label, ActivitySubmit, ModalDate
 } from "./modal.styles";
-
-import CustomDropDown from '../custom-drop-down/custom-drop-down.component';
 
 import "react-datepicker/dist/react-datepicker.css";
 

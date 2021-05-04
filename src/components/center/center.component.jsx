@@ -1,22 +1,26 @@
 import React from "react";
-import CustomButton from "../custom-button/custom-button.component";
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
 
-import { assetId, assetName, assetSerial, assetImage, assetComments, assetStatus, assetModel } from "../../redux/asset/asset.selectors";
-import { currentMemberId } from "../../redux/site-member/site-member.selectors.js";
+import { 
+  checkInSelectedAssetStart, 
+  requestSelectedAssetData, 
+  checkOutSelectedAssetStart, 
+  quarantineSelectedAssetStart 
+} from "../../redux/asset/asset.actions";
+
 import { userId } from "../../redux/user/user.selectors";
+import { currentMemberId } from "../../redux/site-member/site-member.selectors.js";
+import { assetId, assetName, assetSerial, assetImage, assetComments, assetStatus, assetModel } from "../../redux/asset/asset.selectors";
 
 import { useAlert } from "react-alert";
 import { confirmAlert } from "react-confirm-alert";
 
 import { assetTransaction } from "./center.utils";
-import defaultImg from "../../images/default.png";
-
-import { connect } from "react-redux";
-import { createStructuredSelector } from "reselect";
-import { checkInSelectedAssetStart, requestSelectedAssetData, checkOutSelectedAssetStart, quarantineSelectedAssetStart } from "../../redux/asset/asset.actions";
-
 import { removeAsset } from "../../services/api";
 
+import defaultImg from "../../images/default.svg";
+import CustomButton from "../custom-button/custom-button.component";
 import {
   CenterPanelContainer, CenterPanelInnerContainer, Header, AssetName, AssetSerial, RemoveButton,
   ImageContainer, AssetImage, AssetStatus, ButtonContainer, Footer, Instructions, ReasonBox,

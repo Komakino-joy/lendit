@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { ErrorImageContainer, ErrorImageOverlay, ErrorImageText } from "./error-boundaries.styles";
-
 class ErrorBoundary extends React.Component {
     constructor() {
         super();

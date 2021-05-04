@@ -1,21 +1,18 @@
 import React, {useEffect}  from 'react'
-import { createStructuredSelector } from 'reselect';
 import { connect } from "react-redux";
-
-import CustomDropDown from '../custom-drop-down/custom-drop-down.component';
+import { createStructuredSelector } from 'reselect';
 
 import { currentMemberId } from "../../redux/site-member/site-member.selectors";
-
+import { requestSelectedUserData } from "../../redux/user/user.actions";
+import { requestUserDropDownOptions } from '../../redux/drop-downs/drop-down.actions'
+import { selectUsers } from "../../redux/drop-downs/drop-down.selectors";
 import { requestSelectedAssetData } from "../../redux/asset/asset.actions";
 import { requestAssetDropDownOptions } from '../../redux/drop-downs/drop-down.actions'
 import { selectAssets } from "../../redux/drop-downs/drop-down.selectors";
 
-import { requestSelectedUserData } from "../../redux/user/user.actions";
-import { requestUserDropDownOptions } from '../../redux/drop-downs/drop-down.actions'
-import { selectUsers } from "../../redux/drop-downs/drop-down.selectors";
-
 import  selectedListItemID  from "../custom-drop-down/drop-down.utils";
 
+import CustomDropDown from '../custom-drop-down/custom-drop-down.component';
 import {LeftContainer, LeftInner, Tag } from "./left.styles";
 
 

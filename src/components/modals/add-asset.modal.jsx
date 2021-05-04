@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { useAlert } from 'react-alert';
 import {connect} from 'react-redux';
-
 import { createStructuredSelector } from "reselect";
+
 import { currentMemberId } from "../../redux/site-member/site-member.selectors";
 import { selectModels } from "../../redux/drop-downs/drop-down.selectors";
 import { seenAddModel } from "../../redux/modal/modal.selectors";
-
-import AddModel from './add-model.modal';
-
-import CustomDropDown from '../custom-drop-down/custom-drop-down.component'
-import { createNewAsset } from "../../services/api";
 import { toggleAddModel, toggleAddUnit } from "../../redux/modal/modal.actions";
 import { requestAssetDropDownOptions, requestModelDropDownOptions } from '../../redux/drop-downs/drop-down.actions';
+
+import { useAlert } from 'react-alert';
+
+import { createNewAsset } from "../../services/api";
+
+import AddModel from './add-model.modal';
+import CustomDropDown from '../custom-drop-down/custom-drop-down.component'
 
 import { ModalMain, ModalContent, CloseButton, Header, Article,
         FieldSet, Input, AddModelButton, Submit} from "./modal.styles";

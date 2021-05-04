@@ -1,10 +1,9 @@
 import React from "react"
-import { connect } from "react-redux";
-
-import { createStructuredSelector } from "reselect";
-import { isSignedIn } from "../../redux/site-member/site-member.selectors";
-
 import {Route,Redirect} from 'react-router-dom'
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
+
+import { isSignedIn } from "../../redux/site-member/site-member.selectors";
 
 const PrivateRoute = ({ component: Component, isSignedIn, ...rest }) => (
     <Route {...rest} render={(props) => (

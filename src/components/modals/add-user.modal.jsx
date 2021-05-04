@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { useAlert } from 'react-alert';
-
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
-import { currentMemberId } from "../../redux/site-member/site-member.selectors";
 
+import { currentMemberId } from "../../redux/site-member/site-member.selectors";
 import { toggleAddUser } from "../../redux/modal/modal.actions";
 import { requestUserDropDownOptions } from '../../redux/drop-downs/drop-down.actions';
+
+import { useAlert } from 'react-alert';
 
 import { createNewUser } from "../../services/api";
 

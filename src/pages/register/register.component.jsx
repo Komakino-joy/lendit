@@ -1,14 +1,11 @@
 import React, { useState } from "react";
 import { useAlert } from "react-alert";
 
-import { connect } from "react-redux";
-import { handleMemberSignin } from "../../redux/site-member/site-member.actions";
-
 import { RegistrationPageBody, RegistrationArticle, RegistrationMain, RegistrationFieldSet, RegistrationLegend, 
   RegistrationInput, RegistrationSubmit, NameFieldContainer, NameField, Email, Password, SignInLinkContainer, SignInLink
 } from "./register.styles";
 
-const RegistrationPage = ({ history, signIn }) =>{
+const RegistrationPage = ({ history }) =>{
 
   const [fname, setFname] = useState('');
   const [lname, setLname] = useState('');
@@ -48,8 +45,7 @@ const RegistrationPage = ({ history, signIn }) =>{
       .then((response) => response.json())
       .then((member) => {
         if (member.id) {
-          signIn(member);
-          history.push("/home");
+          history.push("/signin");
         } else {
           alert.show('Unable to register' , { type: "error" , position:"top center"})
         }
@@ -122,10 +118,5 @@ const RegistrationPage = ({ history, signIn }) =>{
   );
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  signIn: (memberId) => {
-    dispatch(handleMemberSignin(memberId));
-  },
-});
 
-export default connect(null, mapDispatchToProps)(RegistrationPage);
+export default RegistrationPage;

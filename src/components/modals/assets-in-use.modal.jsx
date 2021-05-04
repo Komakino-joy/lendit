@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
+
 import { currentMemberId } from "../../redux/site-member/site-member.selectors";
 import { toggleUnitsInUse } from "../../redux/modal/modal.actions";
 
+import axios from "axios";
 import Loader from "react-loader-spinner";
-import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import {
   ModalMain,
   ModalReportContent,

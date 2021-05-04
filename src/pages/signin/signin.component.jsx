@@ -14,7 +14,7 @@ import {
 
 
 import emailIcon from '../../images/email_icon.svg';
-import passwordIcon from '../../images/password_icon.png';
+import passwordIcon from '../../images/password_icon.svg';
 
 
 const SigninPage = ({ history, signIn }) => {
