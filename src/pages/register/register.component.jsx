@@ -41,9 +41,9 @@ const RegistrationPage = ({ history }) =>{
     };
 
     // regular expression: password must contain 8 characters minimum, one capital letter, and one number.
-    const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/
+    const VALIDATE_PWORD = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/
 
-    if ( !re.test(password  ) ) {
+    if ( !VALIDATE_PWORD.test(password) ) {
       setFailedPassword(true);
       return;
     };
