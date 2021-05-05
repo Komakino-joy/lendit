@@ -34,7 +34,6 @@ export  function* requestSelectedAssetSaga() {
 };
 
 function* postCheckInSelectedAsset(action) {
-  console.log(action)
   try{
     const assetData = yield call(checkInAsset, action.assetID, action.userId, action.ownerId, action.assetName, action.assetSerial, action.assetModel )
     yield put(checkInSelectedAssetSuccess(assetData))

@@ -1,6 +1,10 @@
 export const API_URL = 'http://localhost:3000'
 
 export const fetchSelectedAssetData = async (assetID, ownerID) => {
+  if (!assetID || !ownerID){
+    return;
+  };
+
   const settings = {
     method: "POST",
     headers: {
@@ -25,6 +29,10 @@ export const fetchSelectedAssetData = async (assetID, ownerID) => {
 };
 
 export const fetchSelectedUserData = async (userID) => {
+  if (!userID){
+    return;
+  };
+
   const settings = {
     method: "POST",
     headers: {
@@ -48,7 +56,6 @@ export const fetchSelectedUserData = async (userID) => {
 };
 
 export const checkInAsset = async ( assetId, userID, owner, assetName, assetSerial, assetModel) => {
-  console.log( assetId, userID, owner, assetName, assetSerial, assetModel)
   const settings = {
     method: "POST",
     headers: {
