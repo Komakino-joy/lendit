@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { useAlert } from "react-alert";
 
 import { RegistrationPageBody, RegistrationArticle, RegistrationMain, RegistrationFieldSet, RegistrationLegend, 
-  RegistrationInput, RegistrationSubmit, NameFieldContainer, NameField, Email, Password, SignInLinkContainer, SignInLink
+  RegistrationInput, RegistrationSubmit, NameFieldContainer, NameField, Email, Password,PasswordRules, SignInLinkContainer, SignInLink
 } from "./register.styles";
+
+import { API_URL } from '../../services/api';
 
 const RegistrationPage = ({ history }) =>{
 
@@ -11,6 +13,7 @@ const RegistrationPage = ({ history }) =>{
   const [lname, setLname] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [failedPassword, setFailedPassword] = useState(false);
 
   const alert = useAlert();
 
@@ -31,7 +34,21 @@ const RegistrationPage = ({ history }) =>{
   };
 
   const onSubmitRegister = () => {
-    fetch("http://localhost:3000/members/register", {
+
+    if (!fname || !lname || !email || !password) {
+      alert.show('Missing required fields' , { type: "error" , position:"top center"});
+      return;
+    };
+
+    // regular expression: password must contain 8 characters minimum, one capital letter, and one number.
+    const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/
+
+    if ( !re.test(password  ) ) {
+      setFailedPassword(true);
+      return;
+    };
+  
+    fetch(`${API_URL}/members/register`, {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -100,6 +117,22 @@ const RegistrationPage = ({ history }) =>{
                 onChange={onPasswordChange}
               />
             </Password>
+
+            {
+              failedPassword ?
+              <PasswordRules>
+                <span>Password Rules:</span>
+                <br/>
+                <span>-Must be at least 8 characters long</span>
+                <br/>
+                <span>-Must contain at least one uppercase letter.</span>
+                <br/>
+                <span>-Must contain at least one lowercase letter.</span>
+                <br/>
+                <span>-Must contain at least one number.</span>
+              </PasswordRules>
+              : null
+            }
           </RegistrationFieldSet>
 
           <RegistrationSubmit

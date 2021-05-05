@@ -12,10 +12,10 @@ import {
   SignInInput, SignInSubmit, RegisterLinkContainer, RegisterLink, Email, Password
 } from "./signin.styles";
 
+import { API_URL } from '../../services/api';
 
 import emailIcon from '../../images/email_icon.svg';
 import passwordIcon from '../../images/password_icon.svg';
-
 
 const SigninPage = ({ history, signIn }) => {
   const alert = useAlert();
@@ -31,7 +31,7 @@ const SigninPage = ({ history, signIn }) => {
   };
 
   const onSubmitSignIn = () => {
-    fetch("http://localhost:3000/members/signin", {
+    fetch(`${API_URL}/members/signin`, {
         method: "post",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

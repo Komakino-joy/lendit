@@ -124,4 +124,11 @@ export const Password = styled.div`
     margin-bottom: 1.5rem;
 `;
 
-
+export const PasswordRules = styled.div`
+    margin-left: .7rem;
+    margin-top: -1.2rem;
+    font-weight: 400;
+    text-align:left;
+    font-size:.65rem;
+    color:red;
+`
