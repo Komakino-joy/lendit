@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { useAlert } from "react-alert";
 
 import { RegistrationPageBody, RegistrationArticle, RegistrationMain, RegistrationFieldSet, RegistrationLegend, 
-  RegistrationInput, RegistrationSubmit, NameFieldContainer, NameField, Email, Password,PasswordRules, SignInLinkContainer, SignInLink
+  RegistrationInput, RegistrationSubmit, NameFieldContainer, NameField, Email, Password,PasswordRules, SignInLinkContainer, SignInLink,
+  PasswordPopup
 } from "./register.styles";
 
 import { API_URL } from '../../services/api';
@@ -69,6 +70,12 @@ const RegistrationPage = ({ history }) =>{
       });
   };
 
+  const [popupVisibility, setPopupVisibility] = useState(true);
+
+  const onPasswordHover = (visibility) => {
+    setPopupVisibility(visibility);
+  };
+
   return (
     <RegistrationPageBody>
       <RegistrationLegend>Registration</RegistrationLegend>
@@ -107,8 +114,10 @@ const RegistrationPage = ({ history }) =>{
                 onChange={onEmailChange}
               />
             </Email>
-
-            <Password>
+              
+            <Password 
+              onMouseOver={() => setPopupVisibility(true)} 
+              onMouseOut={() => setPopupVisibility(false)} >
               <RegistrationInput
                 placeholder='Password (required)'
                 type="password"
@@ -116,6 +125,16 @@ const RegistrationPage = ({ history }) =>{
                 id="password"
                 onChange={onPasswordChange}
               />
+            { popupVisibility ?
+              <div>
+                <svg width="400" height="110">
+                <g>
+                  <PasswordPopup/>
+                  <text style={{x: 0, y:0, fontFamily: "Verdana", fontSize:35, fill:"blue"}}>Helloooooooooooooooooooooooooooooooooooooo</text>
+                </g>
+                </svg>
+              </div>
+              : null}
             </Password>
 
             {

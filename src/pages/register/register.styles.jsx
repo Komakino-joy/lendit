@@ -132,3 +132,14 @@ export const PasswordRules = styled.div`
     font-size:.65rem;
     color:red;
 `
+export const PasswordPopup = styled.rect`
+    fill: whitesmoke;
+    stroke-width:1;
+    stroke:darkgrey;
+    width: 300px ;
+    height: 80px; 
+    float: right;
+    x: 50; y:10; rx:8; ry:8;
+    opacity:0.5;
+    padding: 2rem;
+`
