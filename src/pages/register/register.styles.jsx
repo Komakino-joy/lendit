@@ -120,6 +120,8 @@ export const Email = styled.div`
 `;
 
 export const Password = styled.div`
+    display:flex;
+    align-items: center;
     margin-top: 1.2rem;
     margin-bottom: 1.5rem;
 `;
@@ -132,14 +134,29 @@ export const PasswordRules = styled.div`
     font-size:.65rem;
     color:red;
 `
-export const PasswordPopup = styled.rect`
-    fill: whitesmoke;
-    stroke-width:1;
-    stroke:darkgrey;
-    width: 300px ;
-    height: 80px; 
-    float: right;
-    x: 50; y:10; rx:8; ry:8;
-    opacity:0.5;
-    padding: 2rem;
+export const PasswordPopup = styled.div`
+    position:absolute;
+    margin-left:5%;
+    margin-top:-5%;
+    padding: .7rem;
+    text-align:left;
+    font-size: .7rem;
+    color:grey;
+    background-color: whitesmoke;
+    border: 1px solid darkgrey;
+    border-radius:8px;
+    width:220px;
+    height: 75px;
+    display:block;
+    @media screen and (max-width: 800px) {
+        display:none;
+  }
+`
+
+export const InfoIcon = styled.img`
+    height: 22px;
+    width: 22px;
+    @media screen and (max-width: 800px) {
+        display:none;
+  }
 `

@@ -3,8 +3,10 @@ import { useAlert } from "react-alert";
 
 import { RegistrationPageBody, RegistrationArticle, RegistrationMain, RegistrationFieldSet, RegistrationLegend, 
   RegistrationInput, RegistrationSubmit, NameFieldContainer, NameField, Email, Password,PasswordRules, SignInLinkContainer, SignInLink,
-  PasswordPopup
+  PasswordPopup, InfoIcon
 } from "./register.styles";
+
+import infoIconSvg from '../../images/info_icon.svg';
 
 import { API_URL } from '../../services/api';
 
@@ -15,6 +17,7 @@ const RegistrationPage = ({ history }) =>{
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [failedPassword, setFailedPassword] = useState(false);
+  const [popupVisibility, setPopupVisibility] = useState(false);
 
   const alert = useAlert();
 
@@ -32,6 +35,11 @@ const RegistrationPage = ({ history }) =>{
 
   const onPasswordChange = (event) => {
     setPassword(event.target.value);
+  };
+
+  const onMouseOverInfo = (event) => {
+    setPopupVisibility(true); 
+    setFailedPassword(false)
   };
 
   const onSubmitRegister = () => {
@@ -68,12 +76,6 @@ const RegistrationPage = ({ history }) =>{
           alert.show('Unable to register' , { type: "error" , position:"top center"})
         }
       });
-  };
-
-  const [popupVisibility, setPopupVisibility] = useState(true);
-
-  const onPasswordHover = (visibility) => {
-    setPopupVisibility(visibility);
   };
 
   return (
@@ -116,8 +118,7 @@ const RegistrationPage = ({ history }) =>{
             </Email>
               
             <Password 
-              onMouseOver={() => setPopupVisibility(true)} 
-              onMouseOut={() => setPopupVisibility(false)} >
+ >
               <RegistrationInput
                 placeholder='Password (required)'
                 type="password"
@@ -125,35 +126,43 @@ const RegistrationPage = ({ history }) =>{
                 id="password"
                 onChange={onPasswordChange}
               />
-            { popupVisibility ?
               <div>
-                <svg width="400" height="110">
-                <g>
-                  <PasswordPopup/>
-                  <text style={{x: 0, y:0, fontFamily: "Verdana", fontSize:35, fill:"blue"}}>Helloooooooooooooooooooooooooooooooooooooo</text>
-                </g>
-                </svg>
-              </div>
+              <InfoIcon 
+                src={infoIconSvg} 
+                alt="info-icon"
+                onMouseOver={onMouseOverInfo} 
+                onMouseOut={() => setPopupVisibility(false)}
+                />
+                      { popupVisibility ?
+                  <PasswordPopup>
+                    <span style = {{color:"#3f7fba", fontWeight:"bold"}}>Password Rules:</span>
+                    <br/>
+                    <span>-Must be at least 8 characters long</span>
+                    <br/>
+                    <span>-Must contain at least one uppercase letter.</span>
+                    <br/>
+                    <span>-Must contain at least one lowercase letter.</span>
+                    <br/>
+                    <span>-Must contain at least one number.</span>
+                  </PasswordPopup>
               : null}
-            </Password>
+              </div>
 
+
+            </Password>
             {
               failedPassword ?
               <PasswordRules>
-                <span>Password Rules:</span>
+                <span>Password must: </span>
                 <br/>
-                <span>-Must be at least 8 characters long</span>
+                <span>be at least 8 characters long; contain at least one uppercase letter;</span>
                 <br/>
-                <span>-Must contain at least one uppercase letter.</span>
-                <br/>
-                <span>-Must contain at least one lowercase letter.</span>
-                <br/>
-                <span>-Must contain at least one number.</span>
+                <span>Contain at least one lowercase letter; contain at least one number.</span>
               </PasswordRules>
               : null
             }
           </RegistrationFieldSet>
-
+            
           <RegistrationSubmit
             type="submit"
             value="Register"
@@ -164,8 +173,11 @@ const RegistrationPage = ({ history }) =>{
                 Already have an account?
             </SignInLink>
           </SignInLinkContainer>
+          
         </RegistrationMain>
+        
       </RegistrationArticle>
+
     </RegistrationPageBody>
   );
 }
