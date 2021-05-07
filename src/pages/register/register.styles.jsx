@@ -141,7 +141,7 @@ export const PasswordPopup = styled.div`
     padding: .7rem;
     text-align:left;
     font-size: .7rem;
-    color:grey;
+    color: #262626;
     background-color: whitesmoke;
     border: 1px solid darkgrey;
     border-radius:8px;
