@@ -3,7 +3,7 @@ import { useAlert } from "react-alert";
 
 import { RegistrationPageBody, RegistrationArticle, RegistrationMain, RegistrationFieldSet, RegistrationLegend, 
   RegistrationInput, RegistrationSubmit, NameFieldContainer, NameField, Email, Password,PasswordRules, SignInLinkContainer, SignInLink,
-  PasswordPopup, InfoIcon
+  ToolTip, Arrow, InfoIcon
 } from "./register.styles";
 
 import infoIconSvg from '../../images/info_icon.svg';
@@ -134,8 +134,9 @@ const RegistrationPage = ({ history }) =>{
                 onMouseOut={() => setPopupVisibility(false)}
                 />
                       { popupVisibility ?
-                  <PasswordPopup>
-                    <span style = {{color:"#3f7fba", fontWeight:"bold"}}>Password Rules:</span>
+                  <ToolTip>
+                    <Arrow/>
+                    <span style = {{color:"#3f7fba", fontWeight:"bold", textDecoration: 'underline'}}>Password Rules</span>
                     <br/>
                     <span>-Must be at least 8 characters long</span>
                     <br/>
@@ -144,7 +145,7 @@ const RegistrationPage = ({ history }) =>{
                     <span>-Must contain at least one lowercase letter.</span>
                     <br/>
                     <span>-Must contain at least one number.</span>
-                  </PasswordPopup>
+                  </ToolTip>
               : null}
               </div>
 

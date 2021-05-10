@@ -134,20 +134,45 @@ export const PasswordRules = styled.div`
     font-size:.65rem;
     color:red;
 `
-export const PasswordPopup = styled.div`
-    position:absolute;
-    margin-left:5%;
-    margin-top:-5%;
-    padding: .7rem;
-    text-align:left;
-    font-size: .7rem;
-    color: #262626;
-    background-color: whitesmoke;
+export const ToolTip = styled.div`
+    position: absolute;
+    width: 250px;
+    padding: 10px;
+    font-size: 12px;
+    font-stretch: condensed;
+    box-shadow: 0 0 4px black;
     border: 1px solid darkgrey;
-    border-radius:8px;
-    width:220px;
-    height: 75px;
-    display:block;
+    border-radius: 5px;
+    transition: all 0.2s ease;
+    margin-left: 9%;
+    top: 43%;
+    opacity: 1;
+    background-color: whitesmoke;
+    @media screen and (max-width: 920px) {
+        display:none;
+  }
+`
+
+export const Arrow = styled.div`
+    width: 70px;
+    height: 16px;
+    overflow: hidden;
+    position: absolute;
+    left: -15.5%;
+    /* control arrow direction */
+    transform: rotate(90deg);
+    :after {
+        content: "";
+        background: whitesmoke;
+        border: 1px solid grey;
+        position: absolute;
+        left: 25px;
+        top: -20px;
+        width: 25px;
+        height: 25px;
+        box-shadow: 6px 5px 9px -9px black, 5px 6px 9px -9px black;
+        transform: rotate(45deg);
+    }
     @media screen and (max-width: 800px) {
         display:none;
   }
