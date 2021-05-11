@@ -133,7 +133,7 @@ const RegistrationPage = ({ history }) =>{
                 onMouseOver={onMouseOverInfo} 
                 onMouseOut={() => setPopupVisibility(false)}
                 />
-                      { popupVisibility ?
+                { popupVisibility ?
                   <ToolTip>
                     <Arrow/>
                     <span style = {{color:"#3f7fba", fontWeight:"bold", textDecoration: 'underline'}}>Password Rules</span>
