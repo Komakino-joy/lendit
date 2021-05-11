@@ -1,4 +1,4 @@
-export const API_URL = process.env.API_URL;
+export const API_URL = 'https://lendit-api.herokuapp.com';
 
 export const fetchSelectedAssetData = async (assetID, ownerID) => {
   if (!assetID || !ownerID){
