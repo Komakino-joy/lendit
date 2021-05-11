@@ -58,31 +58,6 @@ const AddUnit = ( {toggleAddUnit, toggleAddModel, seenAddModel, getAssetOptions,
     document.getElementById('asset-id').focus();
   };
 
-  // const fetchDuplicateIdCheck= async (assetID, memberId) => {
-  //   const settings = {
-  //     method: "POST",
-  //     headers: {
-  //       Accept: "application/json",
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       id: assetID,
-  //       owner_id: memberId
-  //     }),
-  //   };
-  //   try {
-  //     const response = await fetch(
-  //       `http://localhost:3000/duplicateIdCheck`,
-  //       settings
-  //     );
-  //     const isDuplicate = await response.json();
-  //     console.log(isDuplicate)
-  //     return isDuplicate;
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
   const submitAsset = (event) => {
     
     if (assetID && assetName && assetSerial && assetModel.length && assetModel !== 'Select a model'){

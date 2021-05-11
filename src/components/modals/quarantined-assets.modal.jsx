@@ -7,6 +7,8 @@ import { seenQuarantinedAssets } from "../../redux/modal/modal.selectors";
 import { toggleQuarantinedUnits } from "../../redux/modal/modal.actions";
 
 import axios from "axios";
+import { API_URL } from "../../services/api.js";
+
 import Loader from "react-loader-spinner";
 
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
@@ -29,7 +31,7 @@ const QuarantinedUnits = ({ toggleQuarantinedUnits, memberId }) => {
     const fetchData = async () => {
       const result = await axios({
         method: "post",
-        url: "http://localhost:3000/reports/quarantinedassets",
+        url: `${API_URL}/reports/quarantinedassets`,
         data: {
           memberId: memberId,
         },
