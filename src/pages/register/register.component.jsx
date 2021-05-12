@@ -3,10 +3,11 @@ import { useAlert } from "react-alert";
 
 import { RegistrationPageBody, RegistrationArticle, RegistrationMain, RegistrationFieldSet, RegistrationLegend, 
   RegistrationInput, RegistrationSubmit, NameFieldContainer, NameField, Email, Password,PasswordRules, SignInLinkContainer, SignInLink,
-  ToolTip, Arrow, InfoIcon
+  ToolTip, InfoIcon
 } from "./register.styles";
 
 import infoIconSvg from '../../images/info_icon.svg';
+import passwordTooltip from '../../images/password_tooltip.svg';
 
 import { API_URL } from '../../services/api';
 
@@ -17,7 +18,7 @@ const RegistrationPage = ({ history }) =>{
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [failedPassword, setFailedPassword] = useState(false);
-  const [popupVisibility, setPopupVisibility] = useState(false);
+  const [toolTipVisibility, setToolTipVisibility] = useState(false);
 
   const alert = useAlert();
 
@@ -37,8 +38,8 @@ const RegistrationPage = ({ history }) =>{
     setPassword(event.target.value);
   };
 
-  const onMouseOverInfo = (event) => {
-    setPopupVisibility(true); 
+  const onMouseOverInfo = () => {
+    setToolTipVisibility(true); 
     setFailedPassword(false)
   };
 
@@ -131,20 +132,11 @@ const RegistrationPage = ({ history }) =>{
                 src={infoIconSvg} 
                 alt="info-icon"
                 onMouseOver={onMouseOverInfo} 
-                onMouseOut={() => setPopupVisibility(false)}
+                onMouseOut={() => setToolTipVisibility(false)}
                 />
-                { popupVisibility ?
+                { toolTipVisibility ?
                   <ToolTip>
-                    <Arrow/>
-                    <span style = {{color:"#3f7fba", fontWeight:"bold", textDecoration: 'underline'}}>Password Rules</span>
-                    <br/>
-                    <span>-Must be at least 8 characters long</span>
-                    <br/>
-                    <span>-Must contain at least one uppercase letter.</span>
-                    <br/>
-                    <span>-Must contain at least one lowercase letter.</span>
-                    <br/>
-                    <span>-Must contain at least one number.</span>
+                    <img src={passwordTooltip} alt='password tooltip' ></img>
                   </ToolTip>
               : null}
               </div>
