@@ -76,7 +76,7 @@ export const RegistrationSubmit= styled.input`
     color: #4178BE; 
     font-weight: bold;
     padding:.5rem 1rem;
-    margin-bottom: 1rem;
+    margin: 1rem 0;
     border: 3px solid #4178BE;
     background-color: transparent;
     cursor: pointer;
@@ -138,7 +138,7 @@ export const ToolTip = styled.div`
     position: absolute;
     transition: all 0.2s ease;
     margin-left: 5%;
-    top: 38%;
+    top: 35%;
     opacity: .9;
     @media screen and (max-width: 990px) {
         display:none;
@@ -148,7 +148,7 @@ export const ToolTip = styled.div`
 export const InfoIcon = styled.img`
     position: absolute;
     opacity: .8;
-    bottom: 48%;
+    bottom: 52%;
     height: 22px;
     width: 22px;
     @media screen and (max-width: 800px) {

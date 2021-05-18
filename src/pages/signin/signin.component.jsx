@@ -5,49 +5,26 @@ import { useAlert } from "react-alert";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { isSignedIn } from "../../redux/site-member/site-member.selectors";
-import { handleMemberSignin } from "../../redux/site-member/site-member.actions";
+import { signInStart } from "../../redux/site-member/site-member.actions";
 
 import {
   SignInPageBody, SignInArticle, SignInMain, SignInFieldSet, SignInLegend, 
   SignInInput, SignInSubmit, RegisterLinkContainer, RegisterLink, Email, Password
 } from "./signin.styles";
 
-import { API_URL } from '../../services/api';
 
 import emailIcon from '../../images/email_icon.svg';
 import passwordIcon from '../../images/password_icon.svg';
 
-const SigninPage = ({ history, signIn }) => {
+const SigninPage = ({ history, signInStart }) => {
   const alert = useAlert();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const onEmailChange = (event) => {
-    setEmail(event.target.value);
-  };
-
-  const onPasswordChange = (event) => {
-    setPassword(event.target.value);
-  };
-
-  const onSubmitSignIn = () => {
-    fetch(`${API_URL}/members/signin`, {
-        method: "post",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: email,
-          password: password,
-        }),
-      })
-      .then((response) => response.json())
-      .then((member) => {
-        if (member.id) {
-          signIn(member.id);
-          history.push("/home");
-        } else{
-          alert.show('Invalid credentials' , { type: "error" , position:"top center"})
-        }
-      })
+  const handleChange = (event) => {
+    const { value, name } = event.target;
+    name === 'email' ? setEmail(value) : setPassword(value);
   };
 
   return (
@@ -62,9 +39,9 @@ const SigninPage = ({ history, signIn }) => {
               <SignInInput
                 placeholder="Email Address"
                 type="text"
-                name="email-address"
-                id="email-address"
-                onChange={onEmailChange}
+                name="email"
+                id="email"
+                onChange={handleChange}
               />
             </Email>
 
@@ -75,13 +52,13 @@ const SigninPage = ({ history, signIn }) => {
                 type="password"
                 name="password"
                 id="password"
-                onChange={onPasswordChange}
+                onChange={handleChange}
               />
             </Password>
           </SignInFieldSet>
 
           <SignInSubmit
-            onClick={onSubmitSignIn}
+            onClick={() => signInStart({email, password})}
             type="submit"
             value="Sign in"
           />
@@ -106,7 +83,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  signIn: (memberId) => { dispatch(handleMemberSignin(memberId));},
+  signInStart: (emailAndPassword) => dispatch(signInStart(emailAndPassword)),
 });
 
 export default withRouter(

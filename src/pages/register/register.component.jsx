@@ -1,52 +1,68 @@
-import React, { useState } from "react";
-import { useAlert } from "react-alert";
+import React, { useState } from 'react';
+import { useAlert } from 'react-alert';
+import { connect } from 'react-redux';
+
+import { registrationStart } from '../../redux/site-member/site-member.actions';
 
 import { RegistrationPageBody, RegistrationArticle, RegistrationMain, RegistrationFieldSet, RegistrationLegend, 
   RegistrationInput, RegistrationSubmit, NameFieldContainer, NameField, Email, Password,PasswordRules, SignInLinkContainer, SignInLink,
   ToolTip, InfoIcon
-} from "./register.styles";
+} from './register.styles';
 
 import infoIconSvg from '../../images/info_icon.svg';
 import passwordTooltip from '../../images/password_tooltip.svg';
 
-import { API_URL } from '../../services/api';
-
-const RegistrationPage = ({ history }) =>{
+const RegistrationPage = ({ history, registrationStart }) =>{
 
   const [fname, setFname] = useState('');
   const [lname, setLname] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [failedPassword, setFailedPassword] = useState(false);
   const [toolTipVisibility, setToolTipVisibility] = useState(false);
 
   const alert = useAlert();
-
-  const onFirstNameChange = (event) => {
-    setFname(event.target.value);
-  };
-
-  const onLastNameChange = (event) => {
-    setLname(event.target.value);
-  };
-
-  const onEmailChange = (event) => {
-    setEmail(event.target.value);
-  };
-
-  const onPasswordChange = (event) => {
-    setPassword(event.target.value);
-  };
 
   const onMouseOverInfo = () => {
     setToolTipVisibility(true); 
     setFailedPassword(false)
   };
 
+  function handleChange(event) {
+    const {name, value} = event.target;
+    
+    switch(name) {
+        case 'fname':
+            setFname(value);
+            break;
+        case 'lname':
+            setLname(value);
+            break;
+        case 'email':
+              setEmail(value);
+              break;
+        case 'password':
+            setPassword(value);
+            break;
+        case 'confirmPassword':
+            setConfirmPassword(value)
+            break;
+        default:
+            break;
+      }
+}
+
+
   const onSubmitRegister = () => {
 
     if (!fname || !lname || !email || !password) {
-      alert.show('Missing required fields' , { type: "error" , position:"top center"});
+      alert.show('Missing required fields' , { type: 'error' , position:'top center'});
+      return;
+    };
+
+    if (password !== confirmPassword) {
+      alert.show('Passwords do not match' , { type: 'error' , position:'top center'});
       return;
     };
 
@@ -58,25 +74,8 @@ const RegistrationPage = ({ history }) =>{
       return;
     };
   
-    fetch(`${API_URL}/members/register`, {
-      method: "post",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        fname: fname,
-        lname: lname,
-        email: email,
-        password: password,
-      }),
-    })
-      // * Handling incorrect credentials
-      .then((response) => response.json())
-      .then((member) => {
-        if (member.id) {
-          history.push("/signin");
-        } else {
-          alert.show('Unable to register' , { type: "error" , position:"top center"})
-        }
-      });
+    registrationStart({ fname, lname, email, password })
+
   };
 
   return (
@@ -89,21 +88,21 @@ const RegistrationPage = ({ history }) =>{
               <NameField>
                 <RegistrationInput
                   placeholder='First Name (required)'
-                  type="text"
-                  name="fname"
-                  id="fname"
-                  onChange={onFirstNameChange}
+                  type='text'
+                  name='fname'
+                  id='fname'
+                  onChange={handleChange}
                 />
               </NameField>
 
               <NameField>
                 <RegistrationInput
-                  style = {{marginLeft:"15%"}}
+                  style = {{marginLeft:'15%'}}
                   placeholder='Last Name (required)'
-                  type="text"
-                  name="lname"
-                  id="lname"
-                  onChange={onLastNameChange}
+                  type='text'
+                  name='lname'
+                  id='lname'
+                  onChange={handleChange}
                 />
               </NameField>
             </NameFieldContainer>
@@ -111,26 +110,25 @@ const RegistrationPage = ({ history }) =>{
             <Email>
               <RegistrationInput
                 placeholder='Email (required)'
-                type="email"
-                name="email-address"
-                id="email-address"
-                onChange={onEmailChange}
+                type='email'
+                name='email'
+                id='email'
+                onChange={handleChange}
               />
             </Email>
               
-            <Password 
- >
+            <Password>
               <RegistrationInput
                 placeholder='Password (required)'
-                type="password"
-                name="password"
-                id="password"
-                onChange={onPasswordChange}
+                type='password'
+                name='password'
+                id='password'
+                onChange={handleChange}
               />
               <div>
               <InfoIcon 
                 src={infoIconSvg} 
-                alt="info-icon"
+                alt='info-icon'
                 onMouseOver={onMouseOverInfo} 
                 onMouseOut={() => setToolTipVisibility(false)}
                 />
@@ -140,9 +138,14 @@ const RegistrationPage = ({ history }) =>{
                   </ToolTip>
               : null}
               </div>
-
-
             </Password>
+            <RegistrationInput
+              placeholder='Confirm Password (required)'
+              type='password'
+              name='confirmPassword'
+              id='confirmPassword'
+              onChange={handleChange}
+            />
             {
               failedPassword ?
               <PasswordRules>
@@ -157,12 +160,13 @@ const RegistrationPage = ({ history }) =>{
           </RegistrationFieldSet>
             
           <RegistrationSubmit
-            type="submit"
-            value="Register"
+            type='submit'
+            value='Register'
             onClick={onSubmitRegister}
           />
+          
           <SignInLinkContainer>
-            <SignInLink onClick={() => history.push("/signin")} className="signin-link">
+            <SignInLink onClick={() => history.push('/signin')} className='signin-link'>
                 Already have an account?
             </SignInLink>
           </SignInLinkContainer>
@@ -176,4 +180,8 @@ const RegistrationPage = ({ history }) =>{
 }
 
 
-export default RegistrationPage;
+const mapDispatchToProps = (dispatch) => ({
+  registrationStart: (userRegistrationInfo) => dispatch(registrationStart(userRegistrationInfo)),
+})
+
+export default connect(null, mapDispatchToProps)(RegistrationPage);

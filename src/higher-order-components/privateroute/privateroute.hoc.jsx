@@ -5,8 +5,8 @@ import { createStructuredSelector } from "reselect";
 
 import { isSignedIn } from "../../redux/site-member/site-member.selectors";
 
-const PrivateRoute = ({ component: Component, isSignedIn, ...rest }) => (
-    <Route {...rest} render={(props) => (
+const PrivateRoute = ({ component: Component, isSignedIn, ...otherProps }) => (
+    <Route {...otherProps} render={(props) => (
         isSignedIn === true
         ? <Component {...props} />
         : <Redirect to='/signin' />

@@ -1,21 +1,29 @@
-import { HANDLE_MEMBER_SIGN_IN, HANDLE_MEMBER_SIGN_OUT } from "./site-member.actions";
+import SiteMemberActionTypes from "./site-member.types";
 
 const INITIAL_STATE = { 
     memberSignedIn : false,
-    memberId: null
+    memberId: null,
+    error: null
 };
 
-const memberState = (state = INITIAL_STATE, { type, memberId }) => {
-    switch (type) {
-    case HANDLE_MEMBER_SIGN_IN:
+const memberState = (state = INITIAL_STATE, action) => {
+    switch (action.type) {
+    case SiteMemberActionTypes.SIGN_IN_SUCCESS:
         return { 
-            memberSignedIn : !state.memberSignedIn,
-            memberId: memberId
+            // Evaluate memberId to Boolean
+            memberSignedIn : !!action.payload.id,
+            memberId: action.payload.id
         };
 
-    case HANDLE_MEMBER_SIGN_OUT:
+    case SiteMemberActionTypes.HANDLE_MEMBER_SIGN_OUT:
         return {
             state:undefined
+        }
+    case SiteMemberActionTypes.REGISTER_FAILURE:
+    case SiteMemberActionTypes.SIGN_IN_FAILURE:
+        return {
+            ...state,
+            error: action.payload
         }
     default:
         return state 

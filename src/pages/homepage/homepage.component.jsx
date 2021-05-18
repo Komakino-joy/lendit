@@ -1,10 +1,19 @@
 import React            from 'react';
 import { connect }      from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { seenAvailableAssets, seenAssetsInUse, seenQuarantinedAssets, seenAddUser, seenAddAsset, seenActivityParameters } from "../../redux/modal/modal.selectors";
-import Center           from '../../components/center/center.component';
-import ScanboxContainer from '../../components/left/left.component'
-import ReportsContainer from '../../components/right/right.component';
+
+import { 
+    seenAvailableAssets, 
+    seenAssetsInUse, 
+    seenQuarantinedAssets, 
+    seenAddUser, 
+    seenAddAsset, 
+    seenActivityParameters 
+} from "../../redux/modal/modal.selectors";
+
+import Center           from '../../components/asset-container/asset-container.component';
+import ScanboxContainer from '../../components/drop-down-container/drop-down-container.component'
+import ActionPanel      from '../../components/action-panel/action-panel.component';
 import AvailableUnits   from '../../components/modals/available-assets.modal';
 import QuarantinedUnits from '../../components/modals/quarantined-assets.modal';
 import ActivityTracking from '../../components/modals/activity-tracking.modal';
@@ -14,13 +23,20 @@ import AddUnit          from '../../components/modals/add-asset.modal';
 
 import { HomepageContainer } from "./homepage.styles";
 
-const HomePage = ({seenAvailableAssets, seenAssetsInUse, seenQuarantinedAssets, seenAddUser, seenAddAsset, seenActivityParameters}) => {
+const HomePage = ({
+    seenAvailableAssets, 
+    seenAssetsInUse, 
+    seenQuarantinedAssets, 
+    seenAddUser, 
+    seenAddAsset, 
+    seenActivityParameters
+}) => {
 
     return (
         <HomepageContainer>
             <ScanboxContainer/>
             <Center/>
-            <ReportsContainer/>
+            <ActionPanel    />
             {/* Toggle the Action Panel Modals */}
             {seenAvailableAssets    ? <AvailableUnits/>   : null}
             {seenAssetsInUse        ? <UnitsInUse/>       : null}

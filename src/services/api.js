@@ -1,4 +1,47 @@
+import axios from 'axios';
 export const API_URL = 'https://lendit-api.herokuapp.com';
+
+export function httpRegisterUser(fname, lname, email, password) {
+  axios({
+    method: 'post',
+    url: `${API_URL}/members/register`,
+    data:{
+        fname: fname,
+        lname: lname,
+        email: email,
+        password: password,
+        }
+  });  
+};
+
+export async function httpSignInUser(email, password) {
+  return axios.post(`${API_URL}/members/signin`,{
+    email: email,
+    password: password,
+      })
+      .then(response => {
+        return response.data;
+      })
+};
+
+// fetch(`${API_URL}/members/signin`, {
+//   method: "post",
+//   headers: { "Content-Type": "application/json" },
+//   body: JSON.stringify({
+//     email: email,
+//     password: password,
+//   }),
+// })
+// .then((response) => response.json())
+// .then((member) => {
+//   if (member.id) {
+//     signIn(member.id);
+//     history.push("/home");
+//   } else{
+//     alert.show('Invalid credentials' , { type: "error" , position:"top center"})
+//   }
+// }
+// )
 
 export const fetchSelectedAssetData = async (assetID, ownerID) => {
   if (!assetID || !ownerID){
