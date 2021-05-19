@@ -27,28 +27,26 @@ function* getRequestedSelectedAssetData({payload: {assetId, ownerId}}) {
 
 function* postCheckInSelectedAsset({payload: {assetId, userId, ownerId, assetName, assetSerial, assetModel}}) {
   try{
-    const assetData = yield httpCheckInAsset(assetId, userId, ownerId, assetName, assetSerial, assetModel );
-    console.log('PAAAAAAAAAAAAAAAYUPPPPPPPPPPPP', assetData)
-    console.log(assetData)
-    yield put(checkInSelectedAssetSuccess(assetId, userId, ownerId, assetName, assetSerial, assetModel))
+    const assetData = yield httpCheckInAsset(assetId, userId, ownerId, assetName, assetSerial, assetModel);
+    yield put(checkInSelectedAssetSuccess({...assetData, userId}))
   }  catch (error) {
     console.log(error)
   }
 };
 
-function* postCheckOutSelectedAsset(payload) {
+function* postCheckOutSelectedAsset({payload: {assetId, userId, ownerId, assetName, assetSerial, assetModel}}) {
   try{
-    const assetData = yield call(httpCheckOutAsset, payload.assetID, payload.userID, payload.ownerId, payload.assetName, payload.assetSerial, payload.assetModel )
-    yield put(checkOutSelectedAssetSuccess(assetData))
+    const assetData = yield httpCheckOutAsset(assetId, userId, ownerId, assetName, assetSerial, assetModel);
+    yield put(checkOutSelectedAssetSuccess({...assetData, userId}))
   }  catch (error) {
     console.log(error)
   }
 };
 
-function* postQuarantineSelectedAsset(payload) {
+function* postQuarantineSelectedAsset({payload: {assetId, userId, ownerId, assetName, assetSerial, assetModel, assetComments}}) {
   try{
-    const assetData = yield call(httpQuarantineAsset, payload.assetID, payload.userID, payload.ownerId, payload.assetName, payload.assetSerial, payload.assetModel, payload.comment )
-    yield put(quarantineSelectedAssetSuccess(assetData))
+    const assetData = yield httpQuarantineAsset(assetId, userId, ownerId, assetName, assetSerial, assetModel, assetComments);
+    yield put(quarantineSelectedAssetSuccess({...assetData, assetComments, userId}))
   }  catch (error) {
     console.log(error)
   }

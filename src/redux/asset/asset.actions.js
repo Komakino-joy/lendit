@@ -20,18 +20,22 @@ export const checkInSelectedAssetSuccess = (assetData) => ({
     payload: assetData,
 });
 
-export const checkOutSelectedAssetStart = (assetID, userID, ownerId, assetName, assetSerial, assetModel) => ({
-    type: AssetActionTypes.CHECK_OUT_SELECTED_ASSET_START, assetID, userID, ownerId, assetName, assetSerial, assetModel
+export const checkOutSelectedAssetStart = (assetData) => ({
+    type: AssetActionTypes.CHECK_OUT_SELECTED_ASSET_START,
+    payload: assetData,
 });
 
 export const checkOutSelectedAssetSuccess = (assetData) => ({
-    type: AssetActionTypes.CHECK_OUT_SELECTED_ASSET_SUCCESS, assetData
+    type: AssetActionTypes.CHECK_OUT_SELECTED_ASSET_SUCCESS, 
+    payload: assetData,
 });
 
-export const quarantineSelectedAssetStart = (assetID, userID, ownerId, assetName, assetSerial, assetModel, comment) => ({
-    type: AssetActionTypes.QUARANTINE_SELECTED_ASSET_START, assetID, userID, ownerId, assetName, assetSerial, assetModel, comment
+export const quarantineSelectedAssetStart = (assetData) => ({
+    type: AssetActionTypes.QUARANTINE_SELECTED_ASSET_START,
+    payload: assetData,
 });
 
 export const quarantineSelectedAssetSuccess = (assetData) => ({
-    type: AssetActionTypes.QUARANTINE_SELECTED_ASSET_SUCCESS, assetData
+    type: AssetActionTypes.QUARANTINE_SELECTED_ASSET_SUCCESS, 
+    payload: assetData
 });

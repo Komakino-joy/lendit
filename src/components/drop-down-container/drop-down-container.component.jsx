@@ -31,7 +31,6 @@ const ScanboxContainer = ({ memberId, assets, users, getAssetOptions, getAssetDe
     return (
         <DropDownContainer>
             <DropDownInner>
-            <button onClick = {()=> console.log(selectedListItemID('asset-list'))}> log </button>
                 <Tag>ASSET ID</Tag>
                 <CustomDropDown isHomePage  onChange={() => getAssetDetails(selectedListItemID('asset-list'), memberId)} id="asset-list" optionList={assets}/> 
                 <Tag>USER ID</Tag>

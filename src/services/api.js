@@ -1,5 +1,6 @@
 import axios from 'axios';
-export const API_URL = 'https://lendit-api.herokuapp.com';
+// export const API_URL = 'https://lendit-api.herokuapp.com';
+export const API_URL = 'http://localhost:3010';
 
 export async function httpRegisterUser(fname, lname, email, password) {
   axios({
@@ -92,7 +93,7 @@ export async function httpCheckOutAsset(assetId, userID, owner, assetName, asset
   });
 };
 
-export async function httpQuarantineAsset(assetID, userID, owner, assetName, assetSerial, assetModel, comment) {
+export async function httpQuarantineAsset(assetID, userID, owner, assetName, assetSerial, assetModel, assetComments) {
   return axios.post(`${API_URL}/assets/quarantine`, {
     id: assetID,
     username: userID,
@@ -100,7 +101,7 @@ export async function httpQuarantineAsset(assetID, userID, owner, assetName, ass
     assetName: assetName,
     assetSerial: assetSerial,
     assetModel: assetModel,
-    comment: comment,
+    comments: assetComments,
   })
   .then(response => {
     return response.data;

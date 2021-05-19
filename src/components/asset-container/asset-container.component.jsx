@@ -4,7 +4,6 @@ import { createStructuredSelector } from "reselect";
 
 import { 
   checkInSelectedAssetStart, 
-  requestSelectedAssetData, 
   checkOutSelectedAssetStart, 
   quarantineSelectedAssetStart 
 } from "../../redux/asset/asset.actions";
@@ -16,7 +15,6 @@ import { assetId, assetName, assetSerial, assetImage, assetComments, assetStatus
 import { useAlert } from "react-alert";
 import { confirmAlert } from "react-confirm-alert";
 
-import { assetTransaction, assetTransaction2 } from "./asset-container.utils";
 import { removeAsset } from "../../services/api";
 
 import defaultImg from "../../images/default.svg";
@@ -29,8 +27,8 @@ import {
 
 import "react-confirm-alert/src/react-confirm-alert.css";
 
-const Center = ({assetId, assetName, assetSerial, assetImage, assetStatus, checkInSelectedAssetStart, requestSelectedAssetData,
-  httpCheckOutAsset, httpQuarantineAsset, userId, assetComments, ownerId, assetModel}) => {
+const Center = ({assetId, assetName, assetSerial, assetImage, assetStatus, checkInSelectedAssetStart,
+  checkOutSelectedAssetStart, quarantineSelectedAssetStart, userId, assetComments, ownerId, assetModel}) => {
 
   const alert = useAlert();
 
@@ -43,6 +41,7 @@ const Center = ({assetId, assetName, assetSerial, assetImage, assetStatus, check
     assetComments = event.target.value;
   };
 
+
   const handleCheckout = () => {
 
     if (assetStatus.slice(0, 9) === "In Use By") {
@@ -51,49 +50,18 @@ const Center = ({assetId, assetName, assetSerial, assetImage, assetStatus, check
       alert.show(`Username is required for checkout`, { type: "info" });
       document.getElementById("user-list").focus();
     } else {
-      assetTransaction(
-        httpCheckOutAsset,
-        () => requestSelectedAssetData({assetId, ownerId}),
-        assetId,
-        userId,
-        ownerId,
-        assetName,
-        assetSerial,
-        assetModel
-      );
+      checkOutSelectedAssetStart({ assetId, userId, ownerId, assetName, assetSerial, assetModel });
       document.getElementById("asset-list").focus();
     }
   };
 
   const handleCheckin = () => {
     if (assetStatus !== "Available"){
-        checkInSelectedAssetStart({ assetId, userId, ownerId, assetName, assetSerial, assetModel })
+      checkInSelectedAssetStart({ assetId, userId, ownerId, assetName, assetSerial, assetModel });
     }else{
       alert.show(`${assetName} is already checked in.`, { type: "info" });
     } 
   };
-
-  // const handleCheckin = () => {
-  //   if (assetStatus !== "Available"){
-  //     assetTransaction(
-  //       checkInSelectedAssetStart,
-  //       () => requestSelectedAssetData({assetId, ownerId}),
-  //       { assetId, userId, ownerId, assetName, assetSerial, assetModel}
-  //     )
-  //   }else{
-  //     alert.show(`${assetName} is already checked in.`, { type: "info" });
-  //   } 
-  // };
-
-  // const handleCheckin = () => {
-  //   if (assetStatus !== "Available"){
-  //     console.log(assetId, userId, ownerId, assetName, assetSerial, assetModel)
-  //        checkInSelectedAssetStart({ assetId, userId, ownerId, assetName, assetSerial, assetModel});
-  //   }else{
-  //     alert.show(`${assetName} is already checked in.`, { type: "info" });
-  //   } 
-  // };
-
 
   const handleQuarantine = () => {
     if (assetStatus === "Quarantine") {
@@ -107,20 +75,11 @@ const Center = ({assetId, assetName, assetSerial, assetImage, assetStatus, check
       alert.show(`Username is required for quarantine`, { type: "info" });
       document.getElementById("user-list").focus();
     } else {
-      assetTransaction(
-        httpQuarantineAsset,
-        () => requestSelectedAssetData({assetId, ownerId}),
-        assetId,
-        userId,
-        ownerId,
-        assetName,
-        assetSerial,
-        assetModel,
-        assetComments
-      );
+      quarantineSelectedAssetStart({assetId, userId, ownerId, assetName, assetSerial, assetModel, assetComments});
       document.getElementById("text-area").value = "";
     }
   };
+  
 
   const handleRemoveAsset = () => {
     confirmAlert({
@@ -226,14 +185,9 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  checkInSelectedAssetStart: (assetData) => {dispatch(checkInSelectedAssetStart(assetData));},
-  httpCheckOutAsset: (assetId, userId, ownerId, name, serial, model) => {
-    dispatch(checkOutSelectedAssetStart(assetId, userId, ownerId, name, serial, model));
-  },
-  httpQuarantineAsset: (assetId, userId, ownerId, name, serial, model, comment) => {
-    dispatch(quarantineSelectedAssetStart(assetId, userId, ownerId, name, serial, model,comment));
-  },
-  requestSelectedAssetData: (assetIdAndOwner) => {dispatch(requestSelectedAssetData(assetIdAndOwner));},
+  checkInSelectedAssetStart: (assetData) => {dispatch(checkInSelectedAssetStart({...assetData}));},
+  checkOutSelectedAssetStart: (assetData) => {dispatch(checkOutSelectedAssetStart({...assetData}));},
+  quarantineSelectedAssetStart: (assetData) => {dispatch(quarantineSelectedAssetStart({...assetData}));},
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Center);
