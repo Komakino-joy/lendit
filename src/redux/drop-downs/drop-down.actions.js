@@ -6,7 +6,8 @@ export const requestAssetDropDownOptions = (memberId) => ({
 }); 
 
 export const receiveAssetDropDownOptions = (assetDropDown) => ({
-     type: DropDownActionTypes.RECEIVE_ASSET_DROP_DOWN_OPTIONS, assetDropDown
+     type: DropDownActionTypes.RECEIVE_ASSET_DROP_DOWN_OPTIONS, 
+     payload: assetDropDown
 });
 
 export const requestUserDropDownOptions = (memberId) => ({ 
@@ -15,7 +16,8 @@ export const requestUserDropDownOptions = (memberId) => ({
 }); 
 
 export const receiveUserDropDownOptions = (userDropDown) => ({
-     type: DropDownActionTypes.RECEIVE_USER_DROP_DOWN_OPTIONS, userDropDown
+     type: DropDownActionTypes.RECEIVE_USER_DROP_DOWN_OPTIONS, 
+     payload: userDropDown
 });
 
 export const requestModelDropDownOptions = (memberId) => ({ 
@@ -24,5 +26,6 @@ export const requestModelDropDownOptions = (memberId) => ({
 }); 
 
 export const receiveModelDropDownOptions = (modelDropDown) => ({
-     type: DropDownActionTypes.RECEIVE_MODEL_DROP_DOWN_OPTIONS, modelDropDown
+     type: DropDownActionTypes.RECEIVE_MODEL_DROP_DOWN_OPTIONS, 
+     payload: modelDropDown
 });

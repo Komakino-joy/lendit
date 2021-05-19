@@ -1,6 +1,6 @@
 import { call, put, takeLatest, all } from "redux-saga/effects";
 
-import AssetpayloadTypes from './asset.types';
+import AssetActionTypes from './asset.types';
 
 import { 
     receiveSelectedAssetData,
@@ -53,19 +53,19 @@ function* postQuarantineSelectedAsset({payload: {assetId, userId, ownerId, asset
 };
 
 export  function* requestSelectedAssetSaga() {
-  yield takeLatest(AssetpayloadTypes.REQUEST_SELECTED_ASSET, getRequestedSelectedAssetData);
+  yield takeLatest(AssetActionTypes.REQUEST_SELECTED_ASSET, getRequestedSelectedAssetData);
 };
 
 export  function* checkInSelectedAssetSaga() {
-  yield takeLatest(AssetpayloadTypes.CHECK_IN_SELECTED_ASSET_START, postCheckInSelectedAsset);
+  yield takeLatest(AssetActionTypes.CHECK_IN_SELECTED_ASSET_START, postCheckInSelectedAsset);
 };
 
 export  function* checkOutSelectedAssetSaga() {
-  yield takeLatest(AssetpayloadTypes.CHECK_OUT_SELECTED_ASSET_START, postCheckOutSelectedAsset);
+  yield takeLatest(AssetActionTypes.CHECK_OUT_SELECTED_ASSET_START, postCheckOutSelectedAsset);
 };
 
 export  function* quarantineSelectedAssetSaga() {
-  yield takeLatest(AssetpayloadTypes.QUARANTINE_SELECTED_ASSET_START, postQuarantineSelectedAsset);
+  yield takeLatest(AssetActionTypes.QUARANTINE_SELECTED_ASSET_START, postQuarantineSelectedAsset);
 };
 
 

@@ -2,7 +2,8 @@ import React from 'react'
 import { connect } from "react-redux";
 
 import { toggleAvailableUnits, toggleUnitsInUse, toggleQuarantinedUnits, 
-    toggleAddUser, toggleAddUnit, toggleActvityTracking } from "../../redux/modal/modal.actions";
+    toggleAddUser, toggleAddUnit, toggleActvityTracking 
+    } from "../../redux/modal/modal.actions";
 
 import { 
     ActionPanelContainer, 

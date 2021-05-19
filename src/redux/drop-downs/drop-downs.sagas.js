@@ -9,47 +9,47 @@ import { call, put, takeLatest, all } from "redux-saga/effects";
     } from "./drop-down.actions";
 
   import { 
-      fetchAllAssetsForDropDown,
+      httpFetchAllAssetsForDropDown,
       fetchAllUsersForDropDown ,
-      fetchAllModelsForDropDown
+      httpFetchAllModelsForDropDown
     } from "../../services/api";
 
 
-  function* getAssetList(dropDownOptions) {
+  function* getAssetList({payload}) {
     try {
-      const assetList = yield call(fetchAllAssetsForDropDown, dropDownOptions);
+      const assetList = yield httpFetchAllAssetsForDropDown(payload);
       yield put(receiveAssetDropDownOptions(assetList));
     } catch (error) {
       console.log(error);
     }
   };
   
-  export  function* requestAssetListSaga() {
-    yield takeLatest(DropDownActionTypes.REQUEST_ASSET_DROP_DOWN_OPTIONS, getAssetList);
-  };
-  
-  function* getUserList(dropDownOptions) {
+  function* getUserList({payload}) {
     try {
-      const userList = yield call(fetchAllUsersForDropDown, dropDownOptions);
+      const userList = yield fetchAllUsersForDropDown(payload);
       yield put(receiveUserDropDownOptions(userList));
     } catch (error) {
       console.log(error);
     }
   };
   
-  export  function* requestUserListSaga() {
-    yield takeLatest(DropDownActionTypes.REQUEST_USER_DROP_DOWN_OPTIONS, getUserList);
-  };
-  
-  function* getModelList(dropDownOptions) {
+  function* getModelList({payload}) {
     try {
-      const modelList = yield call(fetchAllModelsForDropDown, dropDownOptions);
+      const modelList = yield httpFetchAllModelsForDropDown(payload);
       yield put(receiveModelDropDownOptions(modelList));
     } catch (error) {
       console.log(error);
     }
   };
-  
+
+  export  function* requestAssetListSaga() {
+    yield takeLatest(DropDownActionTypes.REQUEST_ASSET_DROP_DOWN_OPTIONS, getAssetList);
+  };
+
+  export  function* requestUserListSaga() {
+    yield takeLatest(DropDownActionTypes.REQUEST_USER_DROP_DOWN_OPTIONS, getUserList);
+  };
+
   export  function* requestModelListSaga() {
     yield takeLatest(DropDownActionTypes.REQUEST_MODEL_DROP_DOWN_OPTIONS, getModelList);
   };

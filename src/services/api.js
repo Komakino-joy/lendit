@@ -137,7 +137,7 @@ export async function httpCreateNewAsset(assetID, assetName, assetModel, assetSe
     memberId: memberId,
   })
   .then(response => {
-    console.log(response.data);
+    response.send(response.data);
   })
   .catch(error => {
     console.log(error);
@@ -177,62 +177,40 @@ export const removeAsset = async (assetID) => {
   }
 };
 
-export const fetchAllAssetsForDropDown = async (dispatchData) => {
-  const settings = {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      memberId: dispatchData.payload,
-    }),
-  };
-  try {
-    const response = await fetch(
-      `${API_URL}/assets/allunits`,
-      settings
-    );
-    const assetList = await response.json();
-    return assetList;
-  } catch (error) {
+export async function httpFetchAllAssetsForDropDown(memberId) {
+  return axios.post(`${API_URL}/assets/allunits`, {
+    memberId: memberId,
+  })
+  .then(assetList => {
+    return assetList.data;
+  })
+  .catch(error => {
     console.log(error);
-  }
+  });
 };
 
-export const fetchAllUsersForDropDown = async (dispatchData) => {
-  const settings = {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      memberId: dispatchData.payload,
-    }),
-  };
-  try {
-    const response = await fetch(
-      `${API_URL}/users/allusers`,
-      settings
-    );
-    const assetList = await response.json();
-    return assetList;
-  } catch (error) {
+
+export async function fetchAllUsersForDropDown(memberId) {
+  return axios.post(`${API_URL}/users/allusers`, {
+    memberId: memberId,
+  })
+  .then(userList => {
+    return userList.data;
+  })
+  .catch(error => {
     console.log(error);
-  }
+  });
 };
 
-export const fetchAllModelsForDropDown = async (dispatchData) => {
-  const settings = {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      memberId: dispatchData.payload,
-    }),
-  };
-  try {
-    const response = await fetch(
-      `${API_URL}/assets/allmodels`,
-      settings
-    );
-    const assetList = await response.json();
-    return assetList;
-  } catch (error) {
+
+export async function httpFetchAllModelsForDropDown(memberId) {
+  return axios.post(`${API_URL}/assets/allmodels`, {
+    memberId: memberId,
+  })
+  .then(modelList => {
+    return modelList.data;
+  })
+  .catch(error => {
     console.log(error);
-  };
+  });
 };

@@ -28,7 +28,7 @@ import {
 import "react-confirm-alert/src/react-confirm-alert.css";
 
 const Center = ({assetId, assetName, assetSerial, assetImage, assetStatus, checkInSelectedAssetStart,
-  checkOutSelectedAssetStart, quarantineSelectedAssetStart, userId, assetComments, ownerId, assetModel}) => {
+  checkOutSelectedAssetStart, quarantineSelectedAssetStart, userId, assetComments, currentMemberId, assetModel}) => {
 
   const alert = useAlert();
 
@@ -50,14 +50,14 @@ const Center = ({assetId, assetName, assetSerial, assetImage, assetStatus, check
       alert.show(`Username is required for checkout`, { type: "info" });
       document.getElementById("user-list").focus();
     } else {
-      checkOutSelectedAssetStart({ assetId, userId, ownerId, assetName, assetSerial, assetModel });
+      checkOutSelectedAssetStart({ assetId, userId, currentMemberId, assetName, assetSerial, assetModel });
       document.getElementById("asset-list").focus();
     }
   };
 
   const handleCheckin = () => {
     if (assetStatus !== "Available"){
-      checkInSelectedAssetStart({ assetId, userId, ownerId, assetName, assetSerial, assetModel });
+      checkInSelectedAssetStart({ assetId, userId, currentMemberId, assetName, assetSerial, assetModel });
     }else{
       alert.show(`${assetName} is already checked in.`, { type: "info" });
     } 
@@ -75,7 +75,7 @@ const Center = ({assetId, assetName, assetSerial, assetImage, assetStatus, check
       alert.show(`Username is required for quarantine`, { type: "info" });
       document.getElementById("user-list").focus();
     } else {
-      quarantineSelectedAssetStart({assetId, userId, ownerId, assetName, assetSerial, assetModel, assetComments});
+      quarantineSelectedAssetStart({assetId, userId, currentMemberId, assetName, assetSerial, assetModel, assetComments});
       document.getElementById("text-area").value = "";
     }
   };
@@ -173,7 +173,7 @@ const Center = ({assetId, assetName, assetSerial, assetImage, assetStatus, check
 };
 
 const mapStateToProps = createStructuredSelector({
-  ownerId: currentMemberId,
+  currentMemberId,
   userId,
   assetId,
   assetName,

@@ -4,8 +4,8 @@ import storage from 'redux-persist/lib/storage';
 
 import { persistReducer } from "redux-persist";
 
-import assetData from './asset/asset-reducer'
-import userData from './user/user-reducer'
+import assetData from './asset/asset.reducer'
+import userData from './user/user.reducer'
 import dropDownOptions from './drop-downs/drop-downs.reducer'
 import modalState from "./modal/modal.reducer";
 import memberState  from "./site-member/site-member.reducer";

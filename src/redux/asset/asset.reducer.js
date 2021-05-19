@@ -40,7 +40,8 @@ const assetData = (state = INITIAL_STATE  , action) => {
       name: action.payload.name,
       owner_id: action.payload.owner_id,
       serial: action.payload.serial,
-      status: 'Available'
+      status: 'Available',
+      comments: null,
     };
 
     case AssetActionTypes.CHECK_OUT_SELECTED_ASSET_SUCCESS:
@@ -52,6 +53,7 @@ const assetData = (state = INITIAL_STATE  , action) => {
         owner_id: action.payload.owner_id,
         serial: action.payload.serial,
         status: 'In Use By ' + action.payload.userId,
+        comments: null,
       }
 
       case AssetActionTypes.QUARANTINE_SELECTED_ASSET_SUCCESS:
