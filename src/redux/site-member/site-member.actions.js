@@ -33,4 +33,3 @@ export const signInFailure = (error) => ({
     type: SiteMemberActionTypes.SIGN_IN_FAILURE,
     payload: error,
 });
-

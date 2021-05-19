@@ -1,10 +1,8 @@
 import { call, put, takeLatest, all } from "redux-saga/effects";
 
+import AssetpayloadTypes from './asset.types';
+
 import { 
-    REQUEST_SELECTED_ASSET,
-    CHECK_IN_SELECTED_ASSET_START,
-    CHECK_OUT_SELECTED_ASSET_START,
-    QUARANTINE_SELECTED_ASSET_START,
     receiveSelectedAssetData,
     checkInSelectedAssetSuccess,
     checkOutSelectedAssetSuccess, 
@@ -12,64 +10,64 @@ import {
    } from "../asset/asset.actions";
 
 import { 
-  fetchSelectedAssetData,
-  checkInAsset,
-  checkOutAsset,
-  quarantineAsset
+  httpFetchSelectedAssetData,
+  httpCheckInAsset,
+  httpCheckOutAsset,
+  httpQuarantineAsset
  } from "../../services/api";
 
-// worker Saga: will be fired on USER_FETCH_REQUESTED actions
-function* getRequestedSelectedAssetData(action) {
+function* getRequestedSelectedAssetData({payload: {assetId, ownerId}}) {
   try {
-    // do api call
-    const assetData = yield call(fetchSelectedAssetData, action.assetID, action.ownerID);
+    const assetData = yield httpFetchSelectedAssetData(assetId, ownerId);
     yield put(receiveSelectedAssetData(assetData));
   } catch (error) {
     console.log(error);
   }
 };
 
-export  function* requestSelectedAssetSaga() {
-  yield takeLatest(REQUEST_SELECTED_ASSET, getRequestedSelectedAssetData);
-};
-
-function* postCheckInSelectedAsset(action) {
+function* postCheckInSelectedAsset({payload: {assetId, userId, ownerId, assetName, assetSerial, assetModel}}) {
   try{
-    const assetData = yield call(checkInAsset, action.assetID, action.userId, action.ownerId, action.assetName, action.assetSerial, action.assetModel )
-    yield put(checkInSelectedAssetSuccess(assetData))
+    const assetData = yield httpCheckInAsset(assetId, userId, ownerId, assetName, assetSerial, assetModel );
+    console.log('PAAAAAAAAAAAAAAAYUPPPPPPPPPPPP', assetData)
+    console.log(assetData)
+    yield put(checkInSelectedAssetSuccess(assetId, userId, ownerId, assetName, assetSerial, assetModel))
   }  catch (error) {
     console.log(error)
   }
 };
 
-export  function* checkInSelectedAssetSaga() {
-  yield takeLatest(CHECK_IN_SELECTED_ASSET_START, postCheckInSelectedAsset);
-};
-
-function* postCheckOutSelectedAsset(action) {
+function* postCheckOutSelectedAsset(payload) {
   try{
-    const assetData = yield call(checkOutAsset, action.assetID, action.userID, action.ownerId, action.assetName, action.assetSerial, action.assetModel )
+    const assetData = yield call(httpCheckOutAsset, payload.assetID, payload.userID, payload.ownerId, payload.assetName, payload.assetSerial, payload.assetModel )
     yield put(checkOutSelectedAssetSuccess(assetData))
   }  catch (error) {
     console.log(error)
   }
 };
 
-export  function* checkOutSelectedAssetSaga() {
-  yield takeLatest(CHECK_OUT_SELECTED_ASSET_START, postCheckOutSelectedAsset);
-};
-
-function* postQuarantineSelectedAsset(action) {
+function* postQuarantineSelectedAsset(payload) {
   try{
-    const assetData = yield call(quarantineAsset, action.assetID, action.userID, action.ownerId, action.assetName, action.assetSerial, action.assetModel, action.comment )
+    const assetData = yield call(httpQuarantineAsset, payload.assetID, payload.userID, payload.ownerId, payload.assetName, payload.assetSerial, payload.assetModel, payload.comment )
     yield put(quarantineSelectedAssetSuccess(assetData))
   }  catch (error) {
     console.log(error)
   }
 };
 
+export  function* requestSelectedAssetSaga() {
+  yield takeLatest(AssetpayloadTypes.REQUEST_SELECTED_ASSET, getRequestedSelectedAssetData);
+};
+
+export  function* checkInSelectedAssetSaga() {
+  yield takeLatest(AssetpayloadTypes.CHECK_IN_SELECTED_ASSET_START, postCheckInSelectedAsset);
+};
+
+export  function* checkOutSelectedAssetSaga() {
+  yield takeLatest(AssetpayloadTypes.CHECK_OUT_SELECTED_ASSET_START, postCheckOutSelectedAsset);
+};
+
 export  function* quarantineSelectedAssetSaga() {
-  yield takeLatest(QUARANTINE_SELECTED_ASSET_START, postQuarantineSelectedAsset);
+  yield takeLatest(AssetpayloadTypes.QUARANTINE_SELECTED_ASSET_START, postQuarantineSelectedAsset);
 };
 
 

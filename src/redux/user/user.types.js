@@ -1,0 +1,7 @@
+const UserActionTypes = {
+    REQUEST_SELECTED_USER : 'REQUEST_SELECTED_USER',
+    RECEIVE_SELECTED_USER : 'RECEIVE_SELECTED_USER',
+    ADD_NEW_USER : 'ADD_NEW_USER',
+};
+
+export default UserActionTypes;

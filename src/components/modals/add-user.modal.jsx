@@ -8,7 +8,7 @@ import { requestUserDropDownOptions } from '../../redux/drop-downs/drop-down.act
 
 import { useAlert } from 'react-alert';
 
-import { createNewUser } from "../../services/api";
+import { httpCreateNewUser } from "../../services/api";
 
 import { ModalMain, ModalContent, CloseButton, Header, Article, FieldSet, Input,Submit } from "./modal.styles";
 
@@ -44,7 +44,7 @@ const AddUser = ( {toggleAddUser, getUserOptions, memberId} ) =>{
 
   const submitUser = (event) => {
     if (userID && fname && lname && memberId){
-      createNewUser(userID, fname, lname, memberId);
+      httpCreateNewUser(userID, fname, lname, memberId);
       alert.show(`${userID} submitted.`, {type: 'success', position:'top center'});
       inputReset();
     } else {

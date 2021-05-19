@@ -1,16 +1,10 @@
-import { 
-    call, 
-    put, 
-    takeLatest, 
-    all  
-  } from "redux-saga/effects";
+import { call, put, takeLatest, all } from "redux-saga/effects";
+
+  import DropDownActionTypes from './drop-down.types';
 
   import { 
-      REQUEST_ASSET_DROP_DOWN_OPTIONS, 
       receiveAssetDropDownOptions,
-      REQUEST_USER_DROP_DOWN_OPTIONS,
       receiveUserDropDownOptions,
-      REQUEST_MODEL_DROP_DOWN_OPTIONS,
       receiveModelDropDownOptions
     } from "./drop-down.actions";
 
@@ -31,7 +25,7 @@ import {
   };
   
   export  function* requestAssetListSaga() {
-    yield takeLatest(REQUEST_ASSET_DROP_DOWN_OPTIONS, getAssetList);
+    yield takeLatest(DropDownActionTypes.REQUEST_ASSET_DROP_DOWN_OPTIONS, getAssetList);
   };
   
   function* getUserList(dropDownOptions) {
@@ -44,7 +38,7 @@ import {
   };
   
   export  function* requestUserListSaga() {
-    yield takeLatest(REQUEST_USER_DROP_DOWN_OPTIONS, getUserList);
+    yield takeLatest(DropDownActionTypes.REQUEST_USER_DROP_DOWN_OPTIONS, getUserList);
   };
   
   function* getModelList(dropDownOptions) {
@@ -57,7 +51,7 @@ import {
   };
   
   export  function* requestModelListSaga() {
-    yield takeLatest(REQUEST_MODEL_DROP_DOWN_OPTIONS, getModelList);
+    yield takeLatest(DropDownActionTypes.REQUEST_MODEL_DROP_DOWN_OPTIONS, getModelList);
   };
 
   export function* dropDownSagas() {

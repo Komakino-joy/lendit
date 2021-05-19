@@ -16,7 +16,7 @@ import { assetId, assetName, assetSerial, assetImage, assetComments, assetStatus
 import { useAlert } from "react-alert";
 import { confirmAlert } from "react-confirm-alert";
 
-import { assetTransaction } from "./asset-container.utils";
+import { assetTransaction, assetTransaction2 } from "./asset-container.utils";
 import { removeAsset } from "../../services/api";
 
 import defaultImg from "../../images/default.svg";
@@ -29,8 +29,8 @@ import {
 
 import "react-confirm-alert/src/react-confirm-alert.css";
 
-const Center = ({assetId, assetName, assetSerial, assetImage, assetStatus, checkInAsset, getUpdatedStatus,
-  checkOutAsset, quarantineAsset, userId, assetComments, ownerId, assetModel}) => {
+const Center = ({assetId, assetName, assetSerial, assetImage, assetStatus, checkInSelectedAssetStart, requestSelectedAssetData,
+  httpCheckOutAsset, httpQuarantineAsset, userId, assetComments, ownerId, assetModel}) => {
 
   const alert = useAlert();
 
@@ -52,8 +52,8 @@ const Center = ({assetId, assetName, assetSerial, assetImage, assetStatus, check
       document.getElementById("user-list").focus();
     } else {
       assetTransaction(
-        checkOutAsset,
-        () => getUpdatedStatus(assetId, ownerId),
+        httpCheckOutAsset,
+        () => requestSelectedAssetData({assetId, ownerId}),
         assetId,
         userId,
         ownerId,
@@ -67,20 +67,32 @@ const Center = ({assetId, assetName, assetSerial, assetImage, assetStatus, check
 
   const handleCheckin = () => {
     if (assetStatus !== "Available"){
-      assetTransaction(
-        checkInAsset,
-        () => getUpdatedStatus(assetId, ownerId),
-        assetId,
-        userId,
-        ownerId,
-        assetName,
-        assetSerial,
-        assetModel
-      )
+        checkInSelectedAssetStart({ assetId, userId, ownerId, assetName, assetSerial, assetModel })
     }else{
       alert.show(`${assetName} is already checked in.`, { type: "info" });
     } 
   };
+
+  // const handleCheckin = () => {
+  //   if (assetStatus !== "Available"){
+  //     assetTransaction(
+  //       checkInSelectedAssetStart,
+  //       () => requestSelectedAssetData({assetId, ownerId}),
+  //       { assetId, userId, ownerId, assetName, assetSerial, assetModel}
+  //     )
+  //   }else{
+  //     alert.show(`${assetName} is already checked in.`, { type: "info" });
+  //   } 
+  // };
+
+  // const handleCheckin = () => {
+  //   if (assetStatus !== "Available"){
+  //     console.log(assetId, userId, ownerId, assetName, assetSerial, assetModel)
+  //        checkInSelectedAssetStart({ assetId, userId, ownerId, assetName, assetSerial, assetModel});
+  //   }else{
+  //     alert.show(`${assetName} is already checked in.`, { type: "info" });
+  //   } 
+  // };
 
 
   const handleQuarantine = () => {
@@ -96,8 +108,8 @@ const Center = ({assetId, assetName, assetSerial, assetImage, assetStatus, check
       document.getElementById("user-list").focus();
     } else {
       assetTransaction(
-        quarantineAsset,
-        () => getUpdatedStatus(assetId, ownerId),
+        httpQuarantineAsset,
+        () => requestSelectedAssetData({assetId, ownerId}),
         assetId,
         userId,
         ownerId,
@@ -214,18 +226,14 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  checkInAsset: (assetId, userId, ownerId, name, serial, model) => {
-    dispatch(checkInSelectedAssetStart(assetId, userId, ownerId, name, serial, model));
-  },
-  checkOutAsset: (assetId, userId, ownerId, name, serial, model) => {
+  checkInSelectedAssetStart: (assetData) => {dispatch(checkInSelectedAssetStart(assetData));},
+  httpCheckOutAsset: (assetId, userId, ownerId, name, serial, model) => {
     dispatch(checkOutSelectedAssetStart(assetId, userId, ownerId, name, serial, model));
   },
-  quarantineAsset: (assetId, userId, ownerId, name, serial, model, comment) => {
+  httpQuarantineAsset: (assetId, userId, ownerId, name, serial, model, comment) => {
     dispatch(quarantineSelectedAssetStart(assetId, userId, ownerId, name, serial, model,comment));
   },
-  getUpdatedStatus: (assetId, ownerID) => {
-    dispatch(requestSelectedAssetData(assetId, ownerID));
-  },
+  requestSelectedAssetData: (assetIdAndOwner) => {dispatch(requestSelectedAssetData(assetIdAndOwner));},
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Center);

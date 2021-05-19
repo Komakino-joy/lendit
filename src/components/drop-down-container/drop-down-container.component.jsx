@@ -27,13 +27,13 @@ const ScanboxContainer = ({ memberId, assets, users, getAssetOptions, getAssetDe
         // Get Data from /allusers when component mounts.
         getUserOptions(memberId)
       }, [getUserOptions, memberId]);  
-    
 
     return (
         <DropDownContainer>
             <DropDownInner>
+            <button onClick = {()=> console.log(selectedListItemID('asset-list'))}> log </button>
                 <Tag>ASSET ID</Tag>
-                <CustomDropDown isHomePage  onChange={() => getAssetDetails(memberId)} id="asset-list" optionList={assets}/> 
+                <CustomDropDown isHomePage  onChange={() => getAssetDetails(selectedListItemID('asset-list'), memberId)} id="asset-list" optionList={assets}/> 
                 <Tag>USER ID</Tag>
                 <CustomDropDown isHomePage onChange={getUserDetails} id="user-list" optionList={users}/> 
             </DropDownInner>
@@ -49,7 +49,7 @@ const mapStateToProps = createStructuredSelector({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    getAssetDetails: (memberId) => { dispatch(requestSelectedAssetData(selectedListItemID('asset-list'), memberId))},
+    getAssetDetails: (assetId, ownerId) => { dispatch(requestSelectedAssetData({assetId, ownerId}))},
     getAssetOptions: (memberId) => { dispatch(requestAssetDropDownOptions(memberId))},
     getUserOptions: (memberId) => { dispatch( requestUserDropDownOptions(memberId)) },
     getUserDetails: () => { dispatch( requestSelectedUserData ( selectedListItemID('user-list') ) )},

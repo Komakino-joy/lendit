@@ -12,19 +12,26 @@ import {
   SignInInput, SignInSubmit, RegisterLinkContainer, RegisterLink, Email, Password
 } from "./signin.styles";
 
-
 import emailIcon from '../../images/email_icon.svg';
 import passwordIcon from '../../images/password_icon.svg';
 
 const SigninPage = ({ history, signInStart }) => {
   const alert = useAlert();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleChange = (event) => {
     const { value, name } = event.target;
     name === 'email' ? setEmail(value) : setPassword(value);
+  };
+
+  const handleSubmit = (event) => {
+      if (!email || !password) {
+        alert.show('Please fill out both fields' , { type: "error" , position:"top center"})  
+        return;
+      };
+
+      signInStart({email, password});
   };
 
   return (
@@ -58,7 +65,7 @@ const SigninPage = ({ history, signInStart }) => {
           </SignInFieldSet>
 
           <SignInSubmit
-            onClick={() => signInStart({email, password})}
+            onClick={handleSubmit}
             type="submit"
             value="Sign in"
           />

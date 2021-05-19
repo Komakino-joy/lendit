@@ -10,7 +10,7 @@ import { requestAssetDropDownOptions, requestModelDropDownOptions } from '../../
 
 import { useAlert } from 'react-alert';
 
-import { createNewAsset } from "../../services/api";
+import { httpCreateNewAsset } from "../../services/api";
 
 import AddModel from './add-model.modal';
 import CustomDropDown from '../custom-drop-down/custom-drop-down.component'
@@ -61,7 +61,7 @@ const AddUnit = ( {toggleAddUnit, toggleAddModel, seenAddModel, getAssetOptions,
   const submitAsset = (event) => {
     
     if (assetID && assetName && assetSerial && assetModel.length && assetModel !== 'Select a model'){
-      createNewAsset(assetID, assetName, assetModel, assetSerial, memberId);
+      httpCreateNewAsset(assetID, assetName, assetModel, assetSerial, memberId);
       alert.show(`${assetID} submitted`, {type: 'success', position:'top center'});
       inputReset();
     } else {

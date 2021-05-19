@@ -12,7 +12,8 @@ const memberState = (state = INITIAL_STATE, action) => {
         return { 
             // Evaluate memberId to Boolean
             memberSignedIn : !!action.payload.id,
-            memberId: action.payload.id
+            memberId: action.payload.id,
+            error: null,
         };
 
     case SiteMemberActionTypes.HANDLE_MEMBER_SIGN_OUT:
@@ -23,7 +24,7 @@ const memberState = (state = INITIAL_STATE, action) => {
     case SiteMemberActionTypes.SIGN_IN_FAILURE:
         return {
             ...state,
-            error: action.payload
+            error: action.payload,
         }
     default:
         return state 

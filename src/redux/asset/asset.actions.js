@@ -1,40 +1,37 @@
-export const REQUEST_SELECTED_ASSET = "REQUEST_SELECTED_ASSET";
-export const RECEIVE_SELECTED_ASSET = "RECEIVE_SELECTED_ASSET";
-export const CHECK_IN_SELECTED_ASSET_START = "CHECK_IN_SELECTED_ASSET_START";
-export const CHECK_IN_SELECTED_ASSET_SUCCESS = "CHECK_IN_SELECTED_ASSET_SUCCESS";
-export const CHECK_OUT_SELECTED_ASSET_START = "CHECK_OUT_SELECTED_ASSET_START";
-export const CHECK_OUT_SELECTED_ASSET_SUCCESS = "CHECK_OUT_SELECTED_ASSET_SUCCESS";
-export const QUARANTINE_SELECTED_ASSET_START = "QUARANTINE_SELECTED_ASSET_START";
-export const QUARANTINE_SELECTED_ASSET_SUCCESS = "QUARANTINE_SELECTED_ASSET_SUCCESS";
+import AssetActionTypes from './asset.types';
 
-export const requestSelectedAssetData = (assetID, ownerID) => ({ 
-    type: REQUEST_SELECTED_ASSET, assetID, ownerID
+export const requestSelectedAssetData = (assetAndOwner) => ({ 
+    type: AssetActionTypes.REQUEST_SELECTED_ASSET,
+    payload: assetAndOwner,
 });
 
 export const receiveSelectedAssetData = (assetData) => ({
-     type: RECEIVE_SELECTED_ASSET, assetData
+     type: AssetActionTypes.RECEIVE_SELECTED_ASSET,
+     payload: assetData,
 });
 
-export const checkInSelectedAssetStart = (assetID, userId, ownerId, assetName, assetSerial, assetModel ) => ({
-    type: CHECK_IN_SELECTED_ASSET_START, assetID, userId, ownerId, assetName, assetSerial, assetModel
+export const checkInSelectedAssetStart = (assetData ) => ({
+    type: AssetActionTypes.CHECK_IN_SELECTED_ASSET_START,
+    payload: assetData,
 });
 
 export const checkInSelectedAssetSuccess = (assetData) => ({
-    type: CHECK_IN_SELECTED_ASSET_SUCCESS, assetData
+    type: AssetActionTypes.CHECK_IN_SELECTED_ASSET_SUCCESS, 
+    payload: assetData,
 });
 
 export const checkOutSelectedAssetStart = (assetID, userID, ownerId, assetName, assetSerial, assetModel) => ({
-    type: CHECK_OUT_SELECTED_ASSET_START, assetID, userID, ownerId, assetName, assetSerial, assetModel
+    type: AssetActionTypes.CHECK_OUT_SELECTED_ASSET_START, assetID, userID, ownerId, assetName, assetSerial, assetModel
 });
 
 export const checkOutSelectedAssetSuccess = (assetData) => ({
-    type: CHECK_OUT_SELECTED_ASSET_SUCCESS, assetData
+    type: AssetActionTypes.CHECK_OUT_SELECTED_ASSET_SUCCESS, assetData
 });
 
 export const quarantineSelectedAssetStart = (assetID, userID, ownerId, assetName, assetSerial, assetModel, comment) => ({
-    type: QUARANTINE_SELECTED_ASSET_START, assetID, userID, ownerId, assetName, assetSerial, assetModel, comment
+    type: AssetActionTypes.QUARANTINE_SELECTED_ASSET_START, assetID, userID, ownerId, assetName, assetSerial, assetModel, comment
 });
 
 export const quarantineSelectedAssetSuccess = (assetData) => ({
-    type: QUARANTINE_SELECTED_ASSET_SUCCESS, assetData
+    type: AssetActionTypes.QUARANTINE_SELECTED_ASSET_SUCCESS, assetData
 });

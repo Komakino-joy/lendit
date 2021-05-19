@@ -13,3 +13,12 @@ export const assetTransaction = async( transaction, fetchNew, assetId, userId, o
         console.log(error)
     }
 };
+
+
+export const assetTransaction2 = async(transaction ) => {
+    try{
+        await transaction();
+    } catch(error) {
+        console.log(error)
+    }
+};

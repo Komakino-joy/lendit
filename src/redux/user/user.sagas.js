@@ -1,13 +1,15 @@
 import { call, put, takeLatest, all } from "redux-saga/effects";
+
+import UserActionTypes from './user.types';
+
 import { 
-    REQUEST_SELECTED_USER,
     receiveSelectedUserData
   } from "../user/user.actions";
-import { fetchSelectedUserData } from '../../services/api';
+import { httpFetchSelectedUserData } from '../../services/api';
 
 function* getUserData(action) {
     try{
-        const userData = yield call(fetchSelectedUserData, action.userID);
+        const userData = yield call(httpFetchSelectedUserData, action.userID);
         yield put (receiveSelectedUserData(userData));
     } catch(error) {
         console.log(error);
@@ -15,7 +17,7 @@ function* getUserData(action) {
 };
 
 export function* requestSelectedUserSaga() {
-    yield takeLatest( REQUEST_SELECTED_USER, getUserData ) ;
+    yield takeLatest( UserActionTypes.REQUEST_SELECTED_USER, getUserData ) ;
 };
 
 
