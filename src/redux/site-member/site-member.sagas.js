@@ -12,7 +12,6 @@ import {
     registrationSuccess,
     signInFailure,
     signInSuccess, 
-    // signInStart,
 } from './site-member.actions'
 
 
@@ -43,19 +42,9 @@ export function* onRegistrationStart() {
     yield takeLatest(SiteMemberActionTypes.REGISTER_START, register)
 };
 
-// export function* signInAfterRegistration({payload: email, password}){
-//     yield put(signInStart(email, password));
-// };  
-
-
-// export function* onRegistrationSuccess() {
-//     yield takeLatest(SiteMemberActionTypes.REGISTER_SUCCESS, signInAfterRegistration);
-// };
-
 export function* siteMemberSagas() {
     yield all([
         call(onRegistrationStart),
         call(onSignInStart),
-        // call(onRegistrationSuccess),
     ]);
 };

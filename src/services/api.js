@@ -1,7 +1,6 @@
 import axios from 'axios';
 
-// export const API_URL = process.env.API_URL;
-export const API_URL = 'https://lendit-api.herokuapp.com'
+export const API_URL = process.env.API_URL;
 
 export async function httpRegisterUser(fname, lname, email, password) {
   axios({

@@ -18,7 +18,6 @@ const SigninPage = lazy(() => import("./pages/signin/signin.component"));
 const RegistrationPage = lazy(() => import("./pages/register/register.component"));
 
 
-
 function App({ isSignedIn }) {
 
   return (
