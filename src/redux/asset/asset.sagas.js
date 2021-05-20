@@ -6,14 +6,21 @@ import {
     receiveSelectedAssetData,
     checkInSelectedAssetSuccess,
     checkOutSelectedAssetSuccess, 
-    quarantineSelectedAssetSuccess
+    quarantineSelectedAssetSuccess,
+    removeSelectedAssetSuccess,
+    failureSelectedAssetData,
+    checkInSelectedAssetFailure,
+    checkOutSelectedAssetFailure,
+    quarantineSelectedAssetFailure,
+    removeSelectedAssetFailure
    } from "../asset/asset.actions";
 
 import { 
   httpFetchSelectedAssetData,
   httpCheckInAsset,
   httpCheckOutAsset,
-  httpQuarantineAsset
+  httpQuarantineAsset,
+  httpRemoveAsset,
  } from "../../services/api";
 
 function* getRequestedSelectedAssetData({payload: {assetId, ownerId}}) {
@@ -21,7 +28,7 @@ function* getRequestedSelectedAssetData({payload: {assetId, ownerId}}) {
     const assetData = yield httpFetchSelectedAssetData(assetId, ownerId);
     yield put(receiveSelectedAssetData(assetData));
   } catch (error) {
-    console.log(error);
+    yield put(failureSelectedAssetData(error));
   }
 };
 
@@ -30,7 +37,7 @@ function* postCheckInSelectedAsset({payload: {assetId, userId, ownerId, assetNam
     const assetData = yield httpCheckInAsset(assetId, userId, ownerId, assetName, assetSerial, assetModel);
     yield put(checkInSelectedAssetSuccess({...assetData, userId}))
   }  catch (error) {
-    console.log(error)
+    yield put(checkInSelectedAssetFailure(error))
   }
 };
 
@@ -39,7 +46,7 @@ function* postCheckOutSelectedAsset({payload: {assetId, userId, ownerId, assetNa
     const assetData = yield httpCheckOutAsset(assetId, userId, ownerId, assetName, assetSerial, assetModel);
     yield put(checkOutSelectedAssetSuccess({...assetData, userId}))
   }  catch (error) {
-    console.log(error)
+    yield put(checkOutSelectedAssetFailure(error))
   }
 };
 
@@ -48,12 +55,21 @@ function* postQuarantineSelectedAsset({payload: {assetId, userId, ownerId, asset
     const assetData = yield httpQuarantineAsset(assetId, userId, ownerId, assetName, assetSerial, assetModel, assetComments);
     yield put(quarantineSelectedAssetSuccess({...assetData, assetComments, userId}))
   }  catch (error) {
-    console.log(error)
+    yield put(quarantineSelectedAssetFailure(error))
+  }
+};
+
+function* postRemoveSelectedAsset({payload: {assetId}}) {
+  try{
+    const assetData = yield httpRemoveAsset(assetId);
+    yield put(removeSelectedAssetSuccess(assetData))
+   }  catch (error) {
+    yield put(removeSelectedAssetFailure(error))
   }
 };
 
 export  function* requestSelectedAssetSaga() {
-  yield takeLatest(AssetActionTypes.REQUEST_SELECTED_ASSET, getRequestedSelectedAssetData);
+  yield takeLatest(AssetActionTypes.REQUEST_SELECTED_ASSET_START, getRequestedSelectedAssetData);
 };
 
 export  function* checkInSelectedAssetSaga() {
@@ -68,12 +84,17 @@ export  function* quarantineSelectedAssetSaga() {
   yield takeLatest(AssetActionTypes.QUARANTINE_SELECTED_ASSET_START, postQuarantineSelectedAsset);
 };
 
+export  function* removeSelectedAssetSaga() {
+  yield takeLatest(AssetActionTypes.REMOVE_SELECTED_ASSET_START, postRemoveSelectedAsset);
+};
+
 
 export function* assetSagas() {
     yield all([
       call(requestSelectedAssetSaga), 
       call(checkInSelectedAssetSaga),
       call(checkOutSelectedAssetSaga),
-      call(quarantineSelectedAssetSaga)
+      call(quarantineSelectedAssetSaga),
+      call(removeSelectedAssetSaga),
     ])
 };

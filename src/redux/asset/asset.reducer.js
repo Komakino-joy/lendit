@@ -10,12 +10,12 @@ const INITIAL_STATE = {
   owner_id: null,
   serial: null,
   status: null,
+  error : null,
 }
 
-// eslint-disable-next-line import/no-anonymous-default-export
 const assetData = (state = INITIAL_STATE  , action) => {
   switch (action.type) {
-    case AssetActionTypes.RECEIVE_SELECTED_ASSET:
+    case AssetActionTypes.REQUEST_SELECTED_ASSET_SUCCESS:
       if(action.payload === undefined){
         return state;
       }
@@ -30,6 +30,7 @@ const assetData = (state = INITIAL_STATE  , action) => {
         owner_id: action.payload.owner_id,
         serial: action.payload.serial,
         status: action.payload.status,
+        error : null,
       };
 
     case AssetActionTypes.CHECK_IN_SELECTED_ASSET_SUCCESS:
@@ -42,6 +43,7 @@ const assetData = (state = INITIAL_STATE  , action) => {
       serial: action.payload.serial,
       status: 'Available',
       comments: null,
+      error : null,
     };
 
     case AssetActionTypes.CHECK_OUT_SELECTED_ASSET_SUCCESS:
@@ -54,6 +56,7 @@ const assetData = (state = INITIAL_STATE  , action) => {
         serial: action.payload.serial,
         status: 'In Use By ' + action.payload.userId,
         comments: null,
+        error : null,
       }
 
       case AssetActionTypes.QUARANTINE_SELECTED_ASSET_SUCCESS:
@@ -65,8 +68,25 @@ const assetData = (state = INITIAL_STATE  , action) => {
           owner_id: action.payload.owner_id,
           serial: action.payload.serial,
           status: 'Quarantine',
-          comments: action.payload.assetComments
+          comments: action.payload.assetComments,
+          error : null,
         }
+
+      case AssetActionTypes.REMOVE_SELECTED_ASSET_SUCCESS:
+        return {
+          ...state,
+          id: null,
+          error : null,
+        }
+    case AssetActionTypes.REQUEST_SELECTED_ASSET_FAILURE:
+    case AssetActionTypes.CHECK_IN_SELECTED_ASSET_FAILURE:
+    case AssetActionTypes.CHECK_OUT_SELECTED_ASSET_FAILURE:
+    case AssetActionTypes.QUARANTINE_SELECTED_ASSET_FAILURE:
+    case AssetActionTypes.REMOVE_SELECTED_ASSET_FAILURE:
+      return {
+        ...state,
+        error: action.payload,
+      }
     default:
       return state;
   }

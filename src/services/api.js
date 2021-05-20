@@ -1,6 +1,6 @@
 import axios from 'axios';
-// export const API_URL = 'https://lendit-api.herokuapp.com';
-export const API_URL = 'http://localhost:3010';
+
+export const API_URL = process.env.API_URL;
 
 export async function httpRegisterUser(fname, lname, email, password) {
   axios({
@@ -137,27 +137,14 @@ export async function httpCreateNewAsset(assetID, assetName, assetModel, assetSe
     memberId: memberId,
   })
   .then(response => {
-    response.send(response.data);
+    console.log(response.data);
   })
   .catch(error => {
     console.log(error);
   });
 };
 
-
-// export async function removeAsset(assetID) {
-//   return axios.delete(`${API_URL}/assets/removeasset`, {
-//     id: assetID,
-//   })
-//   .then(response => {
-//     console.log(response.data);
-//   })
-//   .catch(error => {
-//     console.log(error);
-//   });
-// };
-
-export const removeAsset = async (assetID) => {
+export const httpRemoveAsset = async (assetID) => {
   const settings = {
     method: "delete",
     headers: { "Content-Type": "application/json" },

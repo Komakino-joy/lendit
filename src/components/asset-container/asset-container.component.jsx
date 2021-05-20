@@ -5,7 +5,8 @@ import { createStructuredSelector } from "reselect";
 import { 
   checkInSelectedAssetStart, 
   checkOutSelectedAssetStart, 
-  quarantineSelectedAssetStart 
+  quarantineSelectedAssetStart,
+  removeSelectedAssetStart, 
 } from "../../redux/asset/asset.actions";
 
 import { userId } from "../../redux/user/user.selectors";
@@ -14,8 +15,6 @@ import { assetId, assetName, assetSerial, assetImage, assetComments, assetStatus
 
 import { useAlert } from "react-alert";
 import { confirmAlert } from "react-confirm-alert";
-
-import { removeAsset } from "../../services/api";
 
 import defaultImg from "../../images/default.svg";
 import CustomButton from "../custom-button/custom-button.component";
@@ -27,8 +26,12 @@ import {
 
 import "react-confirm-alert/src/react-confirm-alert.css";
 
-const Center = ({assetId, assetName, assetSerial, assetImage, assetStatus, checkInSelectedAssetStart,
-  checkOutSelectedAssetStart, quarantineSelectedAssetStart, userId, assetComments, currentMemberId, assetModel}) => {
+const Center = ({
+  assetId, assetName, assetSerial, assetImage, assetStatus, 
+  checkInSelectedAssetStart, checkOutSelectedAssetStart, 
+  quarantineSelectedAssetStart, removeSelectedAssetStart,
+  userId, assetComments, currentMemberId, assetModel
+}) => {
 
   const alert = useAlert();
 
@@ -89,7 +92,7 @@ const Center = ({assetId, assetName, assetSerial, assetImage, assetStatus, check
         {
           label: "Yes",
           onClick: () => {
-            removeAsset(assetId);
+            removeSelectedAssetStart({assetId});
             alert.show(`${assetName} has been removed.`, { type: "success" });
           },
         },
@@ -188,6 +191,7 @@ const mapDispatchToProps = (dispatch) => ({
   checkInSelectedAssetStart: (assetData) => {dispatch(checkInSelectedAssetStart({...assetData}));},
   checkOutSelectedAssetStart: (assetData) => {dispatch(checkOutSelectedAssetStart({...assetData}));},
   quarantineSelectedAssetStart: (assetData) => {dispatch(quarantineSelectedAssetStart({...assetData}));},
+  removeSelectedAssetStart: (assetId) => {dispatch(removeSelectedAssetStart(assetId))},
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Center);
