@@ -18,8 +18,8 @@ import {
 
 export function* signIn({payload: {email, password}}) {
     try{
-        const user = yield httpSignInUser(email, password);
-        yield put(signInSuccess(user));
+        yield httpSignInUser(email, password);
+        yield put(signInSuccess(email, password));
     }catch(error){
         yield call(alert, 'Invalid Credentials', error );
         yield put(signInFailure(error));
