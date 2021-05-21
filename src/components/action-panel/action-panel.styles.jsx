@@ -28,7 +28,7 @@ export const ActionPanelInnerContainer = styled.div`
     border: 2px solid black;
     margin-bottom: 1em;
     border-bottom-left-radius: 8px;
-    border-bottom-ActionPanel-radius: 8px;
+    border-bottom-right-radius: 8px;
 
     ${mediaQuery}
 `;
@@ -45,7 +45,7 @@ export const ActionHeader = styled.header`
     height: 40px;
     font-weight: bold;
     border-top-left-radius: 8px;
-    border-top-ActionPanel-radius: 8px;
+    border-top-right-radius: 8px;
 
     ${mediaQuery}
 `;

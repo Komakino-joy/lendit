@@ -22,7 +22,7 @@ const SigninPage = ({ history, signInStart }) => {
 
   const handleChange = (event) => {
     const { value, name } = event.target;
-    name === 'email' ? setEmail(value) : setPassword(value);
+    name === 'email' ? setEmail(value.toLowerCase()) : setPassword(value);
   };
 
   const handleSubmit = (event) => {

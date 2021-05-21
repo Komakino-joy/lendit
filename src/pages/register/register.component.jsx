@@ -40,7 +40,7 @@ const RegistrationPage = ({ history, registrationStart, signInStart }) =>{
             setLname(value);
             break;
         case 'email':
-              setEmail(value);
+              setEmail(value.toLowerCase());
               break;
         case 'password':
             setPassword(value);
