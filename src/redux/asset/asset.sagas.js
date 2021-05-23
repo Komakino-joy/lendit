@@ -32,27 +32,27 @@ function* getRequestedSelectedAssetData({payload: {assetId, ownerId}}) {
   }
 };
 
-function* postCheckInSelectedAsset({payload: {assetId, userId, ownerId, assetName, assetSerial, assetModel}}) {
+function* postCheckInSelectedAsset({payload: {assetId, userId, currentMemberId, assetName, assetSerial, assetModel}}) {
   try{
-    const assetData = yield httpCheckInAsset(assetId, userId, ownerId, assetName, assetSerial, assetModel);
-    yield put(checkInSelectedAssetSuccess({...assetData, userId}))
+    const assetData = yield httpCheckInAsset(assetId, userId, currentMemberId, assetName, assetSerial, assetModel);
+    yield put(checkInSelectedAssetSuccess({...assetData, userId, currentMemberId}))
   }  catch (error) {
     yield put(checkInSelectedAssetFailure(error))
   }
 };
 
-function* postCheckOutSelectedAsset({payload: {assetId, userId, ownerId, assetName, assetSerial, assetModel}}) {
+function* postCheckOutSelectedAsset({payload: {assetId, userId, currentMemberId, assetName, assetSerial, assetModel}}) {
   try{
-    const assetData = yield httpCheckOutAsset(assetId, userId, ownerId, assetName, assetSerial, assetModel);
+    const assetData = yield httpCheckOutAsset(assetId, userId, currentMemberId, assetName, assetSerial, assetModel);
     yield put(checkOutSelectedAssetSuccess({...assetData, userId}))
   }  catch (error) {
     yield put(checkOutSelectedAssetFailure(error))
   }
 };
 
-function* postQuarantineSelectedAsset({payload: {assetId, userId, ownerId, assetName, assetSerial, assetModel, assetComments}}) {
+function* postQuarantineSelectedAsset({payload: {assetId, userId, currentMemberId, assetName, assetSerial, assetModel, assetComments}}) {
   try{
-    const assetData = yield httpQuarantineAsset(assetId, userId, ownerId, assetName, assetSerial, assetModel, assetComments);
+    const assetData = yield httpQuarantineAsset(assetId, userId, currentMemberId, assetName, assetSerial, assetModel, assetComments);
     yield put(quarantineSelectedAssetSuccess({...assetData, assetComments, userId}))
   }  catch (error) {
     yield put(quarantineSelectedAssetFailure(error))

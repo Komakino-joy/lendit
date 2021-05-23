@@ -106,7 +106,6 @@ const Center = ({
 
   return (
     <AssetContainer>
-      
       {assetId ? (
         <AssetInnerContainer>
           

@@ -39,7 +39,7 @@ const assetData = (state = INITIAL_STATE  , action) => {
       id: action.payload.id,
       model: action.payload.model,
       name: action.payload.name,
-      owner_id: action.payload.owner_id,
+      owner_id: action.payload.ownerId,
       serial: action.payload.serial,
       status: 'Available',
       comments: null,
