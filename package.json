@@ -1,5 +1,6 @@
 {
-  "name": "quick",
+  "name": "lendit_frontend",
+  "proxy": "http://localhost:6584",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

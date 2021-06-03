@@ -1,11 +1,9 @@
 import axios from 'axios';
 
-export const API_URL = 'https://lendit-api.herokuapp.com';
-
 export async function httpRegisterUser(fname, lname, email, password) {
   axios({
     method: 'post',
-    url: `${API_URL}/members/register`,
+    url: `/members/register`,
     data:{
         fname: fname,
         lname: lname,
@@ -16,7 +14,7 @@ export async function httpRegisterUser(fname, lname, email, password) {
 };
 
 export async function httpSignInUser(email, password) {
-  return axios.post(`${API_URL}/members/signin`,{
+  return axios.post(`/members/signin`,{
     email: email,
     password: password,
       })
@@ -30,7 +28,7 @@ export async function httpFetchSelectedAssetData(assetID, ownerID) {
     return;
   };
 
-  return axios.post(`${API_URL}/assets/asset`, {
+  return axios.post(`/assets/asset`, {
     id: assetID,
     owner_id: ownerID
   })
@@ -47,7 +45,7 @@ export async function httpFetchSelectedUserData(userID) {
     return;
   };
 
-  return axios.post(`${API_URL}/users/user`, {
+  return axios.post(`/users/user`, {
     id: userID,
   })
   .then(response => {
@@ -59,7 +57,7 @@ export async function httpFetchSelectedUserData(userID) {
 };
 
 export async function httpCheckInAsset(assetId, userID, owner, assetName, assetSerial, assetModel) {
-  return axios.post(`${API_URL}/assets/checkin`, {
+  return axios.post(`/assets/checkin`, {
     id: assetId,
     username: userID,
     owner: owner,
@@ -77,7 +75,7 @@ export async function httpCheckInAsset(assetId, userID, owner, assetName, assetS
 
 
 export async function httpCheckOutAsset(assetId, userID, owner, assetName, assetSerial, assetModel) {
-  return axios.post(`${API_URL}/assets/checkout`, {
+  return axios.post(`/assets/checkout`, {
     id: assetId,
     username: userID,
     owner: owner,
@@ -94,7 +92,7 @@ export async function httpCheckOutAsset(assetId, userID, owner, assetName, asset
 };
 
 export async function httpQuarantineAsset(assetID, userID, owner, assetName, assetSerial, assetModel, assetComments) {
-  return axios.post(`${API_URL}/assets/quarantine`, {
+  return axios.post(`/assets/quarantine`, {
     id: assetID,
     username: userID,
     owner: owner,
@@ -113,7 +111,7 @@ export async function httpQuarantineAsset(assetID, userID, owner, assetName, ass
 
 
 export async function httpCreateNewUser(userId, fname, lname, memberId) {
-  return axios.post(`${API_URL}/users/adduser`, {
+  return axios.post(`/users/adduser`, {
     userid: userId,
     fname: fname,
     lname: lname,
@@ -129,7 +127,7 @@ export async function httpCreateNewUser(userId, fname, lname, memberId) {
 
 
 export async function httpCreateNewAsset(assetID, assetName, assetModel, assetSerial, memberId) {
-  return axios.post(`${API_URL}/assets/addasset`, {
+  return axios.post(`/assets/addasset`, {
     id: assetID,
     name: assetName,
     model: assetModel,
@@ -154,7 +152,7 @@ export const httpRemoveAsset = async (assetID) => {
   };
   try {
     const response = await fetch(
-      `${API_URL}/assets/removeasset`,
+      `/assets/removeasset`,
       settings
     );
     const reply = await response.json();
@@ -165,7 +163,7 @@ export const httpRemoveAsset = async (assetID) => {
 };
 
 export async function httpFetchAllAssetsForDropDown(memberId) {
-  return axios.post(`${API_URL}/assets/allunits`, {
+  return axios.post(`/assets/allunits`, {
     memberId: memberId,
   })
   .then(assetList => {
@@ -178,7 +176,7 @@ export async function httpFetchAllAssetsForDropDown(memberId) {
 
 
 export async function fetchAllUsersForDropDown(memberId) {
-  return axios.post(`${API_URL}/users/allusers`, {
+  return axios.post(`/users/allusers`, {
     memberId: memberId,
   })
   .then(userList => {
@@ -191,7 +189,7 @@ export async function fetchAllUsersForDropDown(memberId) {
 
 
 export async function httpFetchAllModelsForDropDown(memberId) {
-  return axios.post(`${API_URL}/assets/allmodels`, {
+  return axios.post(`/assets/allmodels`, {
     memberId: memberId,
   })
   .then(modelList => {

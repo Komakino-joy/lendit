@@ -7,7 +7,6 @@ import { toggleAddModel } from "../../redux/modal/modal.actions";
 import { requestModelDropDownOptions } from "../../redux/drop-downs/drop-down.actions";
 
 import axios from "axios";
-import { API_URL } from '../../services/api.js';
 
 import { useAlert } from "react-alert";
 
@@ -75,7 +74,7 @@ const AddModel = ({ toggleAddModel, getModelOptions, memberId }) => {
 
         axios({
           method: "post",
-          url: `${API_URL}/assets/upload`,
+          url: `/assets/upload`,
           data: {
             image: srcEncoded,
             model: model,

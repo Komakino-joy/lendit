@@ -7,7 +7,6 @@ import { seenAvailableAssets } from "../../redux/modal/modal.selectors";
 import { toggleAvailableUnits } from "../../redux/modal/modal.actions";
 
 import axios from "axios";
-import { API_URL } from "../../services/api.js";
 
 import Loader from "react-loader-spinner";
 
@@ -31,7 +30,7 @@ const AvailableUnits = ({ toggleAvailableUnits, memberId }) => {
     const fetchData = async () => {
       const result = await axios({
         method: "post",
-        url: `${API_URL}/reports/availableassets`,
+        url: `/reports/availableassets`,
         data: {
           memberId: memberId,
         },

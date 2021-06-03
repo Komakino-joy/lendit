@@ -6,7 +6,6 @@ import { currentMemberId } from "../../redux/site-member/site-member.selectors";
 import { toggleActvityReport } from "../../redux/modal/modal.actions";
 
 import axios from "axios";
-import { API_URL } from '../../services/api.js';
 
 import Loader from "react-loader-spinner";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
@@ -37,7 +36,7 @@ const ActivityReport = ({
     const fetchData = async () => {
       const result = await axios({
         method: "post",
-        url: `${API_URL}/reports/activitytracking`,
+        url: `/reports/activitytracking`,
         data: {
           id: currentMemberId,
           startDate: startDate,
@@ -54,7 +53,7 @@ const ActivityReport = ({
 
   return (
     <ModalMain>
-      <ModalReportContent>
+      <ModalReportContent>  
         <CloseButton onClick={toggleActvityReport}>&times;</CloseButton>
         <Header>Activity Tracking Report</Header>
         <TableContainer>

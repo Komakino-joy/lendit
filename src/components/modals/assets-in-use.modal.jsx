@@ -6,7 +6,6 @@ import { currentMemberId } from "../../redux/site-member/site-member.selectors";
 import { toggleUnitsInUse } from "../../redux/modal/modal.actions";
 
 import axios from "axios";
-import { API_URL } from "../../services/api.js";
 
 import Loader from "react-loader-spinner";
 
@@ -30,7 +29,7 @@ const UnitsInUse = ({ toggleUnitsInUse, currentMemberId }) => {
     const fetchData = async () => {
       const result = await axios({
         method: "post",
-        url: `${API_URL}/reports/assetsinuse`,
+        url: `/reports/assetsinuse`,
         data: {
           memberId: currentMemberId,
         },
