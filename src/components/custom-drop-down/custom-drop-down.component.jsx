@@ -10,7 +10,13 @@ const CustomDropDown =({ id, optionList, ...props }) => {
                 {   
                     optionList ? (
                         optionList.map(option => (
-                    <option key={option.id} text={option.id}>{option.id}</option> 
+                    <option 
+                        key={option.id} 
+                        text={option.id}
+                    >
+                        {option.id}
+                    </option> 
+                    
                     ))
                     ):(
                     <option> </option>
