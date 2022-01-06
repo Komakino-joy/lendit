@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useAlert } from 'react-alert';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
-import { registrationStart, signInStart } from '../../redux/site-member/site-member.actions';
+import { registrationStart } from '../../redux/site-member/site-member.actions';
 
 import { RegistrationPageBody, RegistrationArticle, RegistrationMain, RegistrationFieldSet, RegistrationLegend, 
   RegistrationInput, RegistrationSubmit, NameFieldContainer, NameField, Email, Password,PasswordRules, SignInLinkContainer, SignInLink,
@@ -12,7 +12,8 @@ import { RegistrationPageBody, RegistrationArticle, RegistrationMain, Registrati
 import infoIconSvg from '../../images/info_icon.svg';
 import passwordTooltip from '../../images/password_tooltip.svg';
 
-const RegistrationPage = ({ history, registrationStart, signInStart }) =>{
+const RegistrationPage = ({ history }) =>{
+  const dispatch = useDispatch();
 
   const [fname, setFname] = useState('');
   const [lname, setLname] = useState('');
@@ -61,11 +62,13 @@ const RegistrationPage = ({ history, registrationStart, signInStart }) =>{
     setConfirmPassword('');
   };
 
-  const timeout = (ms) => {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  };
-
   const onSubmitRegister = async() => {
+
+    let fname = 'bryan'
+    let lname = 'alvarez'
+    // let email = 'honeycomb-west@noreply.com'
+    let password = '1234Five'
+    let confirmPassword = '1234Five'
 
     if (!fname || !lname || !email || !password) {
       alert.show('Missing required fields' , { type: 'error' , position:'top center'});
@@ -85,10 +88,10 @@ const RegistrationPage = ({ history, registrationStart, signInStart }) =>{
       return;
     };
   
-    await registrationStart({ fname, lname, email, password });
-    await timeout(2000);
-    await signInStart({email, password});
-    await history.push('/home');
+    dispatch(registrationStart({ fname, lname, email, password }));
+    // await timeout(2000);
+    // await signInStart({email, password});
+    // await history.push('/home');
     resetInput();
   };
 
@@ -194,9 +197,4 @@ const RegistrationPage = ({ history, registrationStart, signInStart }) =>{
 }
 
 
-const mapDispatchToProps = (dispatch) => ({
-  registrationStart: (userRegistrationInfo) => dispatch(registrationStart(userRegistrationInfo)),
-  signInStart: (emailAndPassword) => dispatch(signInStart(emailAndPassword)),
-})
-
-export default connect(null, mapDispatchToProps)(RegistrationPage);
+export default RegistrationPage;

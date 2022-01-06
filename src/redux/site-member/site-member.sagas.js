@@ -34,6 +34,10 @@ export function* register({payload: { fname, lname, email, password }}) {
     } 
 };
 
+export function* signInAfterSignUp(emailAndPassword) {
+    yield signIn(emailAndPassword);
+};
+
 export function* onSignInStart() {
     yield takeLatest(SiteMemberActionTypes.SIGN_IN_START, signIn)
 };
@@ -42,9 +46,15 @@ export function* onRegistrationStart() {
     yield takeLatest(SiteMemberActionTypes.REGISTER_START, register)
 };
 
+export function* onRegistrationSuccess() {
+    yield takeLatest(SiteMemberActionTypes.REGISTER_SUCCESS, signInAfterSignUp)
+};
+
+
 export function* siteMemberSagas() {
     yield all([
         call(onRegistrationStart),
         call(onSignInStart),
+        call(onRegistrationSuccess),
     ]);
 };

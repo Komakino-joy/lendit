@@ -11,7 +11,7 @@ const memberState = (state = INITIAL_STATE, action) => {
     case SiteMemberActionTypes.SIGN_IN_SUCCESS:
         return { 
             // Evaluate memberId to Boolean
-            memberSignedIn : !!action.payload.id,
+            memberSignedIn : true,
             memberId: action.payload.id,
             error: null,
         };
