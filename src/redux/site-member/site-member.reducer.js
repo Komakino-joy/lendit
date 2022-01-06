@@ -11,15 +11,22 @@ const memberState = (state = INITIAL_STATE, action) => {
     case SiteMemberActionTypes.SIGN_IN_SUCCESS:
         return { 
             // Evaluate memberId to Boolean
-            memberSignedIn : !!action.payload.id,
+            memberSignedIn : true,
             memberId: action.payload.id,
             error: null,
         };
+
+    case SiteMemberActionTypes.REGISTER_SUCCESS: 
+        return {
+            ...state,
+            error: null,
+        }
 
     case SiteMemberActionTypes.HANDLE_MEMBER_SIGN_OUT:
         return {
             state:undefined
         }
+
     case SiteMemberActionTypes.REGISTER_FAILURE:
     case SiteMemberActionTypes.SIGN_IN_FAILURE:
         return {

@@ -2,9 +2,7 @@ import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
 import { useAlert } from "react-alert";
 
-import { connect } from "react-redux";
-import { createStructuredSelector } from "reselect";
-import { isSignedIn } from "../../redux/site-member/site-member.selectors";
+import { useDispatch } from "react-redux";
 import { signInStart } from "../../redux/site-member/site-member.actions";
 
 import {
@@ -15,7 +13,9 @@ import {
 import emailIcon from '../../images/email_icon.svg';
 import passwordIcon from '../../images/password_icon.svg';
 
-const SigninPage = ({ history, signInStart }) => {
+const SigninPage = ({ history }) => {
+  const dispatch = useDispatch();
+
   const alert = useAlert();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -31,7 +31,7 @@ const SigninPage = ({ history, signInStart }) => {
         return;
       };
 
-      signInStart({email, password});
+      dispatch(signInStart({email, password}));
   };
 
   return (
@@ -85,14 +85,7 @@ const SigninPage = ({ history, signInStart }) => {
   );
 };
 
-const mapStateToProps = createStructuredSelector({
-  isSignedIn,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  signInStart: (emailAndPassword) => dispatch(signInStart(emailAndPassword)),
-});
 
 export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(SigninPage)
+  SigninPage
 );

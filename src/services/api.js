@@ -1,26 +1,23 @@
 import axios from 'axios';
 
 export async function httpRegisterUser(fname, lname, email, password) {
-  axios({
-    method: 'post',
-    url: `/members/register`,
-    data:{
-        fname: fname,
-        lname: lname,
-        email: email,
-        password: password,
-        }
-  });  
+  const data = {
+    fname: fname,
+    lname: lname,
+    email: email,
+    password: password,
+  }
+
+  return await axios.post('/members/register', data);  
 };
 
 export async function httpSignInUser(email, password) {
-  return axios.post(`/members/signin`,{
+  const data = {
     email: email,
     password: password,
-      })
-      .then(response => {
-        return response.data;
-      })
+  }
+
+  return await axios.post(`/members/signin`, data)
 };
 
 export async function httpFetchSelectedAssetData(assetID, ownerID) {

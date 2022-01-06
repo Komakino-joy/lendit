@@ -128,7 +128,8 @@ export const Password = styled.div`
 
 export const PasswordRules = styled.div`
     margin-left: .7rem;
-    margin-top: -1.2rem;
+    padding-top: .5rem;
+    margin-bottom: -1rem;
     font-weight: 400;
     text-align:left;
     font-size:.65rem;

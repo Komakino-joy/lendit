@@ -34,7 +34,7 @@ function App({ isSignedIn }) {
                 style={{position: "absolute",top: "20%",left: "50%",margin: "-25px 0 0 -25px"}} />
                 }>
             <Route exact path = '/signin'>{isSignedIn ? <Redirect to="/home" /> : <SigninPage />}</Route> 
-            <Route exact path = '/register' component={RegistrationPage}/>
+            <Route exact path = '/register'>{isSignedIn ? <Redirect to="/home" /> : <RegistrationPage />}</Route> 
             <Route exact path = '/' render={() => isSignedIn ? (<Redirect to='/home' />) : (<Redirect to='/signin' />)}/>
             <PrivateRoute  exact path = '/home' component={HomePage}/>
           </Suspense>

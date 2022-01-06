@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useAlert } from 'react-alert';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { registrationStart, signInStart } from '../../redux/site-member/site-member.actions';
+import { registrationStart } from '../../redux/site-member/site-member.actions';
 
 import { RegistrationPageBody, RegistrationArticle, RegistrationMain, RegistrationFieldSet, RegistrationLegend, 
   RegistrationInput, RegistrationSubmit, NameFieldContainer, NameField, Email, Password,PasswordRules, SignInLinkContainer, SignInLink,
@@ -12,17 +13,23 @@ import { RegistrationPageBody, RegistrationArticle, RegistrationMain, Registrati
 import infoIconSvg from '../../images/info_icon.svg';
 import passwordTooltip from '../../images/password_tooltip.svg';
 
-const RegistrationPage = ({ history, registrationStart, signInStart }) =>{
+const RegistrationPage = () =>{
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const alert = useAlert();
 
-  const [fname, setFname] = useState('');
-  const [lname, setLname] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const registrationError = useSelector(state => state.memberState.error)
+
+  const [registrationForm, setRegistrationForm] = useState({
+    fname: '',
+    lname: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+  })
+
   const [failedPassword, setFailedPassword] = useState(false);
   const [toolTipVisibility, setToolTipVisibility] = useState(false);
-
-  const alert = useAlert();
 
   const onMouseOverInfo = () => {
     setToolTipVisibility(true); 
@@ -34,19 +41,35 @@ const RegistrationPage = ({ history, registrationStart, signInStart }) =>{
     
     switch(name) {
         case 'fname':
-            setFname(value);
+            setRegistrationForm((prevState) => ({
+              ...prevState,
+              fname: value
+            }));
             break;
         case 'lname':
-            setLname(value);
+            setRegistrationForm((prevState) => ({
+              ...prevState,
+              lname: value
+            }));
             break;
         case 'email':
-              setEmail(value.toLowerCase());
-              break;
+            setRegistrationForm((prevState) => ({
+              ...prevState,
+              email: value
+            }));
+            break;
         case 'password':
-            setPassword(value);
+            setFailedPassword(false);
+            setRegistrationForm((prevState) => ({
+              ...prevState,
+              password: value
+            }));
             break;
         case 'confirmPassword':
-            setConfirmPassword(value)
+            setRegistrationForm((prevState) => ({
+              ...prevState,
+              confirmPassword: value
+            }));
             break;
         default:
             break;
@@ -54,18 +77,11 @@ const RegistrationPage = ({ history, registrationStart, signInStart }) =>{
   };
 
   const resetInput = () => {
-    setFname('');
-    setLname('');
-    setEmail('');
-    setPassword('');
-    setConfirmPassword('');
-  };
-
-  const timeout = (ms) => {
-    return new Promise(resolve => setTimeout(resolve, ms));
+    setRegistrationForm({});
   };
 
   const onSubmitRegister = async() => {
+    const { fname, lname, email, password, confirmPassword } = registrationForm;
 
     if (!fname || !lname || !email || !password) {
       alert.show('Missing required fields' , { type: 'error' , position:'top center'});
@@ -85,10 +101,22 @@ const RegistrationPage = ({ history, registrationStart, signInStart }) =>{
       return;
     };
   
-    await registrationStart({ fname, lname, email, password });
-    await timeout(2000);
-    await signInStart({email, password});
-    await history.push('/home');
+    dispatch(registrationStart({ fname, lname, email, password }));
+
+    if(registrationError) {
+      if (registrationError?.message === 'Request failed with status code 409') {
+        return alert.show(`User with the email ${email} already exists` , {
+          type: 'error' , 
+          position:'top center'
+        });
+      }
+
+      return alert.show('Something went wrong.' , { 
+          type: 'error',
+          position:'top center'
+        });
+    }
+
     resetInput();
   };
 
@@ -145,6 +173,7 @@ const RegistrationPage = ({ history, registrationStart, signInStart }) =>{
                 alt='info-icon'
                 onMouseOver={onMouseOverInfo} 
                 onMouseOut={() => setToolTipVisibility(false)}
+                style={failedPassword ? {display: 'none'} : {display: ''} }
                 />
                 { toolTipVisibility ?
                   <ToolTip>
@@ -194,9 +223,4 @@ const RegistrationPage = ({ history, registrationStart, signInStart }) =>{
 }
 
 
-const mapDispatchToProps = (dispatch) => ({
-  registrationStart: (userRegistrationInfo) => dispatch(registrationStart(userRegistrationInfo)),
-  signInStart: (emailAndPassword) => dispatch(signInStart(emailAndPassword)),
-})
-
-export default connect(null, mapDispatchToProps)(RegistrationPage);
+export default RegistrationPage;
