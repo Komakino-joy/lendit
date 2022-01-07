@@ -192,7 +192,4 @@ export async function httpFetchAllModelsForDropDown(memberId) {
   .then(modelList => {
     return modelList.data;
   })
-  .catch(error => {
-    console.log(error);
-  });
 };

@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
-import {connect} from 'react-redux';
-import { createStructuredSelector } from "reselect";
+import {connect, useSelector, useDispatch} from 'react-redux';
 
-import { currentMemberId } from "../../redux/site-member/site-member.selectors";
-import { selectModels } from "../../redux/drop-downs/drop-down.selectors";
-import { seenAddModel } from "../../redux/modal/modal.selectors";
 import { toggleAddModel, toggleAddUnit } from "../../redux/modal/modal.actions";
 import { requestAssetDropDownOptions, requestModelDropDownOptions } from '../../redux/drop-downs/drop-down.actions';
 
 import { useAlert } from 'react-alert';
+
+import Select from 'react-select';
+import DefaultImage from '../../images/default.svg'
 
 import { httpCreateNewAsset } from "../../services/api";
 
@@ -18,9 +17,12 @@ import CustomDropDown from '../custom-drop-down/custom-drop-down.component'
 import { ModalMain, ModalContent, CloseButton, Header, Article,
         FieldSet, Input, AddModelButton, Submit} from "./modal.styles";
 
-const AddUnit = ( {toggleAddUnit, toggleAddModel, seenAddModel, getAssetOptions, getModelOptions, models, memberId}) => {
-
+const AddUnit = ( {toggleAddUnit, toggleAddModel, getAssetOptions, getModelOptions }) => {
   const alert = useAlert();
+
+  const seenAddModel = useSelector(state => state.modalState.seenAddModel);
+  const memberId = useSelector(state => state.memberState.memberId);
+  const models = useSelector(state => state.dropDownOptions.modelDropDown);
 
   useEffect(() => {
     getModelOptions(memberId);
@@ -68,6 +70,21 @@ const AddUnit = ( {toggleAddUnit, toggleAddModel, seenAddModel, getAssetOptions,
       alert.show('Please ensure that all fields are filled out and model is selected.', {type: 'error', position:'top center'});
     }
   };
+
+  const options = models.map(model => (
+    { 
+      value: model.id, 
+      label: <div>
+                <img 
+                  src={model.image} 
+                  alt={model.id} 
+                  height="60px" 
+                  width="60px"
+                />
+                {model.id}
+             </div> 
+    }
+  ));
   
   return (
    <ModalMain>
@@ -80,7 +97,18 @@ const AddUnit = ( {toggleAddUnit, toggleAddModel, seenAddModel, getAssetOptions,
             <FieldSet id="sign_up">
                 <Input onChange={onAssetidChange}   placeholder="Asset ID (Required)" type="text" name="asset-id"  id="asset-id"/>
                 <Input onChange={onAssetNameChange} placeholder="Asset Name (Required)" type="text" name="asset-name"  id="asset-name"/>
-                <CustomDropDown isModelSelection onChange={onAssetModelChange} defaultOption="Model (Required)" name="asset-model"  id="asset-model" optionList={models}/>
+                <CustomDropDown 
+                  isModelSelection 
+                  onChange={onAssetModelChange} 
+                  defaultOption="Model (Required)" 
+                  name="asset-model"  
+                  id="asset-model" 
+                  optionList={models}
+                />
+                <Select 
+                  options={options} 
+                  onChange={onAssetModelChange} 
+                />
                 <AddModelButton onClick={toggleAddModel}>Add New Model</AddModelButton>
                 <Input onChange={onAssetSerialChange} placeholder="Serial Number (Required)" type="text" name="asset-serial"  id="asset-serial"/>
             </FieldSet>
@@ -93,12 +121,6 @@ const AddUnit = ( {toggleAddUnit, toggleAddModel, seenAddModel, getAssetOptions,
   );
 };
 
-const mapStateToProps = createStructuredSelector({
-  memberId: currentMemberId,
-  models: selectModels,
-  seenAddModel
-});
-
 const mapDispatchToProps = (dispatch) => ({
     toggleAddUnit   : () => {dispatch(toggleAddUnit())},
     toggleAddModel  : () => {dispatch(toggleAddModel())},
@@ -106,4 +128,4 @@ const mapDispatchToProps = (dispatch) => ({
     getModelOptions : (memberId) => { dispatch(requestModelDropDownOptions(memberId))}
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddUnit);
+export default connect(null, mapDispatchToProps)(AddUnit);
