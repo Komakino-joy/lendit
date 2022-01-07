@@ -30,6 +30,7 @@ const AddUnit = ( { getModelOptions }) => {
   let [assetName,   setAssetName  ] = useState('');
   let [assetModel,  setAssetModel ] = useState([]);
   let [assetSerial, setAssetSerial] = useState('');
+  let [clearModelSelection, setClearModelSelection] = useState(false);
 
   const onAssetidChange = (event) => {
     setAssetID(event.target.value); 
@@ -38,8 +39,9 @@ const AddUnit = ( { getModelOptions }) => {
   const onAssetNameChange = (event) => {
     setAssetName(event.target.value);
   };
-
+  
   const onAssetModelChange = (option) => {
+    setClearModelSelection(false);
     setAssetModel(option.value);
   };
 
@@ -51,6 +53,7 @@ const AddUnit = ( { getModelOptions }) => {
     assetID = null;
     assetName = null;
     assetSerial = null;
+    setClearModelSelection(true);
     document.getElementById('asset-id').value = '';
     document.getElementById('asset-name').value = '';
     document.getElementById('asset-serial').value = '';
@@ -116,6 +119,7 @@ const AddUnit = ( { getModelOptions }) => {
                   id='asset-model'
                   data={models} 
                   onChange={onAssetModelChange} 
+                  clearModelSelection={clearModelSelection}
                 />
                 <AddModelButton onClick={() => dispatch(toggleAddModel())}>Add New Model</AddModelButton>
                 <Input 

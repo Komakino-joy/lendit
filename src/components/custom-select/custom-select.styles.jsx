@@ -3,6 +3,7 @@ import styled  from 'styled-components'
 export const SelectOption = styled.div`
     display: flex;
     align-items:center;
+    height: 65px;
 `;
 
 export const OptionText = styled.span`
@@ -13,9 +14,10 @@ export const OptionText = styled.span`
 export const OptionImageContainer = styled.div`
     length: 60px
     width: 60px;
+    background: white;
 `;
 
 export const OptionImage = styled.img`
-    max-width: 60px;
-    background: transparent;
+    width: 60px;
+    height: auto;
 `;

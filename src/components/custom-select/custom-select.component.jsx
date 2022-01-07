@@ -1,33 +1,57 @@
 import React from 'react'
 import Select from 'react-select';
 
+
 import { 
     OptionImageContainer, 
     OptionImage, SelectOption, 
     OptionText
 } from "./custom-select.styles.jsx";
 
-const CustomSelect = ({ id, data, onChange }) => {
+const CustomSelect = ({ id, data, onChange, clearModelSelection }) => {
 
   const customStyles = {
+    container: (provided, state) => ({
+      ...provided,
+      margin: '15px 0 5px 17%',
+      width: '67%'
+    }),
+
+    control: (provided, state) => ({
+      ...provided,
+      // background: '#DAA520',
+    }),
+
+    input: (provided, state) => ({
+      ...provided,
+    }),
+
+    dropdownIndicator: (provided, state) => ({
+      ...provided,
+      // background: 'lightblue',
+    }),
+
     menu: (provided, state) => ({
       ...provided,
-      width: state.selectProps.width,
-      borderBottom: '1px dotted pink',
-      color: state.selectProps.menuColor,
-      padding: 20,
+      // background: 'lightcoral',
+      border: '1px solid lightgrey',
     }),
   
-    control: (_, { selectProps: { width }}) => ({
-      width: width
+    menuList: (provided, state) => ({
+      ...provided,
+      // background: 'orange',
+
     }),
-  
-    singleValue: (provided, state) => {
-      const opacity = state.isDisabled ? 0.5 : 1;
-      const transition = 'opacity 300ms';
-  
-      return { ...provided, opacity, transition };
-    }
+
+    option: (provided, state) => ({
+      ...provided,
+      color: '#545454',
+      borderBottom: '1px solid grey',
+    }),
+
+    placeholder: (provided, state) => ({
+      ...provided,
+    })
   };
 
   const options = data.map(option => (
@@ -52,9 +76,8 @@ const CustomSelect = ({ id, data, onChange }) => {
             options={options} 
             onChange={onChange} 
             styles={customStyles}
-            width='80%'
-            menuColor='grey'
-            // options={...}
+            value={clearModelSelection ? null : options[id]}
+            maxMenuHeight={140}
         />
     )
 }
