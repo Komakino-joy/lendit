@@ -224,4 +224,5 @@ export const TableBody = styled.tbody`
 
 export const ModalDate = styled(DatePicker)`
     ${inputStyles}
-`
+`;
+
