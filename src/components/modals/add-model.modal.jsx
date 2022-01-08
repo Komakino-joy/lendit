@@ -7,9 +7,9 @@ import { toggleAddModel } from "../../redux/modal/modal.actions";
 import { requestModelDropDownOptions } from "../../redux/drop-downs/drop-down.actions";
 
 import axios from "axios";
-
 import { useAlert } from "react-alert";
 
+import FileUpload from "../file-upload/file-upload.component";
 
 import {
   SubModalMain,
@@ -26,6 +26,10 @@ const AddModel = ({ toggleAddModel, getModelOptions, memberId }) => {
   const alert = useAlert();
 
   let [model, setModel] = useState("");
+  const [newUserInfo, setNewUserInfo] = useState({
+    modelImages: []
+  });
+
 
   const onModelChange = (event) => {
     setModel(event.target.value);
@@ -37,60 +41,68 @@ const AddModel = ({ toggleAddModel, getModelOptions, memberId }) => {
     document.getElementById("file").value = "";
   };
 
-  const onFileUpload = () => {
+  const handleSubmit = (e) => {
+      e.preventDefault();
+      
+      const file = newUserInfo.modelImages[0];
 
-    const file = document.querySelector("#file").files[0];
+      if (!file || !model){
+        alert.show('Model name and image are required.', { 
+          type:'error', 
+          position:'top center',
+        })
+        return;
+      } 
 
-    if (!file || !model){
-      alert.show('Model name and image are required.', { type:'error', position:'top center' })
-      return;
-    } 
+      const reader = new FileReader();
 
-    const reader = new FileReader();
+      reader.readAsDataURL(file);
 
-    reader.readAsDataURL(file);
+      reader.onload = (event) => {
+        const imgElement = document.createElement("img");
+        imgElement.src = event.target.result;
 
-    reader.onload = (event) => {
-      const imgElement = document.createElement("img");
-      imgElement.src = event.target.result;
+        imgElement.onload = (e) => {
+          const canvas = document.createElement("canvas");
+          const MAX_WIDTH = 350;
+          if (e.target.width > 350) {
+            const scaleSize = MAX_WIDTH / e.target.width;
+            canvas.width = MAX_WIDTH;
+            canvas.height = e.target.height * scaleSize;
+          } else {
+            canvas.width = e.target.width;
+            canvas.height = e.target.height;
+          }
 
-      imgElement.onload = (e) => {
-        const canvas = document.createElement("canvas");
-        const MAX_WIDTH = 350;
-        if (e.target.width > 350) {
-          const scaleSize = MAX_WIDTH / e.target.width;
-          canvas.width = MAX_WIDTH;
-          canvas.height = e.target.height * scaleSize;
-        } else {
-          canvas.width = e.target.width;
-          canvas.height = e.target.height;
-        }
+          const ctx = canvas.getContext("2d");
 
-        const ctx = canvas.getContext("2d");
+          ctx.drawImage(e.target, 0, 0, canvas.width, canvas.height);
 
-        ctx.drawImage(e.target, 0, 0, canvas.width, canvas.height);
+          const srcEncoded = ctx.canvas.toDataURL(e.target, "image/jpg");
 
-        const srcEncoded = ctx.canvas.toDataURL(e.target, "image/jpg");
+          axios({
+            method: "post",
+            url: `/assets/upload`,
+            data: {
+              image: srcEncoded,
+              model: model,
+              memberId: memberId,
+            },
+          });
 
-        axios({
-          method: "post",
-          url: `/assets/upload`,
-          data: {
-            image: srcEncoded,
-            model: model,
-            memberId: memberId,
-          },
-        });
+          alert.show(`${model} submitted`, {
+            type: "success",
+            position: "top center",
+          });
 
-        alert.show(`${model} submitted`, {
-          type: "success",
-          position: "top center",
-        });
-
-        inputReset();
+          inputReset();
+        };
       };
     };
-  };
+    
+  const updateUploadedFiles = (files) => {
+    setNewUserInfo({ ...newUserInfo, modelImages: files });
+  }
 
   return (
     <SubModalMain>
@@ -110,7 +122,7 @@ const AddModel = ({ toggleAddModel, getModelOptions, memberId }) => {
           <div action="sign-up_submit" method="get" acceptCharset="utf-8">
             <FieldSet>
               <SubModalInput
-              placeholder="Model Name (Required)"
+                placeholder="Model Name (Required)"
                 id="model"
                 type="text"
                 name="model"
@@ -121,20 +133,20 @@ const AddModel = ({ toggleAddModel, getModelOptions, memberId }) => {
                 className="flex flex-column"
                 encType="multipart/form-data"
                 method="POST"
+                onSubmit={handleSubmit}
               >
-                <SubModalInput
+                <FileUpload
                   id="file"
-                  type="file"
-                  accept=".jpg, .jpeg, .png"
-                  name="pic"
+                  accept=".jpg,.png,.jpeg"
+                  label="Model image"
+                  updateFilesCb={updateUploadedFiles}
                 />
-              </form>
-            </FieldSet>
             <AddModelSubmit
               type="Submit"
               defaultValue="Submit"
-              onClick={onFileUpload}
             />
+              </form>
+            </FieldSet>
           </div>
         </Article>
       </SubModalContent>

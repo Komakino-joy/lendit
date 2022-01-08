@@ -41,10 +41,16 @@ function* postCheckInSelectedAsset({payload: {assetId, userId, currentMemberId, 
   }
 };
 
-function* postCheckOutSelectedAsset({payload: {assetId, userId, currentMemberId, assetName, assetSerial, assetModel}}) {
+function* postCheckOutSelectedAsset({payload: {assetId, userId, currentMemberId, assetName, assetSerial, assetModel, message}}) {
   try{
     const assetData = yield httpCheckOutAsset(assetId, userId, currentMemberId, assetName, assetSerial, assetModel);
+
+    if (assetData.message) {
+      return yield put(checkOutSelectedAssetFailure(assetData.message))
+    }
+
     yield put(checkOutSelectedAssetSuccess({...assetData, userId}))
+
   }  catch (error) {
     yield put(checkOutSelectedAssetFailure(error))
   }

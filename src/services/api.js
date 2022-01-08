@@ -54,25 +54,24 @@ export async function httpFetchSelectedUserData(userID) {
 };
 
 export async function httpCheckInAsset(assetId, userID, owner, assetName, assetSerial, assetModel) {
-  return axios.post(`/assets/checkin`, {
-    id: assetId,
-    username: userID,
-    owner: owner,
-    assetName: assetName,
-    assetSerial: assetSerial,
-    assetModel: assetModel,
+  const response = await axios.post(`/assets/checkin`, {
+      id: assetId,
+      username: userID,
+      owner: owner,
+      assetName: assetName,
+      assetSerial: assetSerial,
+      assetModel: assetModel,
   })
-  .then(response => {
-    return response.data;
-  })
-  .catch(error => {
-    console.log(error);
-  });
+
+  return response.data;
+
 };
 
 
 export async function httpCheckOutAsset(assetId, userID, owner, assetName, assetSerial, assetModel) {
-  return axios.post(`/assets/checkout`, {
+
+  
+  const response = await  axios.post(`/assets/checkout`, {
     id: assetId,
     username: userID,
     owner: owner,
@@ -80,12 +79,13 @@ export async function httpCheckOutAsset(assetId, userID, owner, assetName, asset
     assetSerial: assetSerial,
     assetModel: assetModel,
   })
-  .then(response => {
-    return response.data;
-  })
-  .catch(error => {
-    console.log(error);
-  });
+
+  if( response.status === 202) {
+    return {message: response.data.message}
+  }
+
+  return response.data;
+
 };
 
 export async function httpQuarantineAsset(assetID, userID, owner, assetName, assetSerial, assetModel, assetComments) {

@@ -15,7 +15,7 @@ export const ModalMain = styled.div`
     left: 0;
     right: 0;
     bottom: 0;
-    z-index: 1010;
+    z-index: 94;
     background: rgba(240, 240, 240, 0.9);
     display: -webkit-flex;
     display: -moz-flex;
@@ -43,10 +43,10 @@ export const ModalContent = styled.div`
     width: 450px;
     padding-bottom: 2em;
     background-color: white;
-    z-index: 1002;
+    z-index: 91;
     overflow: auto;
     border-radius: 10px;
-    box-shadow: 0 20px 75px rgba(0, 0, 0, 0.13);
+    box-shadow: 0 20px 70px rgba(0, 0, 0, 0.2);
 `;
 
 export const ModalReportContent  = styled.div`
@@ -76,8 +76,8 @@ export const SubModalMain  = styled.div`
     left: 0%;
     width: 100%;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.2);
-    z-index: 1003;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 92;
 
     @media screen and (max-width: 1500px) {
         height: 157vh;
@@ -86,15 +86,15 @@ export const SubModalMain  = styled.div`
 
 export const SubModalContent = styled.div`
     position: absolute;
-    top: 20%;
+    top: 8%;
     height: auto;
-    width: 350px;
+    width: 400px;
     padding-bottom: 2em;
     background-color: white;
-    z-index: 1004;
+    z-index: 93;
     overflow: auto;
     border-radius: 5px;
-    border: 2px solid black;
+    box-shadow: 2px 2px 8px rgba(0,0,0,.8);
 `;
 
 export const CloseButton  = styled.span`
@@ -130,32 +130,39 @@ export const Label = styled.label`
 `;
 
 const inputStyles = css`
-    padding: 0.5rem;
-    border: 1px solid darkgrey;
-    margin-top: 1rem;
+    margin-top: 10px;
+    margin-left:17%; 
+    border-radius: 4px;
+    border: 1px solid lightgrey;
+    padding: 10px;
+    :focus {
+        border: 2px solid #2684ff;
+        outline: 0 none;
+    }
 `
 export const Input = styled.input`
     ${inputStyles}
-    width: 61%;
-    margin-left:18%; 
+    width: 61.5%;
 `;
 
 export const SubModalInput = styled.input`
     ${inputStyles}
-    width: 80%;
-    margin-left:6%;
+    margin-left:0;
+    width: 93%;
+    margin: 30px 0 15px 0;
 `;
 
 const submitButton = css`
     color: #4178BE; 
     font-weight: bold;
-    padding:.5rem 1rem;
+    padding:.75rem 1rem;
     margin-top: .5rem;
     border: 1px solid #4178BE;
     background-color: transparent;
     cursor: pointer;
     font-size: 0.875rem;
     text-align: center;
+    border-radius: 6px;
     :hover{
         background-color: #4178BE;
         color: #ffffff;

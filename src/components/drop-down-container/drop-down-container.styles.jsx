@@ -16,7 +16,7 @@ export const DropDownInner = styled.div`
     height: auto;
     background-color: white;
     width: 85%;
-    border: 2px solid black;
+    border: 1px solid darkgrey;
     border-radius: 8px;
     padding: 1rem;
     padding-top: 0;

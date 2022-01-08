@@ -19,7 +19,6 @@ const CustomSelect = ({ id, data, onChange, clearModelSelection }) => {
 
     control: (provided, state) => ({
       ...provided,
-      // background: '#DAA520',
     }),
 
     input: (provided, state) => ({
@@ -28,19 +27,15 @@ const CustomSelect = ({ id, data, onChange, clearModelSelection }) => {
 
     dropdownIndicator: (provided, state) => ({
       ...provided,
-      // background: 'lightblue',
     }),
 
     menu: (provided, state) => ({
       ...provided,
-      // background: 'lightcoral',
       border: '1px solid lightgrey',
     }),
   
     menuList: (provided, state) => ({
       ...provided,
-      // background: 'orange',
-
     }),
 
     option: (provided, state) => ({

@@ -1,16 +1,22 @@
 import styled, { css } from 'styled-components';
 
 const checkInButtonStyles = css`
+    height:60px;
+    width: 150px;
     background-color: #3773bf;
+    font-size: 1.2rem;
 `;
 
 const checkOutButtonStyles = css`
+    height:60px;
+    width: 150px;
     background-color: #bf3737;
+    font-size: 1.2rem;
 `;
 
 const submitButtonStyles = css`
     width: 85%;
-    height: 25px;
+    height: 35px;
     margin-bottom: 0.5rem;
     background-color: #808080;
 `;

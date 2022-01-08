@@ -6,7 +6,7 @@ export const NavList = styled.nav`
     display: flex;
     justify-content: flex-end;
     position: absolute;
-    z-index: 999;
+    z-index: 90;
 `
 export const NavOption = styled.p`
     font-size: 1.2rem;

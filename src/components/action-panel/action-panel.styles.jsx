@@ -25,7 +25,9 @@ export const ActionPanelInnerContainer = styled.div`
     align-items: center;
     background-color: white;
     width: 80%;
-    border: 2px solid black;
+    border-bottom: 1px solid darkgrey;
+    border-left: 1px solid darkgrey;
+    border-right: 1px solid darkgrey;
     margin-bottom: 1em;
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
@@ -37,7 +39,9 @@ export const ActionHeader = styled.header`
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 2px solid black;
+    border-top: 1px solid #1b4275;
+    border-left: 1px solid #1b4275;
+    border-right: 1px solid #1b4275;
     background-color: #1b4275;
     color: white;
     font-size: 1.1rem;

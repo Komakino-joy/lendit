@@ -11,14 +11,17 @@ const INITIAL_STATE = {
   serial: null,
   status: null,
   error : null,
+  message: null,
 }
 
 const assetData = (state = INITIAL_STATE  , action) => {
   switch (action.type) {
     case AssetActionTypes.REQUEST_SELECTED_ASSET_SUCCESS:
+
       if(action.payload === undefined){
         return state;
       }
+
       return {
         ...state,
         comments: action.payload.comments,
@@ -45,6 +48,12 @@ const assetData = (state = INITIAL_STATE  , action) => {
       comments: null,
       error : null,
     };
+
+    case AssetActionTypes.CHECK_OUT_SELECTED_ASSET_START:
+      return {
+        ...state,
+        message: null,
+      }
 
     case AssetActionTypes.CHECK_OUT_SELECTED_ASSET_SUCCESS:
       return {

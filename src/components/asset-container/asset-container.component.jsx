@@ -1,6 +1,5 @@
 import React from "react";
-import { connect } from "react-redux";
-import { createStructuredSelector } from "reselect";
+import { useSelector, useDispatch } from "react-redux";
 
 import { 
   checkInSelectedAssetStart, 
@@ -9,9 +8,6 @@ import {
   removeSelectedAssetStart, 
 } from "../../redux/asset/asset.actions";
 
-import { userId } from "../../redux/user/user.selectors";
-import { currentMemberId } from "../../redux/site-member/site-member.selectors.js";
-import { assetId, assetName, assetSerial, assetImage, assetComments, assetStatus, assetModel } from "../../redux/asset/asset.selectors";
 
 import { useAlert } from "react-alert";
 import { confirmAlert } from "react-confirm-alert";
@@ -26,14 +22,27 @@ import {
 
 import "react-confirm-alert/src/react-confirm-alert.css";
 
-const Center = ({
-  assetId, assetName, assetSerial, assetImage, assetStatus, 
-  checkInSelectedAssetStart, checkOutSelectedAssetStart, 
-  quarantineSelectedAssetStart, removeSelectedAssetStart,
-  userId, assetComments, currentMemberId, assetModel
-}) => {
+const Center = () => {
 
   const alert = useAlert();
+  const dispatch = useDispatch();
+  const assetInfo = useSelector(state => state.assetData);
+  const memberInfo = useSelector(state => state.memberState);
+  const userInfo = useSelector(state => state.userData);
+  const { id: userId } = userInfo;
+  const { memberId: currentMemberId } = memberInfo;
+
+  let { 
+    error ,   
+    id: assetId,
+    name: assetName,
+    image: assetImage,
+    status: assetStatus,
+    serial: assetSerial,
+    comments: assetComments,
+    model: assetModel
+  } = assetInfo;
+
 
   // Prevents the user from dragging the asset image.
   const preventDragHandler = (event) => {
@@ -44,23 +53,21 @@ const Center = ({
     assetComments = event.target.value;
   };
 
-
   const handleCheckout = () => {
-
     if (assetStatus.slice(0, 9) === "In Use By") {
       alert.show(`${assetName} is ${assetStatus}`, { type: "info" });
     } else if (!userId) {
       alert.show(`Username is required for checkout`, { type: "info" });
       document.getElementById("user-list").focus();
     } else {
-      checkOutSelectedAssetStart({ assetId, userId, currentMemberId, assetName, assetSerial, assetModel });
+      dispatch(checkOutSelectedAssetStart({ assetId, userId, currentMemberId, assetName, assetSerial, assetModel }));
       document.getElementById("asset-list").focus();
     }
   };
 
   const handleCheckin = () => {
     if (assetStatus !== "Available"){
-      checkInSelectedAssetStart({ assetId, userId, currentMemberId, assetName, assetSerial, assetModel });
+      dispatch(checkInSelectedAssetStart({ assetId, userId, currentMemberId, assetName, assetSerial, assetModel }));
     }else{
       alert.show(`${assetName} is already checked in.`, { type: "info" });
     } 
@@ -78,7 +85,7 @@ const Center = ({
       alert.show(`Username is required for quarantine`, { type: "info" });
       document.getElementById("user-list").focus();
     } else {
-      quarantineSelectedAssetStart({assetId, userId, currentMemberId, assetName, assetSerial, assetModel, assetComments});
+      dispatch(quarantineSelectedAssetStart({assetId, userId, currentMemberId, assetName, assetSerial, assetModel, assetComments}));
       document.getElementById("text-area").value = "";
     }
   };
@@ -92,7 +99,7 @@ const Center = ({
         {
           label: "Yes",
           onClick: () => {
-            removeSelectedAssetStart({assetId});
+            dispatch(removeSelectedAssetStart({assetId}));
             alert.show(`${assetName} has been removed.`, { type: "success" });
           },
         },
@@ -174,23 +181,4 @@ const Center = ({
   );
 };
 
-const mapStateToProps = createStructuredSelector({
-  currentMemberId,
-  userId,
-  assetId,
-  assetName,
-  assetImage,
-  assetStatus,
-  assetSerial,
-  assetComments,
-  assetModel,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  checkInSelectedAssetStart: (assetData) => {dispatch(checkInSelectedAssetStart({...assetData}));},
-  checkOutSelectedAssetStart: (assetData) => {dispatch(checkOutSelectedAssetStart({...assetData}));},
-  quarantineSelectedAssetStart: (assetData) => {dispatch(quarantineSelectedAssetStart({...assetData}));},
-  removeSelectedAssetStart: (assetId) => {dispatch(removeSelectedAssetStart(assetId))},
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Center);
+export default Center;

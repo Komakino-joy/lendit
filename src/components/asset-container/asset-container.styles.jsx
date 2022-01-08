@@ -23,7 +23,7 @@ export const AssetInnerContainer = styled.div`
     justify-content: center;
     align-items: center;
     background-color: white;
-    border: 2px solid black;
+    border: 1px solid darkgrey;
     border-radius: 8px;
 
     @media screen and (max-width: 1500px) {
