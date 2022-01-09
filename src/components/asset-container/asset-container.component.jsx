@@ -29,11 +29,10 @@ const Center = () => {
   const assetInfo = useSelector(state => state.assetData);
   const memberInfo = useSelector(state => state.memberState);
   const userInfo = useSelector(state => state.userData);
-  const { id: userId } = userInfo;
+  const { id: userId, fname, lname } = userInfo;
   const { memberId: currentMemberId } = memberInfo;
 
-  let { 
-    error ,   
+  let {   
     id: assetId,
     name: assetName,
     image: assetImage,
@@ -60,7 +59,7 @@ const Center = () => {
       alert.show(`Username is required for checkout`, { type: "info" });
       document.getElementById("user-list").focus();
     } else {
-      dispatch(checkOutSelectedAssetStart({ assetId, userId, currentMemberId, assetName, assetSerial, assetModel }));
+      dispatch(checkOutSelectedAssetStart({ assetId, userId, currentMemberId, assetName, assetSerial, assetModel, fname, lname }));
       document.getElementById("asset-list").focus();
     }
   };
@@ -76,18 +75,26 @@ const Center = () => {
   const handleQuarantine = () => {
     if (assetStatus === "Quarantine") {
       alert.show(`${assetName} is already in quarantine.`, { type: "info" });
-    } else if (!assetComments) {
+      return;
+    } 
+    
+    if (!assetComments) {
       alert.show(`Reason is required to check ${assetName} into quarantine.`, {
         type: "info",
       });
       document.getElementById("text-area").focus();
-    } else if (!userId) {
+      return;
+    } 
+
+    if (!userId) {
       alert.show(`Username is required for quarantine`, { type: "info" });
       document.getElementById("user-list").focus();
-    } else {
-      dispatch(quarantineSelectedAssetStart({assetId, userId, currentMemberId, assetName, assetSerial, assetModel, assetComments}));
-      document.getElementById("text-area").value = "";
-    }
+      return;
+    } 
+
+    dispatch(quarantineSelectedAssetStart({assetId, userId, currentMemberId, assetName, assetSerial, assetModel, assetComments}));
+    document.getElementById("text-area").value = "";
+    return;
   };
   
 

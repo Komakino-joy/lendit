@@ -19,7 +19,7 @@ import {
   Article,
   FieldSet,
   SubModalInput,
-  AddModelSubmit,
+  Submit,
 } from "./modal.styles";
 
 const AddModel = ({ toggleAddModel, getModelOptions, memberId }) => {
@@ -141,7 +141,7 @@ const AddModel = ({ toggleAddModel, getModelOptions, memberId }) => {
                   label="Model image"
                   updateFilesCb={updateUploadedFiles}
                 />
-            <AddModelSubmit
+            <Submit
               type="Submit"
               defaultValue="Submit"
             />

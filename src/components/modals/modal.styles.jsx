@@ -110,23 +110,20 @@ export const CloseButton  = styled.span`
 export const Article = styled.article`
     display: flex;
     justify-content: center;
+    align-items: flex-start;
 `;
 
 export const FieldSet = styled.fieldset`
     border-style: solid;
     border-width: 1px;
     border-color: transparent;
-    padding-left: 0;
-    padding-right: 0;
-    margin-left: 0;
-    margin-right: 0;
 `;
 
 export const Label = styled.label`
     display: block;
     line-height: 1;
     margin-top: 1rem;
-    margin-bottom: -.8rem;
+    margin-bottom: 3px;
 `;
 
 const inputStyles = css`
@@ -171,20 +168,11 @@ const submitButton = css`
 
 export const Submit = styled.input`
     ${submitButton}
-    width: 65%;
-    margin-left:18%;
+    width: 150px;
+    margin-left:50%;
+    transform: translateX(-50%);
 `;
 
-export const AddModelSubmit = styled.input`
-    ${submitButton}
-    width: 86%;
-    margin-left:6.5%;
-`;
-
-export const ActivitySubmit = styled.input`
-    ${submitButton}
-    width: 100%;
-`;
 
 export const AddModelButton = styled.p`
     font-weight: 200;
@@ -198,7 +186,6 @@ export const AddModelButton = styled.p`
     :hover {
         color:grey;
     }
-
 `;
 
 export const TableContainer = styled.div`
@@ -231,5 +218,7 @@ export const TableBody = styled.tbody`
 
 export const ModalDate = styled(DatePicker)`
     ${inputStyles}
+    margin-left:0 ;
+    margin-top: 0 ;
 `;
 

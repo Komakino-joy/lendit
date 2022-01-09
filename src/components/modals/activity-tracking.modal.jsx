@@ -12,10 +12,10 @@ import { toggleActvityTracking, toggleActvityReport } from "../../redux/modal/mo
 import setHours from "date-fns/setHours";
 import setMinutes from "date-fns/setMinutes";
 
-import CustomDropDown from '../custom-drop-down/custom-drop-down.component';
+import CustomSelect from "../custom-select/custom-select.component";
 
 import { ModalMain, ModalContent, CloseButton, Header, Article,
-  FieldSet, Label, ActivitySubmit, ModalDate
+  FieldSet, Label, Submit, ModalDate
 } from "./modal.styles";
 
 import "react-datepicker/dist/react-datepicker.css";
@@ -42,12 +42,20 @@ const ActivityTracking = ( {toggleActvityTracking, toggleActvityReport, assets, 
 
 
   const onAssetIDChange = (event) => {
-    setAssetID(event.target.value);
+    if (event.value === "") {
+      return setAssetID('%');
+    }
+    setAssetID(event.value);
   };
 
   const onUserIDChange = (event) => {
-    setUserID(event.target.value);
+    if (event.value === "") {
+      return setUserID('%');
+    }
+    setUserID(event.value);
   };
+
+  const captionStyles = {fontSize: '12px', fontFamily: 'Verdana', color:'grey'}
 
   return (
    <ModalMain>
@@ -58,7 +66,7 @@ const ActivityTracking = ( {toggleActvityTracking, toggleActvityReport, assets, 
         <Article>
           <div action="activity-tracking" method="get" acceptCharset="utf-8">
             <FieldSet id="activity-tracking">
-                <Label htmlFor="start-date">Start Date</Label>
+                <Label htmlFor="start-date">Start Date <span style={captionStyles}>(required)</span></Label>
                 <ModalDate 
                   selected={startDate} 
                   timeInputLabel="Time:"
@@ -68,7 +76,7 @@ const ActivityTracking = ( {toggleActvityTracking, toggleActvityReport, assets, 
                   onChange={date => setStartDate(date)} 
                   fixedHeight
                 />
-                <Label htmlFor="end-date">End Date</Label>
+                <Label htmlFor="end-date">End Date <span style={captionStyles}>(required)</span></Label>
                 <ModalDate
                   selected={endDate}       
                   timeInputLabel="Time:"
@@ -77,12 +85,20 @@ const ActivityTracking = ( {toggleActvityTracking, toggleActvityReport, assets, 
                   onChange={date => setEndDate(date)} 
                   fixedHeight
                 />
-                <Label htmlFor="asset-id">Asset ID</Label>
-                <CustomDropDown isActivitySelection onChange={onAssetIDChange} type="text" name="asset-id"  id="asset-id" optionList={assets}/>
-                <Label htmlFor="user-id">User ID</Label>
-                <CustomDropDown isActivitySelection onChange={onUserIDChange} type="text" name="user-id"  id="user-id" optionList={users}/>
+                <Label htmlFor="asset-id">Asset ID <span style={captionStyles}>(optional)</span></Label>
+                <CustomSelect 
+                    data={assets} 
+                    id="asset-id" 
+                    onChange={onAssetIDChange} 
+                />
+                <Label htmlFor="user-id">User ID <span style={captionStyles}>(optional)</span></Label>
+                <CustomSelect 
+                    data={users} 
+                    id="user-id"
+                    onChange={onUserIDChange} 
+                />
             </FieldSet>
-            <ActivitySubmit onClick={toggleActvityReport} type = "submit" defaultValue="Submit"/>
+            <Submit onClick={toggleActvityReport} type = "submit" defaultValue="Submit"/>
           </div>
         </Article>
       </ModalContent>

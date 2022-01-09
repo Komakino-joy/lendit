@@ -38,19 +38,14 @@ export async function httpFetchSelectedAssetData(assetID, ownerID) {
 };
 
 export async function httpFetchSelectedUserData(userID) {
+  
   if (!userID){
     return;
   };
 
-  return axios.post(`/users/user`, {
-    id: userID,
-  })
-  .then(response => {
-    return response.data;
-  })
-  .catch(error => {
-    console.log(error);
-  });
+  const response = await axios.post(`/users/user`, { id: userID })
+
+  return response.data;
 };
 
 export async function httpCheckInAsset(assetId, userID, owner, assetName, assetSerial, assetModel) {
@@ -68,8 +63,7 @@ export async function httpCheckInAsset(assetId, userID, owner, assetName, assetS
 };
 
 
-export async function httpCheckOutAsset(assetId, userID, owner, assetName, assetSerial, assetModel) {
-
+export async function httpCheckOutAsset(assetId, userID, owner, assetName, assetSerial, assetModel, fname, lname) {
   
   const response = await  axios.post(`/assets/checkout`, {
     id: assetId,
@@ -78,6 +72,8 @@ export async function httpCheckOutAsset(assetId, userID, owner, assetName, asset
     assetName: assetName,
     assetSerial: assetSerial,
     assetModel: assetModel,
+    fname, 
+    lname
   })
 
   if( response.status === 202) {

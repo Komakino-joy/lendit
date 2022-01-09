@@ -63,7 +63,7 @@ const assetData = (state = INITIAL_STATE  , action) => {
         name: action.payload.name,
         owner_id: action.payload.owner_id,
         serial: action.payload.serial,
-        status: 'In Use By ' + action.payload.userId,
+        status: 'In Use By ' + action.payload.fname + " " + action.payload.lname,
         comments: null,
         error : null,
       }

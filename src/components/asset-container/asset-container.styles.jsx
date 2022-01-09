@@ -15,7 +15,7 @@ export const AssetContainer = styled.div`
 `;
 
 export const AssetInnerContainer = styled.div`
-    min-height: 96vh;
+    min-height: 98vh;
     width: 95%;
     margin: 1em;
     display: flex;

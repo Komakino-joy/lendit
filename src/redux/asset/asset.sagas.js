@@ -41,15 +41,23 @@ function* postCheckInSelectedAsset({payload: {assetId, userId, currentMemberId, 
   }
 };
 
-function* postCheckOutSelectedAsset({payload: {assetId, userId, currentMemberId, assetName, assetSerial, assetModel, message}}) {
+function* postCheckOutSelectedAsset({payload: {assetId, userId, currentMemberId, assetName, assetSerial, assetModel, fname, lname}}) {
   try{
-    const assetData = yield httpCheckOutAsset(assetId, userId, currentMemberId, assetName, assetSerial, assetModel);
+    const assetData = yield httpCheckOutAsset(assetId, userId, currentMemberId, assetName, assetSerial, assetModel, fname, lname);
 
     if (assetData.message) {
+      yield new Promise((resolve) => {
+        alert(
+          `${fname}  ${lname} currenlty has an asset checked out.`,
+          'Message',
+          [{ text: "OK", onPress: resolve }],
+          { cancelable: true },
+        );
+      });
       return yield put(checkOutSelectedAssetFailure(assetData.message))
     }
 
-    yield put(checkOutSelectedAssetSuccess({...assetData, userId}))
+    yield put(checkOutSelectedAssetSuccess({...assetData, fname, lname}))
 
   }  catch (error) {
     yield put(checkOutSelectedAssetFailure(error))

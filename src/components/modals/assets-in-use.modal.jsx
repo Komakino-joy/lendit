@@ -41,6 +41,18 @@ const UnitsInUse = ({ toggleUnitsInUse, currentMemberId }) => {
     fetchData(currentMemberId);
   }, [currentMemberId]);
 
+  const overDueStyles = {
+      background: '#f2645a', 
+      color:'white', 
+      fontWeight: 'bold' 
+  }
+
+  const calculateHours = (timestamp) => {
+    return Math.floor(
+      (Date.now() - Date.parse(timestamp)) /
+        (1000 * 60 * 60))
+  }
+
   return (
     <ModalMain>
       <ModalReportContent>
@@ -61,19 +73,13 @@ const UnitsInUse = ({ toggleUnitsInUse, currentMemberId }) => {
               </thead>
               <TableBody>
                 {data.map((unit) => (
-                  <TableRow key={unit.id}>
-                    <td>{unit.id}</td>
-                    <td>{unit.name}</td>
-                    <td>{unit.model}</td>
-                    <td>{unit.serial}</td>
-                    <td>{unit.status}</td>
-                    {/* Calculating hours since check out */}
-                    <td>
-                      {Math.floor(
-                        (Date.now() - Date.parse(unit.last_checkout)) /
-                          (1000 * 60 * 60)
-                      )}
-                    </td>
+                  <TableRow key={unit.id} >
+                    <td style={ calculateHours(unit.last_checkout) > 12 ? overDueStyles : {}}>{unit.id}</td>
+                    <td style={ calculateHours(unit.last_checkout) > 12 ? overDueStyles : {}}>{unit.name}</td>
+                    <td style={ calculateHours(unit.last_checkout) > 12 ? overDueStyles : {}}>{unit.model}</td>
+                    <td style={ calculateHours(unit.last_checkout) > 12 ? overDueStyles : {}}>{unit.serial}</td>
+                    <td style={ calculateHours(unit.last_checkout) > 12 ? overDueStyles : {}}>{unit.status}</td>
+                    <td style={ calculateHours(unit.last_checkout) > 12 ? overDueStyles : {}}>{calculateHours(unit.last_checkout)}</td>
                   </TableRow>
                 ))}
               </TableBody>

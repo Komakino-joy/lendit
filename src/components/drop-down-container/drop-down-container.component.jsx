@@ -1,8 +1,5 @@
 import React, {useEffect}  from 'react'
-import { connect } from "react-redux";
-import { createStructuredSelector } from 'reselect';
-
-import  selectedListItemID  from "../custom-drop-down/drop-down.utils";
+import { useDispatch, useSelector } from "react-redux";
 
 import { requestSelectedUserData } from "../../redux/user/user.actions";
 import { requestSelectedAssetData } from "../../redux/asset/asset.actions";
@@ -12,53 +9,66 @@ import {
     requestUserDropDownOptions 
     } from '../../redux/drop-downs/drop-down.actions'
 
-import { currentMemberId } from "../../redux/site-member/site-member.selectors";
-import { selectUsers, selectAssets } from "../../redux/drop-downs/drop-down.selectors";
+import { 
+    Tag, 
+    DropDownInner, 
+    DropDownContainer, 
+} from "./drop-down-container.styles";
 
-import CustomDropDown from '../custom-drop-down/custom-drop-down.component';
-import {DropDownContainer, DropDownInner, Tag } from "./drop-down-container.styles";
+import CustomSelect from '../custom-select/custom-select.component';
 
+const ScanboxContainer = () => {
 
-const ScanboxContainer = ({ 
-    memberId, assets, users, 
-    requestAssetDropDownOptions, 
-    requestUserDropDownOptions, 
-    requestSelectedAssetData, 
-    requestSelectedUserData}) => {
-    
+    const dispatch = useDispatch();
+
+    const memberState = useSelector(state => state.memberState)
+    const { memberId } = memberState;
+
+    const dropDownOptions = useSelector(state => state.dropDownOptions)
+    const { 
+        assetDropDown: assets ,
+        userDropDown: users,
+     } = dropDownOptions;
+
     useEffect(() => {
-        // Get Data from /allunits.
-        requestAssetDropDownOptions(memberId)
-      }, [requestAssetDropDownOptions, memberId]); //
+        dispatch(requestAssetDropDownOptions(memberId));
+      }, [dispatch, memberId]);
 
       useEffect(() => {
-        // Get Data from /allusers when component mounts.
-        requestUserDropDownOptions(memberId)
-      }, [requestUserDropDownOptions, memberId]);  
+        dispatch(requestUserDropDownOptions(memberId));
+      }, [dispatch, memberId]);  
+
+    const handleAssetOnChange = (e) => {
+        dispatch(
+            requestSelectedAssetData({ 
+                assetId: e.value, 
+                ownerId: memberId 
+            })
+        );
+    };
+
+    const handleuserOnChange = (e) => {
+        dispatch(requestSelectedUserData(e.value ));
+    };
 
     return (
         <DropDownContainer>
             <DropDownInner>
                 <Tag>ASSET ID</Tag>
-                <CustomDropDown isHomePage  onChange={() => requestSelectedAssetData(selectedListItemID('asset-list'), memberId)} id="asset-list" optionList={assets}/> 
+                <CustomSelect 
+                    data={assets} 
+                    id="asset-list" 
+                    onChange={handleAssetOnChange} 
+                />
                 <Tag>USER ID</Tag>
-                <CustomDropDown isHomePage onChange={requestSelectedUserData} id="user-list" optionList={users}/> 
+                <CustomSelect 
+                    data={users} 
+                    id="user-list" 
+                    onChange={ handleuserOnChange} 
+                />
             </DropDownInner>
         </DropDownContainer>
     )}
 
-const mapStateToProps = createStructuredSelector({
-    memberId: currentMemberId,
-    assets: selectAssets,
-    users: selectUsers
-})
 
-const mapDispatchToProps = (dispatch) => ({
-    requestSelectedAssetData: (assetId, ownerId) => { dispatch(requestSelectedAssetData({assetId, ownerId}))},
-    requestAssetDropDownOptions: (memberId) => { dispatch(requestAssetDropDownOptions(memberId))},
-    requestUserDropDownOptions: (memberId) => { dispatch( requestUserDropDownOptions(memberId)) },
-    requestSelectedUserData: () => { dispatch( requestSelectedUserData ( selectedListItemID('user-list') ) )},
-})
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(ScanboxContainer);
+export default ScanboxContainer;

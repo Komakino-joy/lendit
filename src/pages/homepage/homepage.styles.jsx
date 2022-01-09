@@ -5,4 +5,5 @@ export const HomepageContainer = styled.div`
   display: flex;
   flex-direction: row;
   flex-flow: wrap;
+  width: 100vw;
 `;

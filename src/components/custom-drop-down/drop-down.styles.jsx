@@ -2,7 +2,9 @@ import styled , { css } from 'styled-components';
 
 const dropdownStyles = css`
   border: 1px solid rgba(0, 0, 0, 0.2);
-  height: 2rem;
+  height: 2.5em;
+  border-radius: 8px;
+  font-size: 18px;
 `
 
 const homePageDropDownContainer = css`

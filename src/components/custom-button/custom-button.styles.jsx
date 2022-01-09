@@ -5,6 +5,7 @@ const checkInButtonStyles = css`
     width: 150px;
     background-color: #3773bf;
     font-size: 1.2rem;
+    margin-top: 1.5em;
 `;
 
 const checkOutButtonStyles = css`
@@ -12,10 +13,10 @@ const checkOutButtonStyles = css`
     width: 150px;
     background-color: #bf3737;
     font-size: 1.2rem;
+    margin-top: 1.5em;
 `;
 
 const submitButtonStyles = css`
-    width: 85%;
     height: 35px;
     margin-bottom: 0.5rem;
     background-color: #808080;

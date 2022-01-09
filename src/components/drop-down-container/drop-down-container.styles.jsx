@@ -6,6 +6,7 @@ export const DropDownContainer = styled.div`
     align-items: flex-end;
     width: 30%;
     flex-direction: column;
+    margin-bottom: 30px;
 
     @media screen and (max-width: 1500px) {
       width: 100%;
@@ -24,12 +25,10 @@ export const DropDownInner = styled.div`
     @media screen and (max-width: 1500px) {
       display: flex;
       flex-direction: column;
-      max-width: 600px;
+      max-width: 560px;
       min-width: 350px;
       margin-top: 2em;
-      padding-DropDown: 0;
-      padding-right: 0;
-      align-items: center;
+      padding: 0 20px 20px 20px;
 `
 
 export const Tag = styled.span`

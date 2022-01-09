@@ -8,7 +8,7 @@ import {
     OptionText
 } from "./custom-select.styles.jsx";
 
-const CustomSelect = ({ id, data, onChange, clearModelSelection }) => {
+const CustomSelect = ({ id, data, onChange, clearModelSelection, ...props}) => {
 
   const customStyles = {
     container: (provided, state) => ({
@@ -49,6 +49,7 @@ const CustomSelect = ({ id, data, onChange, clearModelSelection }) => {
     })
   };
 
+
   const options = data.map(option => (
       { 
         value: option.id, 
@@ -65,15 +66,30 @@ const CustomSelect = ({ id, data, onChange, clearModelSelection }) => {
       }
     ));
 
+    const noImageOptions = data.map(option => (
+      { 
+        value: option.id, 
+        label: option.id, 
+      }
+    ));
+
     return (
-        <Select 
+      props.hasImages ? 
+        (<Select 
             id={id}
             options={options} 
             onChange={onChange} 
             styles={customStyles}
             value={clearModelSelection ? null : options[id]}
             maxMenuHeight={140}
-        />
+        />) 
+        :
+        (<Select 
+            id={id}
+            options={noImageOptions} 
+            onChange={onChange} 
+            maxMenuHeight={240}
+        />)
     )
 }
 

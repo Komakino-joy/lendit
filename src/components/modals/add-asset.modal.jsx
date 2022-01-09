@@ -118,6 +118,7 @@ const AddUnit = ( { getModelOptions }) => {
                 <CustomSelect 
                   id='asset-model'
                   data={models} 
+                  hasImages
                   onChange={onAssetModelChange} 
                   clearModelSelection={clearModelSelection}
                 />
@@ -140,9 +141,6 @@ const AddUnit = ( { getModelOptions }) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-    // toggleAddUnit   : () => {dispatch(toggleAddUnit())},
-    // toggleAddModel  : () => {dispatch(toggleAddModel())},
-    // getAssetOptions : (memberId) => { dispatch(requestAssetDropDownOptions(memberId))},
     getModelOptions : (memberId) => { dispatch(requestModelDropDownOptions(memberId))}
 });
 
