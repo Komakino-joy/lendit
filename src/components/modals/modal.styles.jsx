@@ -1,7 +1,19 @@
 import styled, { css } from 'styled-components'
 import DatePicker from "react-datepicker";
 
+export const DownloadExcelBtn = styled.div`
+    position: absolute;
+    right: 2%;
+    bottom: 5%;
+    & :hover { cursor:pointer };
+`
+
+export const HeaderContainer = styled.header`
+    position: relative;
+`
+
 export const Header  = styled.h1`
+    postion: absolute;
     background-color: #1b4275;
     color: white;
     padding: 0.5em;

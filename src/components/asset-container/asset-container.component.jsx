@@ -144,13 +144,8 @@ const Center = () => {
           </AssetStatus>
 
           <ButtonContainer>
-            <CustomButton
-              isCheckIn
-              onClick={handleCheckin}
-            >
-              CHECK IN
-            </CustomButton>
             <CustomButton isCheckOut onClick={handleCheckout}> CHECK OUT </CustomButton>
+            <CustomButton isCheckIn onClick={handleCheckin}> CHECK IN </CustomButton>
           </ButtonContainer>
 
           <Footer>

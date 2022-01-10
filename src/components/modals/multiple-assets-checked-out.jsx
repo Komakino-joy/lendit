@@ -5,6 +5,7 @@ import { toggleMultipleUnitsInUse } from "../../redux/modal/modal.actions";
 
 import axios from "axios";
 
+import DownloadExcel from "../download-excel/download-excel";
 import Loader from "react-loader-spinner";
 
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
@@ -18,6 +19,8 @@ import {
   TableHeading,
   TableRow,
   TableBody,
+  HeaderContainer,
+  DownloadExcelBtn
 } from "./modal.styles";
 
 const MultipleAssetsInUse = () => {
@@ -50,7 +53,19 @@ const MultipleAssetsInUse = () => {
     <ModalMain>
       <ModalReportContent>
         <CloseButton onClick={handleOnClose}>&times;</CloseButton>
-        <Header>Users with multiple assets</Header>
+        <HeaderContainer>
+          <Header>
+            Users with multiple assets
+          </Header>
+          { data && data[0] && 
+            <DownloadExcelBtn>
+              <DownloadExcel 
+                data={data} 
+                filename={'Users_with_multiple_assets'}
+              />
+            </DownloadExcelBtn>
+          }  
+        </HeaderContainer>
         <TableContainer>
           {data ? (
             <Table cellSpacing="0">

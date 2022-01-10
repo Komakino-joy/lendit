@@ -5,6 +5,7 @@ import { toggleQuarantinedUnits } from "../../redux/modal/modal.actions";
 
 import axios from "axios";
 
+import DownloadExcel from "../download-excel/download-excel";
 import Loader from "react-loader-spinner";
 
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
@@ -18,6 +19,8 @@ import {
   TableHeading,
   TableRow,
   TableBody,
+  HeaderContainer,
+  DownloadExcelBtn
 } from "./modal.styles";
 
 const QuarantinedUnits = () => {
@@ -47,7 +50,19 @@ const QuarantinedUnits = () => {
     <ModalMain>
       <ModalReportContent>
         <CloseButton onClick={() => dispatch(toggleQuarantinedUnits())}>&times;</CloseButton>
-        <Header>Quarantined Assets</Header>
+        <HeaderContainer>
+          <Header>
+            Quarantined Assets
+          </Header>
+          { data && data[0] &&
+            <DownloadExcelBtn>
+              <DownloadExcel 
+                data={data} 
+                filename={'Quarantined_assets'}
+              />
+            </DownloadExcelBtn>
+          }  
+        </HeaderContainer>
         <TableContainer>
           {data ? (
             <Table cellSpacing="0">

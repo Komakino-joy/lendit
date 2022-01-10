@@ -12,13 +12,17 @@ import {
   ModalMain,
   ModalReportContent,
   CloseButton,
+  HeaderContainer,
   Header,
   TableContainer,
   Table,
   TableHeading,
   TableRow,
   TableBody,
+  DownloadExcelBtn
 } from "./modal.styles";
+
+import DownloadExcel from "../download-excel/download-excel";
 
 const AvailableUnits = () => {
   const dispatch = useDispatch();
@@ -46,7 +50,19 @@ const AvailableUnits = () => {
     <ModalMain>
       <ModalReportContent>
         <CloseButton onClick={() => dispatch(toggleAvailableUnits())}>&times;</CloseButton>
-        <Header>Available Units</Header>
+        <HeaderContainer>
+          <Header>
+            Available Units
+          </Header>
+          { data && data[0] && 
+            <DownloadExcelBtn>
+              <DownloadExcel 
+                data={data} 
+                filename={'Available_assets'}
+              />
+            </DownloadExcelBtn>
+          }  
+        </HeaderContainer>
         <TableContainer>
           {data ? (
             <Table cellSpacing="0">

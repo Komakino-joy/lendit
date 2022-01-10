@@ -5,6 +5,7 @@ import { toggleUnitsInUse } from "../../redux/modal/modal.actions";
 
 import axios from "axios";
 
+import DownloadExcel from "../download-excel/download-excel";
 import Loader from "react-loader-spinner";
 
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
@@ -12,12 +13,14 @@ import {
   ModalMain,
   ModalReportContent,
   CloseButton,
+  HeaderContainer,
   Header,
   TableContainer,
   Table,
   TableHeading,
   TableRow,
   TableBody,
+  DownloadExcelBtn
 } from "./modal.styles";
 
 const UnitsInUse = () => {
@@ -59,7 +62,19 @@ const UnitsInUse = () => {
     <ModalMain>
       <ModalReportContent>
         <CloseButton onClick={() => dispatch(toggleUnitsInUse())}>&times;</CloseButton>
-        <Header>Assets in Use</Header>
+        <HeaderContainer>
+          <Header>
+            Assets in Use
+          </Header>
+          { data && data[0] && 
+            <DownloadExcelBtn>
+              <DownloadExcel 
+                data={data} 
+                filename={'Assets_in_use'}
+              />
+            </DownloadExcelBtn>
+          }  
+        </HeaderContainer>
         <TableContainer>
           {data ? (
             <Table cellSpacing="0">
@@ -69,7 +84,7 @@ const UnitsInUse = () => {
                   <TableHeading>Asset Tag</TableHeading>
                   <TableHeading>Model</TableHeading>
                   <TableHeading>Serial</TableHeading>
-                  <TableHeading>Status</TableHeading>
+                  <TableHeading>User</TableHeading>
                   <TableHeading>Time out (hrs)</TableHeading>
                 </TableRow>
               </thead>
@@ -80,7 +95,7 @@ const UnitsInUse = () => {
                     <td style={ calculateHours(unit.last_checkout) > 12 ? overDueStyles : {}}>{unit.name}</td>
                     <td style={ calculateHours(unit.last_checkout) > 12 ? overDueStyles : {}}>{unit.model}</td>
                     <td style={ calculateHours(unit.last_checkout) > 12 ? overDueStyles : {}}>{unit.serial}</td>
-                    <td style={ calculateHours(unit.last_checkout) > 12 ? overDueStyles : {}}>{unit.status}</td>
+                    <td style={ calculateHours(unit.last_checkout) > 12 ? overDueStyles : {}}>{unit.full_name}</td>
                     <td style={ calculateHours(unit.last_checkout) > 12 ? overDueStyles : {}}>{calculateHours(unit.last_checkout)}</td>
                   </TableRow>
                 ))}

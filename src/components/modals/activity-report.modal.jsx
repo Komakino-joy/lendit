@@ -5,13 +5,16 @@ import { toggleActvityReport } from "../../redux/modal/modal.actions";
 
 import axios from "axios";
 
+import DownloadExcel from "../download-excel/download-excel";
 import Loader from "react-loader-spinner";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 import {
+  DownloadExcelBtn,
   ModalMain,
   ModalReportContent,
   CloseButton,
+  HeaderContainer,
   Header,
   TableContainer,
   Table,
@@ -53,7 +56,19 @@ const ActivityReport = ({
     <ModalMain>
       <ModalReportContent>  
         <CloseButton onClick={() => dispatch(toggleActvityReport())}>&times;</CloseButton>
-        <Header>Activity Tracking Report</Header>
+        <HeaderContainer>
+        <Header>
+          Activity Tracking Report
+        </Header>
+        { data && data[0] && 
+          <DownloadExcelBtn>
+            <DownloadExcel 
+              data={data} 
+              filename={'Activity_tracking'}
+            />
+          </DownloadExcelBtn>
+        }  
+      </HeaderContainer>
         <TableContainer>
           {data ? (
             <Table cellSpacing="0">

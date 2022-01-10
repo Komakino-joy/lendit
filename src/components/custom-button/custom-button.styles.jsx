@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 
 const checkInButtonStyles = css`
-    height:60px;
+    height:50px;
     width: 150px;
     background-color: #3773bf;
     font-size: 1.2rem;
@@ -9,7 +9,7 @@ const checkInButtonStyles = css`
 `;
 
 const checkOutButtonStyles = css`
-    height:60px;
+    height:50px;
     width: 150px;
     background-color: #bf3737;
     font-size: 1.2rem;
