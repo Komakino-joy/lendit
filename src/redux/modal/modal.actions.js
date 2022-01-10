@@ -8,6 +8,10 @@ export const toggleUnitsInUse = () => ({
     type: ModalActionTypes.TOGGLE_UNITS_IN_USE
 });
 
+export const toggleMultipleUnitsInUse = () => ({
+    type: ModalActionTypes.TOGGLE_MULTIPLE_UNITS_IN_USE
+});
+
 export const toggleQuarantinedUnits = () => ({
     type: ModalActionTypes.TOGGLE_QUARANTINED_UNITS
 });

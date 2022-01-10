@@ -3,6 +3,7 @@ import ModalActionTypes from "./modal.types";
   const INITIAL_STATE = {
     seenAvailableAssets: false,
     seenAssetsInUse:false,
+    seenMultipleUnitsInUse: false,
     seenQuarantinedAssets : false,
     seenAddUser: false,
     seenAddAsset: false,
@@ -25,6 +26,12 @@ import ModalActionTypes from "./modal.types";
         return {
           ...state,
           seenAssetsInUse: !state.seenAssetsInUse
+        };
+
+      case ModalActionTypes.TOGGLE_MULTIPLE_UNITS_IN_USE:
+        return {
+          ...state,
+          seenMultipleUnitsInUse: !state.seenMultipleUnitsInUse
         };
 
       case ModalActionTypes.TOGGLE_QUARANTINED_UNITS:

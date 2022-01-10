@@ -124,7 +124,7 @@ const Center = () => {
         <AssetInnerContainer>
           
           <Header>
-            <AssetName>{assetName.toUpperCase()}</AssetName>
+            <AssetName>{assetId.toUpperCase()}</AssetName>
             <AssetSerial>{assetSerial.toUpperCase()}</AssetSerial>
           </Header>
 

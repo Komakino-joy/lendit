@@ -68,13 +68,7 @@ export const RemoveButton = styled.button`
     visibility: hidden;
 `;
 
-export const AssetImage = styled.img`
-    top: 7%;
-    margin-right: auto;
-    margin-left: auto;
-    max-height: 100%;
-    max-width: 85%;
-`;
+
 
 export const ImageContainer = styled.div`
     position: relative;
@@ -82,8 +76,8 @@ export const ImageContainer = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items:center;
-    min-height: 48%;
-    min-width: 75%;
+    min-height: 40%;
+    max-width: 75%;
 
     :hover {
         opacity: .8;
@@ -96,6 +90,14 @@ export const ImageContainer = styled.div`
     @media screen and (max-width: 1500px) {
       max-height: 100%;
       max-width: 50%;
+`;
+
+export const AssetImage = styled.img`
+    top: 7%;
+    margin-right: auto;
+    margin-left: auto;
+    max-height: 100%;
+    max-width: 85%;
 `;
 
 export const ButtonContainer = styled.div`
@@ -145,7 +147,7 @@ const availableStatusStyles = css`
 `;
 
 const inUseStatusStyles = css`
-    color: rgb(250, 33, 33);
+    color: rgb(209, 88, 79);
 `;
 
 const quarantineStatusStyles = css`
@@ -169,7 +171,8 @@ const getStatusStyles = (props) => {
 export const AssetStatus = styled.span`
     text-shadow: 1px 1px #d4d4d4;
     text-align: center;
-    font-size: 2.5rem;
+    font-size: 2rem;
+    font-weight: 500;
     margin-top: 0.5rem;
     margin-bottom: 1rem;
 

@@ -1,18 +1,27 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import { connect } from "react-redux";
-import { createStructuredSelector } from "reselect";
+import { useSelector, useDispatch } from "react-redux";
 
-import { isSignedIn } from "../../redux/site-member/site-member.selectors";
 import { handleMemberSignout } from "../../redux/site-member/site-member.actions";
 
 import { NavList, NavOption } from "./navigation.styles";
 
-const Navigation = ({history, isSignedIn, signOut }) => {
+const Navigation = ({ history }) => {
+
+  const dispatch = useDispatch();
+
+  const isSignedIn = useSelector(state => state.memberState.memberSignedIn);
+
+  const handleSignOut = (e) => {
+    e.preventDefault();
+    dispatch(handleMemberSignout());
+    history.push('/signin');
+  }
+
     if (isSignedIn) {
       return (
         <NavList>
-          <NavOption onClick={() => {signOut(); history.push('/signin');}}>Sign Out</NavOption>
+          <NavOption onClick={handleSignOut}>Sign Out</NavOption>
         </NavList>
       );
     } else {
@@ -22,12 +31,5 @@ const Navigation = ({history, isSignedIn, signOut }) => {
     }
 }
 
-const mapStateToProps = createStructuredSelector({
-  isSignedIn
-});
 
-const mapDispatchToProps = (dispatch) => ({
-    signOut: () => {dispatch(handleMemberSignout())}
-});
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Navigation));
+export default withRouter(Navigation);

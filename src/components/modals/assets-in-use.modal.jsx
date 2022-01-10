@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
-import { createStructuredSelector } from "reselect";
+import { useSelector, useDispatch } from "react-redux";
 
-import { currentMemberId } from "../../redux/site-member/site-member.selectors";
 import { toggleUnitsInUse } from "../../redux/modal/modal.actions";
 
 import axios from "axios";
@@ -22,7 +20,11 @@ import {
   TableBody,
 } from "./modal.styles";
 
-const UnitsInUse = ({ toggleUnitsInUse, currentMemberId }) => {
+const UnitsInUse = () => {
+  const dispatch = useDispatch();
+
+  const memberId = useSelector(state => state.memberState.memberId);
+
   const [data, setData] = useState();
 
   useEffect(() => {
@@ -31,15 +33,15 @@ const UnitsInUse = ({ toggleUnitsInUse, currentMemberId }) => {
         method: "post",
         url: `/reports/assetsinuse`,
         data: {
-          memberId: currentMemberId,
+          memberId: memberId,
         },
       });
 
       setData(result.data);
     };
 
-    fetchData(currentMemberId);
-  }, [currentMemberId]);
+    fetchData(memberId);
+  }, [memberId]);
 
   const overDueStyles = {
       background: '#f2645a', 
@@ -56,15 +58,15 @@ const UnitsInUse = ({ toggleUnitsInUse, currentMemberId }) => {
   return (
     <ModalMain>
       <ModalReportContent>
-        <CloseButton onClick={toggleUnitsInUse}>&times;</CloseButton>
+        <CloseButton onClick={() => dispatch(toggleUnitsInUse())}>&times;</CloseButton>
         <Header>Assets in Use</Header>
         <TableContainer>
           {data ? (
             <Table cellSpacing="0">
               <thead>
                 <TableRow>
-                  <TableHeading>Asset ID</TableHeading>
                   <TableHeading>Asset Name</TableHeading>
+                  <TableHeading>Asset Tag</TableHeading>
                   <TableHeading>Model</TableHeading>
                   <TableHeading>Serial</TableHeading>
                   <TableHeading>Status</TableHeading>
@@ -105,12 +107,4 @@ const UnitsInUse = ({ toggleUnitsInUse, currentMemberId }) => {
   );
 };
 
-const mapStateToProps = createStructuredSelector({
-  currentMemberId,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  toggleUnitsInUse: () => dispatch(toggleUnitsInUse()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(UnitsInUse);
+export default UnitsInUse;

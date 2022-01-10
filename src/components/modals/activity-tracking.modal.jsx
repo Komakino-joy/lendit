@@ -1,11 +1,6 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
-import { createStructuredSelector } from 'reselect';
+import { useSelector, useDispatch } from "react-redux";
 
-import { currentMemberId } from "../../redux/site-member/site-member.selectors";
-import { selectAssets } from "../../redux/drop-downs/drop-down.selectors";
-import { selectUsers } from "../../redux/drop-downs/drop-down.selectors";
-import { seenActivityReport } from "../../redux/modal/modal.selectors";
 import ActivityReport from "./activity-report.modal";
 import { toggleActvityTracking, toggleActvityReport } from "../../redux/modal/modal.actions";
 
@@ -20,8 +15,13 @@ import { ModalMain, ModalContent, CloseButton, Header, Article,
 
 import "react-datepicker/dist/react-datepicker.css";
 
-const ActivityTracking = ( {toggleActvityTracking, toggleActvityReport, assets, users, seenActivityReport} ) =>{
+const ActivityTracking = () =>{
+  const dispatch = useDispatch();
 
+  const dropDownOptions = useSelector(state => state.dropDownOptions);
+  const { assetDropDown , userDropDown} = dropDownOptions
+
+  const seenActivityReport = useSelector(state => state.modalState.seenActivityReport);
 
   const [startDate, setStartDate] = useState(
     setHours(setMinutes(new Date(), 0), 24)
@@ -55,13 +55,24 @@ const ActivityTracking = ( {toggleActvityTracking, toggleActvityReport, assets, 
     setUserID(event.value);
   };
 
+  const handleOnClose = (e) => {
+    e.preventDefault()
+    dispatch(toggleActvityTracking());
+  }
+
+  const handleSubmit = (e) => {    
+    e.preventDefault()
+    dispatch(toggleActvityReport());
+  }
+  
+
   const captionStyles = {fontSize: '12px', fontFamily: 'Verdana', color:'grey'}
 
   return (
    <ModalMain>
       <ModalContent>
         {/* Retrieve updated list of users when modal is closed. */}
-        <CloseButton onClick={toggleActvityTracking}>&times;</CloseButton>
+        <CloseButton onClick={handleOnClose}>&times;</CloseButton>
         <Header>Activity Tracking</Header>
         <Article>
           <div action="activity-tracking" method="get" acceptCharset="utf-8">
@@ -85,20 +96,20 @@ const ActivityTracking = ( {toggleActvityTracking, toggleActvityReport, assets, 
                   onChange={date => setEndDate(date)} 
                   fixedHeight
                 />
-                <Label htmlFor="asset-id">Asset ID <span style={captionStyles}>(optional)</span></Label>
+                <Label htmlFor="asset-id">Asset Name <span style={captionStyles}>(optional)</span></Label>
                 <CustomSelect 
-                    data={assets} 
+                    data={assetDropDown} 
                     id="asset-id" 
                     onChange={onAssetIDChange} 
                 />
                 <Label htmlFor="user-id">User ID <span style={captionStyles}>(optional)</span></Label>
                 <CustomSelect 
-                    data={users} 
+                    data={userDropDown} 
                     id="user-id"
                     onChange={onUserIDChange} 
                 />
             </FieldSet>
-            <Submit onClick={toggleActvityReport} type = "submit" defaultValue="Submit"/>
+            <Submit onClick={handleSubmit} type = "submit" defaultValue="Submit"/>
           </div>
         </Article>
       </ModalContent>
@@ -116,16 +127,4 @@ const ActivityTracking = ( {toggleActvityTracking, toggleActvityReport, assets, 
   );
 };
 
-const mapStateToProps = createStructuredSelector({
-  memberId: currentMemberId,
-  assets: selectAssets,
-  users: selectUsers,
-  seenActivityReport
-})
-
-const mapDispatchToProps = (dispatch) => ({
-  toggleActvityTracking : () => dispatch(toggleActvityTracking()),
-  toggleActvityReport : () => dispatch(toggleActvityReport())
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ActivityTracking);
+export default ActivityTracking;

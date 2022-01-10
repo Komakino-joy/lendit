@@ -1,20 +1,19 @@
 import React from "react"
 import {Route,Redirect} from 'react-router-dom'
-import { connect } from "react-redux";
-import { createStructuredSelector } from "reselect";
+import { useSelector } from "react-redux";
 
-import { isSignedIn } from "../../redux/site-member/site-member.selectors";
+const PrivateRoute = ({ component: Component, ...otherProps }) => {
 
-const PrivateRoute = ({ component: Component, isSignedIn, ...otherProps }) => (
-    <Route {...otherProps} render={(props) => (
-        isSignedIn === true
-        ? <Component {...props} />
-        : <Redirect to='/signin' />
-    )} />
-);
+    const isSignedIn = useSelector(state => state.memberState.memberSignedIn);
 
-const mapStateToProps = createStructuredSelector({
-    isSignedIn
-});
+    return (
+        <Route {...otherProps} render={(props) => (
+            isSignedIn === true
+            ? <Component {...props} />
+            : <Redirect to='/signin' />
+        )} />
+    )
+}
 
-export default connect(mapStateToProps)(PrivateRoute);
+
+export default PrivateRoute;

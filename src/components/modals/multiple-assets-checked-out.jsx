@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch} from "react-redux";
 
-import { toggleAvailableUnits } from "../../redux/modal/modal.actions";
+import { toggleMultipleUnitsInUse } from "../../redux/modal/modal.actions";
 
 import axios from "axios";
 
@@ -20,51 +20,53 @@ import {
   TableBody,
 } from "./modal.styles";
 
-const AvailableUnits = () => {
+const MultipleAssetsInUse = () => {
   const dispatch = useDispatch();
-
-  const memberId = useSelector(state => state.memberState.memberId);
-
+  const currentMemberId = useSelector(state => state.memberState.memberId)
   const [data, setData] = useState();
 
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios({
         method: "post",
-        url: `/reports/availableassets`,
+        url: `/reports/multipleassets`,
         data: {
-          memberId: memberId,
+          memberId: currentMemberId,
         },
       });
+
       setData(result.data);
     };
 
-    fetchData(memberId);
-  }, [memberId]);
+    fetchData(currentMemberId);
+  }, [currentMemberId]);
+
+  const handleOnClose = (e) => {
+    e.preventDefault()
+    dispatch(toggleMultipleUnitsInUse())
+  }
 
   return (
     <ModalMain>
       <ModalReportContent>
-        <CloseButton onClick={() => dispatch(toggleAvailableUnits())}>&times;</CloseButton>
-        <Header>Available Units</Header>
+        <CloseButton onClick={handleOnClose}>&times;</CloseButton>
+        <Header>Users with multiple assets</Header>
         <TableContainer>
           {data ? (
             <Table cellSpacing="0">
               <thead>
                 <TableRow>
-                  <TableHeading>Asset Name</TableHeading>
-                  <TableHeading>Asset Tag</TableHeading>
-                  <TableHeading>Model</TableHeading>
-                  <TableHeading>Serial</TableHeading>
+                  <TableHeading>User ID</TableHeading>
+                  <TableHeading>Full Name</TableHeading>
+                  <TableHeading>Total Assets</TableHeading>
                 </TableRow>
               </thead>
               <TableBody>
-                {data.map((unit) => (
-                  <TableRow key={unit.id}>
-                    <td>{unit.id}</td>
-                    <td>{unit.name}</td>
-                    <td>{unit.model}</td>
-                    <td>{unit.serial}</td>
+                {data.map((user) => (
+                  <TableRow key={user.in_use_by} >
+                    <td>{user.in_use_by}</td>
+                    <td>{user.full_name}</td>
+                    <td>{user.count}</td>
                   </TableRow>
                 ))}
               </TableBody>
@@ -78,7 +80,7 @@ const AvailableUnits = () => {
               className="loader"
               style={{
                 position: "absolute",
-                top: "20%",
+                top: "25%",
                 left: "50%",
                 margin: "-25px 0 0 -25px",
               }}
@@ -90,4 +92,4 @@ const AvailableUnits = () => {
   );
 };
 
-export default AvailableUnits;
+export default MultipleAssetsInUse;

@@ -3,10 +3,7 @@ import './App.css';
 import backgroundImage from '../src/images/background.svg';
 import {lazy, Suspense} from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from "reselect";
-
-import { isSignedIn } from "./redux/site-member/site-member.selectors";
+import { useSelector } from 'react-redux';
 
 import Navigation from './components/navigation/navigation.component';
 import PrivateRoute from "./higher-order-components/privateroute/privateroute.hoc";
@@ -18,7 +15,9 @@ const SigninPage = lazy(() => import("./pages/signin/signin.component"));
 const RegistrationPage = lazy(() => import("./pages/register/register.component"));
 
 
-function App({ isSignedIn }) {
+function App() {
+
+  const isSignedIn = useSelector(state => state.memberState.memberSignedIn);
 
   return (
     <div className="App">
@@ -44,8 +43,4 @@ function App({ isSignedIn }) {
   );
 }
 
-const mapStateToProps = createStructuredSelector({
-  isSignedIn
-});
-
-export default connect(mapStateToProps)(App);
+export default App;

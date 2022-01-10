@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
-import { createStructuredSelector } from "reselect";
+import { useSelector, useDispatch } from "react-redux";
 
-import { currentMemberId } from "../../redux/site-member/site-member.selectors";
 import { toggleAddModel } from "../../redux/modal/modal.actions";
 import { requestModelDropDownOptions } from "../../redux/drop-downs/drop-down.actions";
 
@@ -22,7 +20,11 @@ import {
   Submit,
 } from "./modal.styles";
 
-const AddModel = ({ toggleAddModel, getModelOptions, memberId }) => {
+const AddModel = () => {
+  const dispatch = useDispatch();
+
+  const memberId = useSelector(state => state.memberState.memberId)
+
   const alert = useAlert();
 
   let [model, setModel] = useState("");
@@ -104,15 +106,18 @@ const AddModel = ({ toggleAddModel, getModelOptions, memberId }) => {
     setNewUserInfo({ ...newUserInfo, modelImages: files });
   }
 
+  const handleOnClose = (e) => {
+    e.preventDefault();
+    dispatch(toggleAddModel())
+    dispatch(requestModelDropDownOptions(memberId))
+  }
+
   return (
     <SubModalMain>
       <SubModalContent>
         {/* Retrieve updated list of models when modal is closed. */}
         <CloseButton
-          onClick={() => {
-            toggleAddModel();
-            getModelOptions(memberId);
-          }}
+          onClick={handleOnClose}
         >
           &times;
         </CloseButton>
@@ -154,15 +159,5 @@ const AddModel = ({ toggleAddModel, getModelOptions, memberId }) => {
   );
 };
 
-const mapStateToProps = createStructuredSelector({
-  memberId: currentMemberId,
-});
 
-const mapDispatchToProps = (dispatch) => ({
-  toggleAddModel: () => dispatch(toggleAddModel()),
-  getModelOptions: (memberId) => {
-    dispatch(requestModelDropDownOptions(memberId));
-  },
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(AddModel);
+export default AddModel;

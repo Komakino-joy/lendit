@@ -105,14 +105,14 @@ const AddUnit = ( { getModelOptions }) => {
                   id="asset-id"
                   name="asset-id"  
                   type="text" 
-                  placeholder="Asset ID (Required)" 
+                  placeholder="Asset Name (Required)" 
                   onChange={onAssetidChange}   
                 />
                 <Input 
                   id="asset-name"
                   name="asset-name"  
                   type="text" 
-                  placeholder="Asset Name (Required)" 
+                  placeholder="Asset Tag (Required)" 
                   onChange={onAssetNameChange} 
                 />
                 <CustomSelect 

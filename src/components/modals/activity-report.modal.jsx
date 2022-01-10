@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
-import { createStructuredSelector } from "reselect";
+import { useSelector, useDispatch } from "react-redux";
 
-import { currentMemberId } from "../../redux/site-member/site-member.selectors";
 import { toggleActvityReport } from "../../redux/modal/modal.actions";
 
 import axios from "axios";
@@ -23,13 +21,13 @@ import {
 } from "./modal.styles";
 
 const ActivityReport = ({
-  toggleActvityReport,
-  currentMemberId,
   startDate,
   endDate,
   userID,
   assetID,
 }) => {
+  const dispatch = useDispatch();
+  const currentMemberId = useSelector(state => state.memberState.memberId);
   const [data, setData] = useState();
 
   useEffect(() => {
@@ -54,7 +52,7 @@ const ActivityReport = ({
   return (
     <ModalMain>
       <ModalReportContent>  
-        <CloseButton onClick={toggleActvityReport}>&times;</CloseButton>
+        <CloseButton onClick={() => dispatch(toggleActvityReport())}>&times;</CloseButton>
         <Header>Activity Tracking Report</Header>
         <TableContainer>
           {data ? (
@@ -62,8 +60,8 @@ const ActivityReport = ({
               <thead>
                 <TableRow>
                   <TableHeading>User ID</TableHeading>
-                  <TableHeading>Asset ID</TableHeading>
                   <TableHeading>Asset Name</TableHeading>
+                  <TableHeading>Asset Tag</TableHeading>
                   <TableHeading>Asset Serial</TableHeading>
                   <TableHeading>Model</TableHeading>
                   <TableHeading>Comments</TableHeading>
@@ -102,12 +100,5 @@ const ActivityReport = ({
   );
 };
 
-const mapStateToProps = createStructuredSelector({
-  currentMemberId,
-});
 
-const mapDispatchToProps = (dispatch) => ({
-  toggleActvityReport: () => dispatch(toggleActvityReport()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ActivityReport);
+export default ActivityReport;

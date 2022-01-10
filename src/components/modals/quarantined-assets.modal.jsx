@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
-import { createStructuredSelector } from "reselect";
+import { useSelector, useDispatch } from "react-redux";
 
-import { currentMemberId } from "../../redux/site-member/site-member.selectors";
-import { seenQuarantinedAssets } from "../../redux/modal/modal.selectors";
 import { toggleQuarantinedUnits } from "../../redux/modal/modal.actions";
 
 import axios from "axios";
@@ -23,7 +20,11 @@ import {
   TableBody,
 } from "./modal.styles";
 
-const QuarantinedUnits = ({ toggleQuarantinedUnits, memberId }) => {
+const QuarantinedUnits = () => {
+  const dispatch = useDispatch();
+
+  const memberId = useSelector(state => state.memberState.memberId);
+
   const [data, setData] = useState();
 
   useEffect(() => {
@@ -45,15 +46,15 @@ const QuarantinedUnits = ({ toggleQuarantinedUnits, memberId }) => {
   return (
     <ModalMain>
       <ModalReportContent>
-        <CloseButton onClick={toggleQuarantinedUnits}>&times;</CloseButton>
+        <CloseButton onClick={() => dispatch(toggleQuarantinedUnits())}>&times;</CloseButton>
         <Header>Quarantined Assets</Header>
         <TableContainer>
           {data ? (
             <Table cellSpacing="0">
               <thead>
                 <TableRow>
-                  <TableHeading>Asset ID</TableHeading>
                   <TableHeading>Asset Name</TableHeading>
+                  <TableHeading>Asset Tag</TableHeading>
                   <TableHeading>Model</TableHeading>
                   <TableHeading>Serial</TableHeading>
                   <TableHeading>Comments</TableHeading>
@@ -92,13 +93,4 @@ const QuarantinedUnits = ({ toggleQuarantinedUnits, memberId }) => {
   );
 };
 
-const mapStateToProps = createStructuredSelector({
-  memberId: currentMemberId,
-  seenQuarantinedAssets,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  toggleQuarantinedUnits: () => dispatch(toggleQuarantinedUnits()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(QuarantinedUnits);
+export default QuarantinedUnits;

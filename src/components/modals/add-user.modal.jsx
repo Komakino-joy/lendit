@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
-import { createStructuredSelector } from "reselect";
+import { useSelector, useDispatch } from "react-redux";
 
-import { currentMemberId } from "../../redux/site-member/site-member.selectors";
 import { toggleAddUser } from "../../redux/modal/modal.actions";
 import { requestUserDropDownOptions } from '../../redux/drop-downs/drop-down.actions';
 
@@ -12,7 +10,10 @@ import { httpCreateNewUser } from "../../services/api";
 
 import { ModalMain, ModalContent, CloseButton, Header, Article, FieldSet, Input,Submit } from "./modal.styles";
 
-const AddUser = ( {toggleAddUser, getUserOptions, memberId} ) =>{
+const AddUser = () =>{
+  const dispatch = useDispatch();
+
+  const memberId = useSelector(state => state.memberState.memberId)
 
   const alert = useAlert();
 
@@ -52,11 +53,17 @@ const AddUser = ( {toggleAddUser, getUserOptions, memberId} ) =>{
     }
   };
   
+  const handleOnClose = (e) => {
+    e.preventDefault();
+    dispatch(toggleAddUser());
+    dispatch(requestUserDropDownOptions(memberId));
+  }
+
   return (
    <ModalMain>
       <ModalContent>
         {/* Retrieve updated list of users when modal is closed. */}
-        <CloseButton onClick={() => {toggleAddUser(); getUserOptions(memberId);}}>&times;</CloseButton>
+        <CloseButton onClick={handleOnClose}>&times;</CloseButton>
         <Header>Add User</Header>
         <Article>
           <div action="sign-up_submit" method="get" acceptCharset="utf-8">
@@ -73,13 +80,4 @@ const AddUser = ( {toggleAddUser, getUserOptions, memberId} ) =>{
   );
 };
 
-const mapStateToProps = createStructuredSelector({
-  memberId: currentMemberId
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  toggleAddUser : () => dispatch(toggleAddUser()),
-  getUserOptions: (memberId) => { dispatch(requestUserDropDownOptions(memberId))}
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(AddUser);
+export default AddUser;
