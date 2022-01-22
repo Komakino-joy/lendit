@@ -44,7 +44,10 @@ async function handleRegister(req, res) {
             return res.status(400).send({ message: `Account with email ${email} already exists.`})
         };
 
-        return res.status(400).send({ message: `Something went wrong, please try again later.`})
+        return res.status(400).send({ 
+            message: `Something went wrong, please try again later.`,
+            error
+        })
     };
 };
 
@@ -73,7 +76,7 @@ async function handleSignin(req, res) {
         };
 
     } catch (error) {
-        console.log(error)
+
         res.status(400).json({
             message: 'Something went wrong, please try again later.',
             error
