@@ -62,13 +62,13 @@ const RegistrationPage = () =>{
       return;
     };
 
-    // regular expression: password must contain 8 characters minimum, one capital letter, and one number.
-    const VALIDATE_PWORD = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/
+    if(password.length < 8) return setFailedPassword(true);
 
-    if ( !VALIDATE_PWORD.test(password) ) {
-      setFailedPassword(true);
-      return;
-    };
+    let hasUpperCase = /[A-Z]/.test(password);
+    let hasLowerCase = /[a-z]/.test(password);
+    let hasNumbers = /\d/.test(password);
+
+    if (hasUpperCase + hasLowerCase + hasNumbers < 3) return setFailedPassword(true);
 
     const responseAlert = (message, type) => toast[type](message, {
       id: 'register-member',

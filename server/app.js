@@ -1,3 +1,4 @@
+const compression = require('compression');
 const express = require('express');
 const path = require('path');
 
@@ -15,8 +16,7 @@ const reportsRouter = require('./routes/reports_/reports.router');
 
 const app = express();
 
-app.use(cors());
-
+app.use(compression());
 app.use(helmet({ contentSecurityPolicy: false }));
 app.use(cors());
 app.use(fileUpload({ createParentPath: true }));
