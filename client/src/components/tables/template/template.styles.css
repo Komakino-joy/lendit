@@ -1,0 +1,64 @@
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+}
+
+.custom-table th {
+  color: black;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: left;
+  letter-spacing: 0.5px;
+  padding: 20px 0 20px 20px;
+}
+
+.custom-table td {
+  padding: 10px 0 10px 10px;
+  border-top: 1px solid lightgrey;
+  border-bottom: 1px solid lightgrey;
+  font-size: 14px;
+}
+
+.custom-table th:last-child,
+.custom-table td:last-child {
+  text-align: center;
+}
+
+.email-list-header {
+  display: flex;
+  align-items: center;
+}
+
+.remove-email-btn,
+.add-email-btn {
+  cursor: pointer;
+  height: 25px;
+}
+
+.remove-email-btn:hover,
+.add-email-btn:hover {
+  transform: scale(1.1);
+}
+
+.remove-email-btn:active,
+.add-email-btn:active {
+  transform: translateY(1px);
+}
+
+.add-email-btn {
+  margin-left: -10px;
+  margin-right: 5px;
+}
+
+@media screen and (max-width: 800px) {
+  .custom-table th {
+    letter-spacing: 0.25px;
+    padding: 10px 0px;
+  }
+
+  .custom-table th,
+  .custom-table td {
+    text-align: center;
+  }
+}

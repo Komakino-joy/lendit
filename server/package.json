@@ -1,0 +1,45 @@
+{
+  "name": "lendit-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "scripts": {
+    "start": "node asset-tracker-server.js",
+    "client": "cd ../client && npm start",
+    "watch": "nodemon asset-tracker-server.js",
+    "prod": "pm2 start asset-tracker-server.js",
+    "deploy": "cd ../client && npm run build",
+    "postdeploy": "npm run prod  && cd ../client && serve -s build -l 49180",
+    "quick-start": "npm run prod  && cd ../client && serve -s build -l 49180",
+    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
+    "pull-repo": "cd.. && git pull",
+    "update-server-deps": "npm install",
+    "update-client-deps": "cd ../client && npm install",
+    "preupdate": "npm install kill-port && pm2 start asset-tracker-server.js -f",
+    "update": "npx kill-port 49180 && pm2 delete asset-tracker-server.js && npm run update-server-deps && npm run update-client-deps",
+    "postupdate": "npm run deploy"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-fileupload": "^1.2.0",
+    "helmet": "^4.4.1",
+    "json2csv": "^5.0.6",
+    "kill-port": "^1.6.1",
+    "knex": "^0.21.12",
+    "nanoid": "^3.1.22",
+    "node-cron": "^3.0.0",
+    "nodemailer": "^6.7.2",
+    "pg": "^8.5.1",
+    "pm2": "^5.1.0"
+  },
+  "devDependencies": {
+    "concurrently": "^6.3.0",
+    "nodemon": "^2.0.13"
+  }
+}
