@@ -80,7 +80,7 @@ async function sendEmail(){
             };
             
             let transporter = nodemailer.createTransport({
-                host: process.env.SMTP_SERVER, 
+                host: process.env.SMTP_SERVER || '', 
                 port: 25,
                 secure: false,
             });

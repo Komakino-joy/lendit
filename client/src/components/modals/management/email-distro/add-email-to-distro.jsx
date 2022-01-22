@@ -29,9 +29,8 @@ const AddEmailToDistro = () => {
     emailInput.current.focus();
   };
   
-  const fedexEmailRe = /^[A-Za-z0-9._%+-]+@fedex.com$/;
 
-  const handleSubmit = (e) => {
+const handleSubmit = (e) => {
     e.preventDefault();
 
     const email = emailInput.current.value.toLowerCase();
@@ -40,19 +39,13 @@ const AddEmailToDistro = () => {
       emailInput.current.focus();
       return toast.error(`Email is required.`);
     }
-
-    let isFedexEmail = email.match(fedexEmailRe)
     
-    if (!isFedexEmail) {
-      return toast.error(`Email must be a FedEx email`);
-    }
-      
-      const responseAlert = (message, type) => toast[type](message, {
-        id: 'add-email',
-      });
-  
-      dispatch(addEmailToDistroStart({ memberId, email, responseAlert, inputReset}));
-    };
+    const responseAlert = (message, type) => toast[type](message, {
+      id: 'add-email',
+    });
+
+    dispatch(addEmailToDistroStart({ memberId, email, responseAlert, inputReset}));
+  };
     
   const handleOnClose = () => {
     dispatch(toggleAddEmailToDistro())
