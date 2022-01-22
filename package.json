@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-     "start": "node server/asset-tracker-server.js"
+     "start": "node server/asset-tracker-server.js",
+     "postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix server npm install"
   },
   "repository": {
     "type": "git",
