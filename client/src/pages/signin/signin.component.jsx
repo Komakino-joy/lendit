@@ -41,7 +41,7 @@ const SigninPage = ({ history }) => {
 
   return (
     <SignInPageBody>
-      <SignInLegend>Asset Tracker</SignInLegend>
+      <SignInLegend>Lendit Asset Tracker</SignInLegend>
       <SignInArticle>
         <SignInMain>
           <SignInFieldSet>
