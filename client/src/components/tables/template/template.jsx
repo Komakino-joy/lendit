@@ -2,7 +2,8 @@ import React, { useMemo } from 'react'
 
 import { 
     useTable, 
-    useFilters 
+    useFilters,
+    useGlobalFilter 
 } from 'react-table';
 
 import GlobalFilter from './global-filter';
