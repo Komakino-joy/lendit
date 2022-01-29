@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 const compression = require('compression');
+=======
+>>>>>>> ec7fea9a3405a91f2d32c719ef41f0dbe4031e8d
 const express = require('express');
 const path = require('path');
 

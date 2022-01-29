@@ -1,6 +1,8 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Loader from "react-loader-spinner";
+import NoData from "../no-data/no-data.component";
+
 
 import { 
   toggleManageUsersModal, 
@@ -67,6 +69,11 @@ const ManageUsersModal = () => {
               style={{ position: "absolute", top: "20%", left: "50%", margin: "-25px 0 0 -25px" }}
             />
           )}
+          { allUsers.length === 0 &&
+              <NoData>
+                No users, click "Add New" to get started.
+              </NoData>
+            }
         </TableContainer>
       </UsersModalTable>
       { seenAddUser && <AddUser/> }

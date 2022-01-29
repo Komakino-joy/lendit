@@ -62,6 +62,7 @@ const RegistrationPage = () =>{
       return;
     };
 
+
     if(password.length < 8) return setFailedPassword(true);
 
     let hasUpperCase = /[A-Z]/.test(password);

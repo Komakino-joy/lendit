@@ -2,15 +2,25 @@ import React, { useMemo } from 'react'
 
 import { 
     useTable, 
+<<<<<<< HEAD
     // useFilters,
     // useGlobalFilter,
     // useAsyncDebounce 
 } from 'react-table';
 
+=======
+    useFilters,
+    useGlobalFilter 
+} from 'react-table';
+
+import GlobalFilter from './global-filter';
+
+>>>>>>> ec7fea9a3405a91f2d32c719ef41f0dbe4031e8d
 import './template.styles.css';
 
 const TableTemplate = ({ columns, data, customClass }) => {
 
+<<<<<<< HEAD
     // React.useMemo(
     //     () => ({
     //       text: (rows, id, filterValue) => {
@@ -72,6 +82,37 @@ const TableTemplate = ({ columns, data, customClass }) => {
     // };
 
     // const defaultColumn = useMemo(() => ({ Filter: DefaultColumnFilter }),[]);
+=======
+    useMemo(
+        () => ({
+          text: (rows, id, filterValue) => {
+            return rows.filter(row => {
+              const rowValue = row.values[id]
+              return rowValue !== undefined
+                ? String(rowValue)
+                    .toLowerCase()
+                    .startsWith(String(filterValue).toLowerCase())
+                : true
+            })
+          },
+        }),
+        []
+      );
+
+    function DefaultColumnFilter({ column: { filterValue, preFilteredRows, setFilter },}) {
+        const count = preFilteredRows.length
+        
+        return (
+            <input
+            value={filterValue || ''}
+            onChange={e => { setFilter(e.target.value || undefined)}}
+            placeholder={`Search ${count} records...`}
+            />
+        );
+    };
+
+    const defaultColumn = useMemo(() => ({ Filter: DefaultColumnFilter }),[]);
+>>>>>>> ec7fea9a3405a91f2d32c719ef41f0dbe4031e8d
 
     const {
         getTableProps,
@@ -79,27 +120,52 @@ const TableTemplate = ({ columns, data, customClass }) => {
         headerGroups,
         rows,
         prepareRow,
+<<<<<<< HEAD
         // state,
         // preGlobalFilteredRows,
         // setGlobalFilter,
+=======
+        state,
+        preGlobalFilteredRows,
+        setGlobalFilter,
+>>>>>>> ec7fea9a3405a91f2d32c719ef41f0dbe4031e8d
       } = useTable(
         {
           columns,
           data,
+<<<<<<< HEAD
         //   defaultColumn,
         },
         // useFilters, 
         // useGlobalFilter 
+=======
+          defaultColumn,
+        },
+        useFilters, 
+        useGlobalFilter 
+>>>>>>> ec7fea9a3405a91f2d32c719ef41f0dbe4031e8d
       )
 
     return (
             <table {...getTableProps()} className={`custom-table ${customClass}`}>
             <thead>
+<<<<<<< HEAD
                 {/* <GlobalFilter
                     preGlobalFilteredRows={preGlobalFilteredRows}
                     globalFilter={state.globalFilter}
                     setGlobalFilter={setGlobalFilter}
                 /> */}
+=======
+                <tr>
+                    <th style={{padding: 0}}>
+                        <GlobalFilter
+                            preGlobalFilteredRows={preGlobalFilteredRows}
+                            globalFilter={state.globalFilter}
+                            setGlobalFilter={setGlobalFilter}
+                        />
+                    </th>
+                </tr>
+>>>>>>> ec7fea9a3405a91f2d32c719ef41f0dbe4031e8d
                 {
                 headerGroups.map(headerGroup => (
                     <tr {...headerGroup.getHeaderGroupProps()}>

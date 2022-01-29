@@ -8,6 +8,7 @@ import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 import EmailDistroTable from "../../../tables/email-distro/email-distro";
 import AddEmailToDistro from './add-email-to-distro';
+import NoData from "../no-data/no-data.component";
 
 import AddBtn from '../../../../images/add_btn.svg';
 
@@ -65,6 +66,11 @@ const ManageEmailDistro = () => {
               style={{ position: "absolute", top: "20%", left: "50%", margin: "-25px 0 0 -25px" }}
             />
           )}
+            { emailDistro.length === 0 &&
+              <NoData>
+                No emails, click "Add New" to get started.
+              </NoData>
+            }
         </TableContainer>
       </ModalTable>
       { seenAddEmailToDistro && <AddEmailToDistro/> }

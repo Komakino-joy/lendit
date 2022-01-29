@@ -11,11 +11,12 @@ export const DownloadExcelBtn = styled.div`
         font-weight: 500;
         font-size: 16px;
         letter-spacing: .875px;
-        background: #1D6F42;
+        background: #50ba68;
         color: white;
         padding: 6px 10px;
         outline: none;
-        border: 1px solid lightgrey;
+        border: 1px solid #50ba68;
+
         border-radius: 3px;
         :hover {
             cursor:pointer;
@@ -66,8 +67,13 @@ export const AddButtonContainer = styled.div `
     color: white;
     font-weight: 500;
     :hover {
-        transform: scale(1.02);
-    }
+            cursor:pointer;
+            filter: brightness(110%);
+            transform: scale(1.02);
+        }
+        :active {
+            transform: translateY(1px);
+        }
 
     
     span {

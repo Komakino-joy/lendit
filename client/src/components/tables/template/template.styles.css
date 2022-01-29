@@ -10,7 +10,11 @@
   font-weight: 500;
   text-align: left;
   letter-spacing: 0.5px;
+<<<<<<< HEAD
   padding: 20px 0 20px 20px;
+=======
+  padding: 90px 0 20px 20px;
+>>>>>>> ec7fea9a3405a91f2d32c719ef41f0dbe4031e8d
 }
 
 .custom-table td {
