@@ -28,6 +28,8 @@ const FileUpload = ({
   label,
   updateFilesCb,
   maxFileSizeInBytes = DEFAULT_MAX_FILE_SIZE_IN_BYTES,
+  modelPreview,
+  setModelPreview,
   ...otherProps
 }) => {
   const fileInputField = useRef(null);
@@ -38,6 +40,7 @@ const FileUpload = ({
   };
 
   const addNewFiles = (newFiles) => {
+    setModelPreview(true)
     for (let file of newFiles) {
       if (file.size < maxFileSizeInBytes) {
         if (!otherProps.multiple) {
@@ -90,7 +93,7 @@ const FileUpload = ({
       <FilePreviewContainer>
         <span>Preview</span>
         <PreviewList>
-          {Object.keys(files).map((fileName, index) => {
+          {modelPreview && Object.keys(files).map((fileName, index) => {
             let file = files[fileName];
             let isImageFile = file.type.split("/")[0] === "image";
             return (

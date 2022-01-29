@@ -26,6 +26,7 @@ const AddModel = () => {
   const memberId = useSelector(state => state.memberState.memberId)
 
   let [model, setModel] = useState("");
+  let [modelPreview, setModelPreview] = useState(true);
   const [newUserInfo, setNewUserInfo] = useState({
     modelImages: []
   });
@@ -39,6 +40,7 @@ const AddModel = () => {
     model = null;
     document.getElementById("model").value = "";
     document.getElementById("file").value = "";
+    setModelPreview(false);
   };
 
   const handleSubmit = (e) => {
@@ -84,7 +86,7 @@ const AddModel = () => {
             id: 'add-model',
           });
 
-            httpAddModel(memberId, model, srcEncoded, responseAlert);
+          httpAddModel(memberId, model, srcEncoded, responseAlert);
 
           inputReset();
         };
@@ -115,25 +117,27 @@ const AddModel = () => {
         <Article>
           <div action="sign-up_submit" method="get" acceptCharset="utf-8">
             <FieldSet>
-              <ModalInput
-                placeholder="Model Name (Required)"
-                id="model"
-                type="text"
-                name="model"
-                onChange={onModelChange}
-              />
+                <ModalInput
+                  placeholder="Model Name (Required)"
+                  id="model"
+                  type="text"
+                  name="model"
+                  onChange={onModelChange}
+                />
 
-              <form
-                className="flex flex-column"
-                encType="multipart/form-data"
-                method="POST"
-                onSubmit={handleSubmit}
-              >
+                <form
+                  className="flex flex-column"
+                  encType="multipart/form-data"
+                  method="POST"
+                  onSubmit={handleSubmit}
+                >
                 <FileUpload
                   id="file"
                   accept=".jpg,.png,.jpeg"
                   label="Model image"
                   updateFilesCb={updateUploadedFiles}
+                  modelPreview={modelPreview}
+                  setModelPreview={setModelPreview}
                 />
             <Submit
               type="Submit"
