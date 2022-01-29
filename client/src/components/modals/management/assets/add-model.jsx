@@ -18,7 +18,7 @@ import {
   FieldSet,
   ModalInput,
   Submit,
-} from "../../modal.styles";
+} from "../../modal.styles"
 
 const AddModel = () => {
   const dispatch = useDispatch();
