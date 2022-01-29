@@ -77,6 +77,8 @@ async function handleSignin(req, res) {
 
     } catch (error) {
 
+        console.log(error)
+
         res.status(400).json({
             message: 'Something went wrong, please try again later.',
             error

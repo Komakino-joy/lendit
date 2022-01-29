@@ -1,0 +1,18 @@
+.search-container {
+  font-size: 1.3rem;
+  color: darkslategray;
+  font-weight: 500;
+  border: 0;
+  padding: 3px 5px;
+  position: absolute;
+  margin-top: 20px;
+  left: 10px;
+}
+
+.search-container input {
+  font-size: 1.1rem;
+  padding: 3px 5px;
+  border-radius: 3px;
+  border-color: darkslategray;
+  outline-color: lightslategrey;
+}

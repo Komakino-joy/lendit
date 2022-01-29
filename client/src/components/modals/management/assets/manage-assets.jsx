@@ -5,6 +5,7 @@ import { toggleManageAssetsModal, toggleAddUnit } from "../../../../redux/modal/
 
 import Loader from "react-loader-spinner";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import NoData from "../no-data/no-data.component";
 
 import ManageAssetsTable from "../../../tables/assets/assets";
 
@@ -65,6 +66,11 @@ const ManageAssetsModal = () => {
               style={{ position: "absolute", top: "20%", left: "50%", margin: "-25px 0 0 -25px" }}
             />
           )}
+          { allAssets.length === 0 &&
+              <NoData>
+                No assets, click "Add New" to get started.
+              </NoData>
+          }
         </TableContainer>
       </AssetsModalTable>
       { seenAddAsset && <AddAsset /> }
