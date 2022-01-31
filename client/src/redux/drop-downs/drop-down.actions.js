@@ -49,3 +49,8 @@ export const fetchModelDropDownOptionsFailure = (error) => ({
     type: DropDownActionTypes.FETCH_MODEL_DROP_DOWN_OPTIONS_FAILURE, 
     payload: error
 }); 
+
+export const socketUpdateAssetBreakdown = (dropDownOptions) => ({
+    type: DropDownActionTypes.SOCKET_UPDATE_ASSET_BREAKDOWN,
+    payload: dropDownOptions
+});

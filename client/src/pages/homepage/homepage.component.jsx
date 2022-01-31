@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import io from "socket.io-client";
 
 import { handleMemberSignout } from '../../redux/site-member/site-member.actions';
 
@@ -18,6 +19,7 @@ import ManageAssetsModal from '../../components/modals/management/assets/manage-
 import { HomepageContainer } from "./homepage.styles";
 
 const HomePage = () => {
+    const socket = io.connect('/');
     const dispatch = useDispatch();
     const memberId = useSelector(state => state.memberState.memberId);
     const modalState = useSelector(state => state.modalState);
@@ -25,8 +27,8 @@ const HomePage = () => {
     useEffect(() => {
         if (!memberId) {
             dispatch(handleMemberSignout());
-        }
-    }, [dispatch, memberId])
+        };
+      }, [dispatch, memberId]);
 
     const { 
         seenAvailableAssets, 
@@ -41,7 +43,7 @@ const HomePage = () => {
     return (
         <HomepageContainer>
             <ScanboxContainer/>
-            <AssetContainer/>
+            <AssetContainer socket={socket} />
             <ActionPanel    />
             {/* Toggle the Action Panel Modals */}
             {seenAssetsInUse && <AssetsInUse/> }

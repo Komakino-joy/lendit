@@ -32,13 +32,13 @@ import { calculateTotals, updateDropDownObject } from "./drop-down.utils";
       owner_id: 56,
       serial: null,
       status: null,
-    },
-
+    }
   };
   
   // eslint-disable-next-line import/no-anonymous-default-export
   const dropDownOptions = (state = INITIAL_STATE  , action) => {
     switch (action.type) {
+
 
       case DropDownActionTypes.FETCH_ASSET_DROP_DOWN_OPTIONS_SUCCESS:
         return {
@@ -148,6 +148,13 @@ import { calculateTotals, updateDropDownObject } from "./drop-down.utils";
           },
           assetBreakdown: calculateTotals(state.assetDropDown.filter(asset => asset.id !== action.payload)),
           error : null,
+        }
+      
+      case DropDownActionTypes.SOCKET_UPDATE_ASSET_BREAKDOWN:
+        return {
+          ...state,
+          assetBreakdown: action.payload.assetBreakdown,
+          error: null
         }
       
       case DropDownActionTypes.FETCH_ASSET_DROP_DOWN_OPTIONS_FAILURE:

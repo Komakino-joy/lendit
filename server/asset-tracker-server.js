@@ -1,11 +1,10 @@
 const http = require('http');
 let cron = require('node-cron');
+const dotenv = require('dotenv');
+const socket = require("socket.io");
 
 const app = require('./app');
-
 const { sendEmail } = require('./send-email');
-
-const dotenv = require('dotenv');
 
 dotenv.config();
 
@@ -33,5 +32,28 @@ async function startServer() {
   });
 
 };
+
+const io = socket(server);
+
+io.on("connection", (socket) => {
+
+  socket.on("memberId", (payload) => {
+      console.log(socket.id, "=id");
+      console.log(payload.memberId)
+    });
+
+    socket.on("asset-transaction", (payload) => {
+      const { assetBreakdown, selectedAsset, memberId } = payload;
+      socket.broadcast.emit("asset-transaction-response", { assetBreakdown, selectedAsset, memberId});
+    });
+
+    socket.on("delete-asset", (payload) => {
+        console.log(socket.id, "=id");
+    
+        socket.emit("delete-asset-response", {
+          payload,
+        });
+    });
+});
 
 startServer();

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import toast from 'react-hot-toast';
 import { useSelector, useDispatch } from "react-redux";
 
@@ -8,6 +8,8 @@ import {
   quarantineSelectedAssetStart,
   removeSelectedAssetStart
 } from "../../redux/asset/asset.actions";
+
+import { socketUpdateAssetBreakdown } from "../../redux/drop-downs/drop-down.actions";
 
 import { confirmAlert } from "react-confirm-alert";
 
@@ -21,13 +23,24 @@ import {
 
 import "react-confirm-alert/src/react-confirm-alert.css";
 
-const Center = () => {
+const Center = ({ socket }) => {
   const dispatch = useDispatch();
   const assetInfo = useSelector(state => state.dropDownOptions.selectedAsset);
   const memberInfo = useSelector(state => state.memberState);
   const userInfo = useSelector(state => state.dropDownOptions.selectedUser);
   const { id: userId, fname, lname } = userInfo;
   const { memberId } = memberInfo;
+
+  useEffect(() => {
+    socket.on("asset-transaction-response", (assetBreakdown) => {
+      if(assetBreakdown.memberId === memberInfo.memberId) {
+        dispatch(socketUpdateAssetBreakdown(assetBreakdown));
+      }
+    });
+  return () => {
+    socket.close();
+  };
+  }, [dispatch, socket]);
 
   let {   
     id: assetId,
@@ -39,8 +52,6 @@ const Center = () => {
     model: assetModel
   } = assetInfo;
 
-
-  // Prevents the user from dragging the asset image.
   const preventDragHandler = (event) => {
     event.preventDefault();
   };
@@ -60,16 +71,14 @@ const Center = () => {
       });
       document.getElementById("user-list").focus();
     } else {
-      dispatch(checkOutSelectedAssetStart({ assetId, userId, memberId, assetName, assetSerial, assetModel, fname, lname }));
-
+      dispatch(checkOutSelectedAssetStart({ assetId, userId, memberId, assetName, assetSerial, assetModel, fname, lname, socket }));
       document.getElementById("asset-list").focus();
     }
   };
 
   const handleCheckin = () => {
     if (assetStatus !== "Available"){
-      dispatch(checkInSelectedAssetStart({ assetId, userId, memberId, assetName, assetSerial, assetModel }));
-
+      dispatch(checkInSelectedAssetStart({ assetId, userId, memberId, assetName, assetSerial, assetModel, socket }));
     }else{
       toast.error(`${assetName} is already checked in.`, {
         id: 'asset-checked-in',
@@ -101,7 +110,8 @@ const Center = () => {
       return;
     } 
 
-    dispatch(quarantineSelectedAssetStart({assetId, userId, memberId, assetName, assetSerial, assetModel, assetComments}));
+    dispatch(quarantineSelectedAssetStart({assetId, userId, memberId, assetName, assetSerial, assetModel, assetComments, socket}));
+
     document.getElementById("text-area").value = "";
     return;
   };
@@ -135,7 +145,7 @@ const Center = () => {
     <AssetContainer>
       {assetId ? (
         <AssetInnerContainer>
-          
+\
           <Header>
             <AssetName>{assetId.toUpperCase()}</AssetName>
             <AssetSerial>{assetSerial.toUpperCase()}</AssetSerial>

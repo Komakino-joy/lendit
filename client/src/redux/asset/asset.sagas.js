@@ -1,4 +1,4 @@
-import { all, call, takeLatest, put  } from 'redux-saga/effects';
+import { all, call, takeLatest, put, select  } from 'redux-saga/effects';
 import AssetActionTypes from './asset.types';
 
 import { 
@@ -25,6 +25,7 @@ import {
   httpRemoveAsset,
 } from '../../services/api';
 
+export const getDropDownOptions = (state) => state.dropDownOptions;
 
 function* fetchRequestedAssetDetails({payload: {selectedAssetId, memberId}}) {
   try {
@@ -48,7 +49,7 @@ export function* addNewAsset({payload: { formattedAssetId, assetName, assetModel
   } 
 };
 
-function* postCheckInSelectedAsset({payload: {assetId, userId, memberId, assetName, assetSerial, assetModel}}) {
+function* postCheckInSelectedAsset({payload: {assetId, userId, memberId, assetName, assetSerial, assetModel, socket}}) {
   try{
     const response = yield httpCheckInAsset(assetId, userId, memberId, assetName, assetSerial, assetModel);
 
@@ -58,40 +59,64 @@ function* postCheckInSelectedAsset({payload: {assetId, userId, memberId, assetNa
           userId, 
           memberId
         }
-      })
-      )
+      }));
+
+      let dropDownOptions = yield select(getDropDownOptions);
+
+    yield call(() => socket.emit("asset-transaction", { 
+        memberId,
+        assetBreakdown: dropDownOptions.assetBreakdown,
+        selectedAsset: (({ id, status }) => ({ id, status }))(dropDownOptions.selectedAsset),
+      }));
 
   }  catch (error) {
     yield put(checkInSelectedAssetFailure(error))
   }
 };
 
-function* postCheckOutSelectedAsset({payload: {assetId, userId, memberId, assetName, assetSerial, assetModel, fname, lname}}) {
+function* postCheckOutSelectedAsset({payload: {assetId, userId, memberId, assetName, assetSerial, assetModel, fname, lname, socket}}) {
   try{
     const response = yield httpCheckOutAsset(assetId, userId, memberId, assetName, assetSerial, assetModel, fname, lname);
     yield put(checkOutSelectedAssetSuccess({ 
-      selectedAsset: {
-        ...response.updatedAsset, 
-        fname, 
-        lname
-      }
-    }))
+        selectedAsset: {
+          ...response.updatedAsset, 
+          fname, 
+          lname
+        }
+      }));
+
+    let dropDownOptions = yield select(getDropDownOptions);
+
+    yield call(() => socket.emit("asset-transaction", { 
+        memberId,
+        assetBreakdown: dropDownOptions.assetBreakdown,
+        selectedAsset: (({ id, status }) => ({ id, status }))(dropDownOptions.selectedAsset),
+      }));
 
   }  catch (error) {
     yield put(checkOutSelectedAssetFailure(error))
   }
 };
 
-function* postQuarantineSelectedAsset({payload: {assetId, userId, memberId, assetName, assetSerial, assetModel, assetComments}}) {
+function* postQuarantineSelectedAsset({payload: {assetId, userId, memberId, assetName, assetSerial, assetModel, assetComments, socket}}) {
   try{
     const response = yield httpQuarantineAsset(assetId, userId, memberId, assetName, assetSerial, assetModel, assetComments);
     yield put(quarantineSelectedAssetSuccess({ 
-      selectedAsset: {
-        ...response.updatedAsset, 
-        assetComments, 
-        userId
-      }
-    }))
+        selectedAsset: {
+          ...response.updatedAsset, 
+          assetComments, 
+          userId
+        }
+      }));
+
+      let dropDownOptions = yield select(getDropDownOptions);
+
+    yield call(() => socket.emit("asset-transaction", { 
+        memberId,
+        assetBreakdown: dropDownOptions.assetBreakdown,
+        selectedAsset: (({ id, status }) => ({ id, status }))(dropDownOptions.selectedAsset),
+      }));
+
   }  catch (error) {
     yield put(quarantineSelectedAssetFailure(error))
   }
